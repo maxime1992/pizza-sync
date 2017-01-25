@@ -18,6 +18,7 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
+        "../node_modules/material-design-icons/iconfont/material-icons.css",
         "styles.scss"
       ],
       "scripts": [],
@@ -47,11 +48,11 @@
     },
     "spec": {
       "class": false,
-      "component": false,
-      "directive": false,
+      "component": true,
+      "directive": true,
       "module": false,
-      "pipe": false,
-      "service": false
+      "pipe": true,
+      "service": true
     }
   }
 }

@@ -1,0 +1,25 @@
+<div fxLayout="column" fxFill>
+  <md-toolbar color="primary">
+    <img class="logo-toolbar" src="assets/img/angular-logo.png">
+
+    <button md-icon-button (click)="toggleSidenav()">
+      <md-icon>menu</md-icon>
+    </button>
+
+    <div fxFlex></div>
+
+    <!--<md-select id="language" name="language" [(ngModel)]="language">
+      <md-option *ngFor="let l of languages" [value]="l">{{ l }}</md-option>
+    </md-select>-->
+  </md-toolbar>
+
+  <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
+    <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
+      Left sidenav
+    </md-sidenav>
+
+    <p>Some content.</p>
+
+    <button md-button (click)="openSidenav()">{{ 'OPEN_LEFT_SIDENAV' | translate }}</button>
+  </md-sidenav-container>
+</div>

@@ -1,0 +1,5 @@
+@import '../shared/_colors';
+
+$theme: md-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);

@@ -1,0 +1,31 @@
+@import './_colors';
+
+.width-full {
+  width: 100%;
+}
+
+.no-border-radius {
+  border-radius: 0;
+}
+
+.color-primary {
+  color: md-color($primary);
+}
+
+.color-accent {
+  color: md-color($accent);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.color-primary-bold {
+  @extend .color-primary;
+  @extend .bold;
+}
+
+.color-accent-bold {
+  @extend .color-accent;
+  @extend .bold;
+}
