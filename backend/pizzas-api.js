@@ -55,19 +55,19 @@ const getPizzas = () => {
 
             const pizzaName = pizzaDom.find($('.nom')).children().remove().end().text()
             const pizzaIngredients = pizzaDom.find($('.composition')).text()
-            const pizzaPrixDom = pizzaDom.find($('.prix'))
+            const pizzaPricesDom = pizzaDom.find($('.prix'))
 
-            const pizzaPrix = []
-            pizzaPrixDom.map(k => {
-              const prix = $(pizzaPrixDom[k]).children().remove().end().text()
-              pizzaPrix.push(parseFloat(prix))
+            const pizzaPrices = []
+            pizzaPricesDom.map(k => {
+              const price = $(pizzaPricesDom[k]).children().remove().end().text()
+              pizzaPrices.push(parseFloat(price))
             })
 
             const finalPizza = {
               id: ids.pizzaId,
               name: pizzaName,
               ingredients: pizzaIngredients,
-              prix: pizzaPrix,
+              prices: pizzaPrices,
               category: finalPizzaCategory.id
             }
 
@@ -82,5 +82,4 @@ const getPizzas = () => {
   })
 }
 
-// getPizzas().then(res => console.log(JSON.stringify(res, null, 2)))
-        
+module.exports = { getPizzas }

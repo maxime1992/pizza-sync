@@ -1,10 +1,12 @@
 {
   "dependencies": {
     "cheerio": "0.22.0",
+    "express": "4.14.0",
     "request": "2.79.0"
   },
   "devDependencies": {
     "@types/cheerio": "0.17.31",
+    "@types/express": "4.0.35",
     "@types/request": "0.0.39"
   }
 }
