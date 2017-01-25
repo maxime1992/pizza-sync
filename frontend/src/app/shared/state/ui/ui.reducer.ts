@@ -38,6 +38,8 @@ export class Ui {
     return Object.assign(<IUi>{}, ui, <IUi>{ isSidenavVisible: false });
   }
 
+  // ---------------------------------------------------------------
+
   // tslint:disable-next-line:member-ordering
   private static mapActionsToMethod = {
     [Ui.SET_LANGUAGE]: Ui.setLanguage,

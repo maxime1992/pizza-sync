@@ -6,10 +6,12 @@ import { enableBatching } from 'redux-batched-actions';
 import { IStore } from '../interfaces/store.interface';
 import { environment } from './../../../environments/environment';
 import { Ui } from './ui/ui.reducer';
+import { Pizzas } from './pizzas/pizzas.reducer';
 
 const reducers = {
   // pass your reducers here
-  ui: Ui.reducer
+  ui: Ui.reducer,
+  pizzas: Pizzas.reducer
 };
 
 // if environment is != from production

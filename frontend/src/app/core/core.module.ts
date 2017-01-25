@@ -13,6 +13,8 @@ import { createTranslateLoader } from '../shared/helpers/aot.helper';
 import { LANGUAGES } from './opaque-tokens';
 import { environment } from './../../environments/environment.prod';
 import { getRootReducer } from './../shared/state/root.reducer';
+import { PizzasEffects } from './../features/pizzas/pizzas.effects';
+import { PizzasService } from './../features/pizzas/pizzas.service';
 
 @NgModule({
   imports: [
@@ -23,7 +25,7 @@ import { getRootReducer } from './../shared/state/root.reducer';
     StoreModule.provideStore(getRootReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     // pass every effect here, one per line
-    // EffectsModule.runAfterBootstrap(),
+    EffectsModule.runAfterBootstrap(PizzasEffects),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -31,6 +33,7 @@ import { getRootReducer } from './../shared/state/root.reducer';
     })
   ],
   providers: [
+    PizzasService,
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default
