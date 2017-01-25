@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "cheerio": "0.22.0",
+    "cors": "2.8.1",
     "express": "4.14.0",
     "request": "2.79.0"
   },
