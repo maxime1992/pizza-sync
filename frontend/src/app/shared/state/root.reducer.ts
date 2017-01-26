@@ -7,11 +7,13 @@ import { IStore } from '../interfaces/store.interface';
 import { environment } from './../../../environments/environment';
 import { Ui } from './ui/ui.reducer';
 import { Pizzas } from './pizzas/pizzas.reducer';
+import { PizzasCategories } from './pizzas-categories/pizzas-categories.reducer';
 
 const reducers = {
   // pass your reducers here
   ui: Ui.reducer,
-  pizzas: Pizzas.reducer
+  pizzas: Pizzas.reducer,
+  pizzasCategories: PizzasCategories.reducer
 };
 
 // if environment is != from production

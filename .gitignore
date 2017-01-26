@@ -16,7 +16,7 @@ node_modules/
 .settings/
 
 # IDE - VSCode
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

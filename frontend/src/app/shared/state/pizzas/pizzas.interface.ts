@@ -7,6 +7,6 @@ export interface IPizza {
 }
 
 export interface IPizzas {
-  byId: { [key: string]: IPizza },
-  allIds: string[]
+  byId: { [key: string]: IPizza };
+  allIds: string[];
 }

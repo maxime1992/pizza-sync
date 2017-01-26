@@ -14,12 +14,12 @@ export class Pizzas {
     return Pizzas.mapActionsToMethod[type](pizzas, type, payload);
   }
 
+  // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS = `${Pizzas.reducerName}_LOAD_PIZZAS`;
 
   // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS_SUCCESS = `${Pizzas.reducerName}_LOAD_PIZZAS_SUCCESS`;
   private static loadPizzasSuccess(pizzas, type, payload) {
-    console.log('load pizza success', payload);
     return Object.assign(<IPizzas>{}, pizzas, payload);
   }
 

@@ -7,6 +7,7 @@ import { batchActions } from 'redux-batched-actions';
 
 import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
 import { PizzasService } from './pizzas.service';
+import { PizzasCategories } from './../../shared/state/pizzas-categories/pizzas-categories.reducer';
 
 @Injectable()
 export class PizzasEffects {
@@ -18,10 +19,16 @@ export class PizzasEffects {
     .switchMap((action: Action) =>
       this._pizzaService.getPizzas()
         .map(res => {
-          return {
-            type: Pizzas.LOAD_PIZZAS_SUCCESS,
-            payload: res.pizzas
-          };
+          return batchActions([
+            {
+              type: Pizzas.LOAD_PIZZAS_SUCCESS,
+              payload: res.pizzas
+            },
+            {
+              type: PizzasCategories.LOAD_PIZZAS_CATEGORIES_SUCCESS,
+              payload: res.pizzasCategories
+            }
+          ]);
         })
     );
 }
