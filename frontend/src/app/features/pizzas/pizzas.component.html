@@ -1,0 +1,23 @@
+<div class="pizzas">
+  <div *ngFor="let pizzaCategorie of (pizzasCategories$ | async)">
+    <h1 class="color-primary">{{ pizzaCategorie.name }}</h1>
+
+    <div fxLayout="row" fxLayoutWrap fxLayoutGap="10px">
+      <!--TODO : There's an ongoing issue with layout gap-->
+      <!--https://github.com/angular/flex-layout/issues/125-->
+      <!--once it's solve, set fxFlex to 33.3%-->
+      <md-card *ngFor="let pizza of pizzaCategorie.pizzas" fxFlex="30%">
+        <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
+        <md-card-content>
+          <p>{{ pizza.ingredients }}</p>
+        </md-card-content>
+        <md-card-actions fxLayout="row">
+          <button md-mini-fab *ngFor="let price of pizza.prices" [disabled]="!price">
+            <span *ngIf="price">{{ price }}€</span>
+            <span *ngIf="!price">-</span>
+          </button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </div>
+</div>
