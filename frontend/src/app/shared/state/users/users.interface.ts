@@ -1,4 +1,4 @@
-import { IPizza } from './../pizzas/pizzas.interface';
+import { IPizzaWithPrice } from './../pizzas/pizzas.interface';
 
 export interface IUser {
   id: string;
@@ -12,5 +12,6 @@ export interface IUsers {
 }
 
 export interface IUserWithPizzas extends IUser {
-  pizzas: IPizza[];
+  totalPrice: number;
+  pizzas: IPizzaWithPrice[];
 }

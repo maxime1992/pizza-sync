@@ -10,3 +10,8 @@ export interface IPizzas {
   byId: { [key: string]: IPizza };
   allIds: string[];
 }
+
+export interface IPizzaWithPrice extends IPizza {
+  price: number;
+  size: string;
+}

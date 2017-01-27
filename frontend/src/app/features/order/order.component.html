@@ -4,11 +4,11 @@
   <md-list-item *ngFor="let user of (users$ | async)">
     <img md-list-avatar [src]="user.thumbnail">
     <h3 md-line>
-      <i>{{ user.name }}</i> - <b>X€</b>
+      <i>{{ user.name }}</i> - <b>{{ user.totalPrice }}€</b>
     </h3>
 
     <p md-line *ngFor="let pizza of user.pizzas">
-      {{ pizza.name }}
+      {{ pizza.name }} ({{ pizza.size }})
     </p>
   </md-list-item>
 </md-list>
