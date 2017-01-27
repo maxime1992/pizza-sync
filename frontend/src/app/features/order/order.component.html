@@ -1,7 +1,7 @@
-<h1>Total : X€</h1>
+<h1>Total : {{ (fullOrder$ | async).totalPrice }}€</h1>
 
 <md-list>
-  <md-list-item *ngFor="let user of (users$ | async)">
+  <md-list-item *ngFor="let user of (fullOrder$ | async).users">
     <img md-list-avatar [src]="user.thumbnail">
     <h3 md-line>
       <i>{{ user.name }}</i> - <b>{{ user.totalPrice }}€</b>

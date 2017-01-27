@@ -7,12 +7,12 @@ import { IPizzaWithPrice } from './../pizzas/pizzas.interface';
 
 const pizzaSizeByIndex = ['S', 'M', 'L', 'XL'];
 
-export function _getUsersWithPizzas(store$: Store<IStore>) {
+export function _getFullOrder(store$: Store<IStore>) {
   return store$.select(state => {
     return { users: state.users, pizzas: state.pizzas, orders: state.orders };
   })
     .map(({ users, pizzas, orders }) => {
-      return users.allIds.map(userId => {
+      const usersWithPizzas = users.allIds.map(userId => {
         const ordersOfUser = orders
           .allIds
           .map(orderId => orders.byId[orderId])
@@ -40,9 +40,16 @@ export function _getUsersWithPizzas(store$: Store<IStore>) {
           pizzas: pizzasOfUser
         });
       });
+
+      const totalPrice = usersWithPizzas.reduce((acc, user) => acc + user.totalPrice, 0);
+
+      return {
+        users: usersWithPizzas,
+        totalPrice
+      };
     });
 }
 
-export function getUsersWithPizzas() {
-  return _getUsersWithPizzas;
+export function getFullOrder() {
+  return _getFullOrder;
 }
