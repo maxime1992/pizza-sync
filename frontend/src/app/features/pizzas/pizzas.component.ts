@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { IPizzas } from './../../shared/state/pizzas/pizzas.interface';
+import { IPizza, IPizzas } from './../../shared/state/pizzas/pizzas.interface';
 import { IStore } from './../../shared/interfaces/store.interface';
 import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
 import { getCategoriesAndPizzas } from './../../shared/state/pizzas-categories/pizzas-categories.selector';
 import { IPizzaCategoryWithPizzas } from './../../shared/state/pizzas-categories/pizzas-categories.interface';
+import { Orders } from './../../shared/state/orders/orders.reducer';
 
 @Component({
   selector: 'app-pizzas',
@@ -22,5 +23,17 @@ export class PizzasComponent implements OnInit {
     this._store$.dispatch({ type: Pizzas.LOAD_PIZZAS });
 
     this.pizzasCategories$ = this._store$.let(getCategoriesAndPizzas());
+  }
+
+  addOrder(pizza: IPizza, priceIndex: number) {
+    this._store$.dispatch({
+      type: Orders.ADD_ORDER,
+      payload: {
+        // TODO pass current user
+        userId: 'userId1',
+        pizzaId: pizza.id,
+        priceIndex: priceIndex
+      }
+    });
   }
 }

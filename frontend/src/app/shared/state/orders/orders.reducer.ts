@@ -1,7 +1,7 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { ordersState } from './orders.initial-state';
-import { IOrders } from './orders.interface';
+import { IOrder, IOrders } from './orders.interface';
 
 export class Orders {
   private static reducerName = 'ORDERS_REDUCER';
@@ -16,14 +16,27 @@ export class Orders {
 
   // tslint:disable-next-line:member-ordering
   public static LOAD_ORDERS_SUCCESS = `${Orders.reducerName}_LOAD_ORDERS_SUCCESS`;
-  private static loadOrdersSuccess(orders, type, payload) {
+  private static loadOrdersSuccess(orders: IOrders, type, payload) {
     return Object.assign(<IOrders>{}, orders, payload);
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static ADD_ORDER = `${Orders.reducerName}_ADD_ORDER`;
+
+  // tslint:disable-next-line:member-ordering
+  public static ADD_ORDER_SUCCESS = `${Orders.reducerName}_ADD_ORDER_SUCCESS`;
+  private static addOrderSuccess(orders: IOrders, type, payload: IOrder) {
+    return Object.assign(<IOrders>{}, orders, <IOrders>{
+      byId: Object.assign({}, orders.byId, { [payload.id]: payload }),
+      allIds: [...orders.allIds, payload.id]
+    });
   }
 
   // ---------------------------------------------------------------
 
   // tslint:disable-next-line:member-ordering
   private static mapActionsToMethod = {
-    [Orders.LOAD_ORDERS_SUCCESS]: Orders.loadOrdersSuccess
+    [Orders.LOAD_ORDERS_SUCCESS]: Orders.loadOrdersSuccess,
+    [Orders.ADD_ORDER_SUCCESS]: Orders.addOrderSuccess
   };
 }

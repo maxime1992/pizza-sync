@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateModule } from 'ng2-translate';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
+import { OrdersService } from './services/orders.service';
+
 export const modules = [
   CommonModule,
   FormsModule,
@@ -25,7 +27,7 @@ export const modules = [
 
 export const declarations = [];
 
-export const providers = [];
+export const providers = [OrdersService];
 
 @NgModule({
   imports: modules,

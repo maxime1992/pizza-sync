@@ -1,4 +1,3 @@
-import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +6,7 @@ import { IPizzas } from './../../shared/state/pizzas/pizzas.interface';
 import { IPizzasCategories } from './../../shared/state/pizzas-categories/pizzas-categories.interface';
 import { IUsers } from './../../shared/state/users/users.interface';
 import { IOrders } from './../../shared/state/orders/orders.interface';
+import { environment } from './../../../environments/environment';
 
 @Injectable()
 export class PizzasService {

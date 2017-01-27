@@ -15,6 +15,7 @@ import { environment } from './../../environments/environment.prod';
 import { getRootReducer } from './../shared/state/root.reducer';
 import { PizzasEffects } from './../features/pizzas/pizzas.effects';
 import { PizzasService } from './../features/pizzas/pizzas.service';
+import { OrdersEffects } from './../shared/state/orders/orders.effects';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { PizzasService } from './../features/pizzas/pizzas.service';
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     // pass every effect here, one per line
     EffectsModule.runAfterBootstrap(PizzasEffects),
+    EffectsModule.runAfterBootstrap(OrdersEffects),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

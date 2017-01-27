@@ -12,7 +12,7 @@
           <p>{{ pizza.ingredients }}</p>
         </md-card-content>
         <md-card-actions fxLayout="row">
-          <button md-mini-fab *ngFor="let price of pizza.prices" [disabled]="!price">
+          <button md-mini-fab *ngFor="let price of pizza.prices; let i=index" [disabled]="!price" (click)="addOrder(pizza, i)">
             <span *ngIf="price">{{ price }}€</span>
             <span *ngIf="!price">-</span>
           </button>
