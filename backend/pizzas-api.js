@@ -15,9 +15,14 @@ const getPizzas = () => {
         return `pizzaCategoryId${this._pizzaCategoryId++}`
       },
 
-      _personId: 0,
-      get personId() {
-        return `personId${this._personId++}`
+      _userId: 0,
+      get userId() {
+        return `userId${this._userId++}`
+      },
+
+      _orderId: 0,
+      get orderId() {
+        return `orderId${this._orderId++}`
       }
     }
 
@@ -28,7 +33,8 @@ const getPizzas = () => {
         const res = {
           pizzas: { byId: {}, allIds: [] },
           pizzasCategories: { byId: {}, allIds: [] },
-          people: { byId: {}, allIds: [] }
+          users: { byId: {}, allIds: [] },
+          orders: { byId: {}, allIds: [] }
         }
 
         const $ = cheerio.load(body)

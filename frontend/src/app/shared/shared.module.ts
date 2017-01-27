@@ -25,9 +25,12 @@ export const modules = [
 
 export const declarations = [];
 
+export const providers = [];
+
 @NgModule({
   imports: modules,
   exports: [...modules, ...declarations],
-  declarations
+  declarations,
+  providers
 })
 export class SharedModule { }

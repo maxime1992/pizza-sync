@@ -8,6 +8,8 @@ import { batchActions } from 'redux-batched-actions';
 import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
 import { PizzasService } from './pizzas.service';
 import { PizzasCategories } from './../../shared/state/pizzas-categories/pizzas-categories.reducer';
+import { Users } from './../../shared/state/users/users.reducer';
+import { Orders } from './../../shared/state/orders/orders.reducer';
 
 @Injectable()
 export class PizzasEffects {
@@ -27,6 +29,14 @@ export class PizzasEffects {
             {
               type: PizzasCategories.LOAD_PIZZAS_CATEGORIES_SUCCESS,
               payload: res.pizzasCategories
+            },
+            {
+              type: Users.LOAD_USERS_SUCCESS,
+              payload: res.users
+            },
+            {
+              type: Orders.LOAD_ORDERS_SUCCESS,
+              payload: res.orders
             }
           ]);
         })

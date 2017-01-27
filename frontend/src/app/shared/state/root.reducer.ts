@@ -8,12 +8,16 @@ import { environment } from './../../../environments/environment';
 import { Ui } from './ui/ui.reducer';
 import { Pizzas } from './pizzas/pizzas.reducer';
 import { PizzasCategories } from './pizzas-categories/pizzas-categories.reducer';
+import { Users } from './users/users.reducer';
+import { Orders } from './orders/orders.reducer';
 
 const reducers = {
   // pass your reducers here
   ui: Ui.reducer,
   pizzas: Pizzas.reducer,
-  pizzasCategories: PizzasCategories.reducer
+  pizzasCategories: PizzasCategories.reducer,
+  users: Users.reducer,
+  orders: Orders.reducer
 };
 
 // if environment is != from production

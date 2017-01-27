@@ -15,7 +15,7 @@
 
   <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
     <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
-      Left sidenav
+      <app-order></app-order>
     </md-sidenav>
 
     <app-pizzas></app-pizzas>
