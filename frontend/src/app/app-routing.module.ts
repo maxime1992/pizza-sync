@@ -11,7 +11,7 @@ export function loadFeaturesModule() {
 const routes: Routes = [
   {
     path: '',
-    loadChildren: loadFeaturesModule
+    loadChildren: 'app/features/features.module#FeaturesModule'
   }
 ];
 
