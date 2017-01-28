@@ -21,4 +21,9 @@ app.post('/orders', (req, res) => {
   res.json(order)
 })
 
+app.post('/users', (req, res) => {
+  const username = req.body.username
+  pizzas.addUser(username).then(user => res.json(user))
+})
+
 app.listen(3000)

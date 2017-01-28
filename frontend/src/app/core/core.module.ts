@@ -16,6 +16,7 @@ import { getRootReducer } from './../shared/state/root.reducer';
 import { PizzasEffects } from './../features/pizzas/pizzas.effects';
 import { PizzasService } from './../features/pizzas/pizzas.service';
 import { OrdersEffects } from './../shared/state/orders/orders.effects';
+import { UsersEffects } from './../shared/state/users/users.effects';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { OrdersEffects } from './../shared/state/orders/orders.effects';
     // pass every effect here, one per line
     EffectsModule.runAfterBootstrap(PizzasEffects),
     EffectsModule.runAfterBootstrap(OrdersEffects),
+    EffectsModule.runAfterBootstrap(UsersEffects),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

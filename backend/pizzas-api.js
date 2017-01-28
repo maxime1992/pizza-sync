@@ -1,12 +1,18 @@
 const request = require('request')
 const cheerio = require('cheerio')
 
+const requestOptions = {
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.2883.87 Chrome/55.0.2883.87 Safari/537.36'
+  }
+}
+
 class Pizzas {
   constructor() {
-    this._pizzaId = 0;
-    this._pizzaCategoryId = 0;
-    this._userId = 0;
-    this._orderId = 0;
+    this._pizzaId = 0
+    this._pizzaCategoryId = 0
+    this._userId = 0
+    this._orderId = 0
 
     this.pizzas = null
   }
@@ -30,8 +36,10 @@ class Pizzas {
   addOrder(order) {
     const orderId = this._getOrderId()
 
-    this.pizzas.orders.byId[orderId] = order
-    this.pizzas.orders.byId[orderId].id = orderId
+    this.pizzas.orders.byId[orderId] = {
+      id: orderId,
+      order
+    }
     this.pizzas.orders.allIds.push(orderId)
 
     return this.pizzas.orders.byId[orderId]
@@ -40,12 +48,14 @@ class Pizzas {
   getPizzas() {
     return new Promise(resolve => {
       if (this.pizzas) {
-        resolve(this.pizzas);
-        return;
+        resolve(this.pizzas)
+        return
       }
 
       // fetch the website
-      request('http://www.pizzadelormeau.com/nos-pizzas/', (error, response, body) => {
+      request(
+        Object.assign({ url: 'http://www.pizzadelormeau.com/nos-pizzas/' }, requestOptions),
+        (error, response, body) => {
         if (!error && response.statusCode == 200) {
           // build the response object containing the pizzas and pizzas categories
           const res = {
@@ -102,8 +112,31 @@ class Pizzas {
 
           this.pizzas = res
 
-          resolve(res);
+            resolve(res)
+          }
+        })
+    })
+  }
+
+  addUser(username) {
+    return new Promise(solve => {
+      const userId = this._getUserId()
+
+      request(
+        Object.assign({ url: `https://api.github.com/users/${username}` }, requestOptions),
+        (error, response, body) => {
+          body = JSON.parse(body)
+          const thumbnail = body['avatar_url'] || ''
+
+          this.pizzas.users.byId[userId] = {
+            id: userId,
+            username,
+            thumbnail
         }
+
+          this.pizzas.users.allIds.push(userId)
+
+          solve(this.pizzas.users.byId[userId])
       })
     })
   }

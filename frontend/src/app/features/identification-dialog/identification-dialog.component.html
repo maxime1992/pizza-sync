@@ -1,0 +1,22 @@
+<form [formGroup]="identificationForm" fxLayout="column" (ngSubmit)="onSubmit(identificationForm)">
+  <md-input-container>
+    <input mdInput placeholder="Github username" formControlName="username" required autocomplete="off">
+
+    <span mdPrefix>
+      <md-icon svgIcon="github" color="accent"></md-icon>
+    </span>
+
+    <md-hint align="end">for picture, otherwise any username</md-hint>
+  </md-input-container>
+
+  <button type="submit" md-button color="primary" *ngIf="identificationForm.valid || (isIdentifying$ | async)" [disabled]="(isIdentifying$ | async)">
+    <div *ngIf="!(isIdentifying$ | async)">
+      I'm hungry, let's order
+    </div>
+
+    <div *ngIf="isIdentifying$ | async">
+      Connecting
+      <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+    </div>
+  </button>
+</form>

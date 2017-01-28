@@ -38,6 +38,18 @@ export class Ui {
     return Object.assign(<IUi>{}, ui, <IUi>{ isSidenavVisible: false });
   }
 
+  // tslint:disable-next-line:member-ordering
+  public static OPEN_DIALOG_IDENTIFICATION = `${Ui.reducerName}_OPEN_DIALOG_IDENTIFICATION`;
+  private static openDialogIdentification(ui, type, payload) {
+    return Object.assign(<IUi>{}, ui, <IUi>{ isDialogIdentificationOpen: true });
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static CLOSE_DIALOG_IDENTIFICATION = `${Ui.reducerName}_CLOSE_DIALOG_IDENTIFICATION`;
+  private static closeDialogIdentification(ui, type, payload) {
+    return Object.assign(<IUi>{}, ui, <IUi>{ isDialogIdentificationOpen: false });
+  }
+
   // ---------------------------------------------------------------
 
   // tslint:disable-next-line:member-ordering
@@ -45,6 +57,8 @@ export class Ui {
     [Ui.SET_LANGUAGE]: Ui.setLanguage,
     [Ui.TOGGLE_SIDENAV]: Ui.toggleSidenav,
     [Ui.OPEN_SIDENAV]: Ui.openSidenav,
-    [Ui.CLOSE_SIDENAV]: Ui.closeSidenav
+    [Ui.CLOSE_SIDENAV]: Ui.closeSidenav,
+    [Ui.OPEN_DIALOG_IDENTIFICATION]: Ui.openDialogIdentification,
+    [Ui.CLOSE_DIALOG_IDENTIFICATION]: Ui.closeDialogIdentification
   };
 }

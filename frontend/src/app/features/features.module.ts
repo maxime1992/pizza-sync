@@ -5,6 +5,7 @@ import { FeaturesRoutingModule } from './features-routing.module';
 import { PizzasModule } from './pizzas/pizzas.module';
 import { FeaturesComponent } from './features.component';
 import { OrderModule } from './order/order.module';
+import { IdentificationDialogComponent } from './identification-dialog/identification-dialog.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { OrderModule } from './order/order.module';
     PizzasModule,
     OrderModule
   ],
-  declarations: [FeaturesComponent]
+  declarations: [FeaturesComponent, IdentificationDialogComponent],
+  entryComponents: [IdentificationDialogComponent]
 })
 export class FeaturesModule { }

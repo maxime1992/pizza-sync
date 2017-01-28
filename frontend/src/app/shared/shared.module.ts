@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
@@ -11,10 +11,11 @@ import { TranslateModule } from 'ng2-translate';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { OrdersService } from './services/orders.service';
+import { UsersService } from './services/users.service';
 
 export const modules = [
   CommonModule,
-  FormsModule,
+  ReactiveFormsModule,
   HttpModule,
   RouterModule,
   MaterialModule,
@@ -27,7 +28,7 @@ export const modules = [
 
 export const declarations = [];
 
-export const providers = [OrdersService];
+export const providers = [OrdersService, UsersService];
 
 @NgModule({
   imports: modules,
