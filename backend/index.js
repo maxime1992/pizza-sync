@@ -12,10 +12,11 @@ const pizzas = new Pizzas()
 app.use(bodyParser.json())
 
 const corsOptions = {
-  origin: 'http://localhost:4200',
   credentials: false
 }
 app.use(cors(corsOptions))
+
+app.use(express.static('public'))
 
 app.get('/pizzas', (req, res) => {
   pizzas.getPizzas().then(pizzas => res.json(pizzas))
@@ -37,4 +38,10 @@ app.post('/users', (req, res) => {
 
 server.listen(3000)
 
-app.listen(3000)
+io.on('connection', socket => {
+  socket.on('ADD_ORDER', orderWithoutId => {
+    const order = pizzas.addOrder(orderWithoutId)
+
+    io.sockets.emit('ADD_ORDER', order)
+  })
+})

@@ -1,4 +1,4 @@
-<h1>Total : {{ (fullOrder$ | async).totalPrice }}€</h1>
+<h1 class="sum">{{ (fullOrder$ | async).totalPrice }} €</h1>
 
 <md-list>
   <md-list-item *ngFor="let user of (fullOrder$ | async).users">
