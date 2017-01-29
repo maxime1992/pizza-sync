@@ -42,3 +42,12 @@ pre {
   .null { color: magenta; }
   .key { color: red; }
 }
+
+.green-led {
+  margin: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 3px 1px, inset #304701 0 -1px 3px, #89FF00 0 1px 3px;
+}

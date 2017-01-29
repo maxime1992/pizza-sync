@@ -1,5 +1,6 @@
 <md-list-item>
   <img md-list-avatar [src]="getThumbnail(user)">
+  <div class="green-led" *ngIf="user.isOnline"></div>
 
   <h3 md-line>
     <i>{{ user.username }}</i> - <b>{{ user.totalPrice | number:'1.2-2' }}€</b>

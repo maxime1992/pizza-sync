@@ -5,6 +5,8 @@ export interface IUserCommon {
   name: string;
   username: string;
   thumbnail: string;
+  thumnail: string;
+  isOnline: boolean;
 }
 
 export interface IUsersTable {
