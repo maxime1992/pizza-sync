@@ -1,3 +1,14 @@
 md-sidenav {
   width: 300px;
 }
+
+md-toolbar {
+  .logo-toolbar {
+    height: 45px;
+    margin-right: 10px;
+  }
+
+  button {
+    margin-right: 5px;
+  }
+}
