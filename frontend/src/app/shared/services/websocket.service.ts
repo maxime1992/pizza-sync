@@ -13,15 +13,16 @@ import { Orders } from './../state/orders/orders.reducer';
 export class WebsocketService {
   private _socket: SocketIOClient.Socket;
 
-  constructor(private _store: Store<IStore>) {
+  constructor(private _store$: Store<IStore>) {
     this._socket = connect(environment.urlBackend);
 
     this._socket.on('USER_CONNECTED', user => this._onUserConnected(user));
     this._socket.on('ADD_ORDER', order => this._onAddOrder(order));
+    this._socket.on('REMOVE_ORDER', orderId => this._onRemoveOrder(orderId));
   }
 
   private _onUserConnected(user) {
-    this._store.dispatch({ type: Users.ADD_USER_SUCCESS, payload: user });
+    this._store$.dispatch({ type: Users.ADD_USER_SUCCESS, payload: user });
   }
 
   public addOrder(order: IOrder) {
@@ -29,9 +30,17 @@ export class WebsocketService {
   }
 
   private _onAddOrder(order: IOrder) {
-    this._store.dispatch({
+    this._store$.dispatch({
       type: Orders.ADD_ORDER_SUCCESS,
       payload: order
     });
+  }
+
+  public removeOrder(orderId: string) {
+    this._socket.emit('REMOVE_ORDER', orderId);
+  }
+
+  private _onRemoveOrder(orderId: string) {
+    this._store$.dispatch({ type: Orders.REMOVE_ORDER_SUCCESS, payload: { id: orderId } });
   }
 }

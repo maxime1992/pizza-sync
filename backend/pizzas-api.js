@@ -44,6 +44,17 @@ class Pizzas {
     return this.pizzas.orders.byId[orderId]
   }
 
+  removeOrder(orderId) {
+    if (typeof this.pizzas.orders.byId[orderId] === 'undefined') {
+      return false
+    }
+
+    delete this.pizzas.orders.byId[orderId]
+
+    this.pizzas.orders.allIds = this.pizzas.orders.allIds.filter(orderIdTmp => orderIdTmp !== orderId)
+    return true
+  }
+
   getPizzas() {
     return new Promise(resolve => {
       if (this.pizzas) {

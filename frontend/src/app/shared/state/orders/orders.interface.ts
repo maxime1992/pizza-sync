@@ -5,6 +5,7 @@ export interface IOrder {
   userId: string;
   pizzaId: string;
   priceIndex: number;
+  isBeingRemoved: boolean;
 }
 
 export interface IOrders {

@@ -12,6 +12,7 @@ export interface IPizzas {
 }
 
 export interface IPizzaWithPrice extends IPizza {
+  orderId: string;
   price: number;
   size: string;
 }

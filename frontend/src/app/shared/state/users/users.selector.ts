@@ -27,6 +27,8 @@ export function _getFullOrder(store$: Store<IStore>) {
               {},
               pizzas.byId[order.pizzaId],
               {
+                orderId: order.id,
+                isBeingRemoved: order.isBeingRemoved,
                 price: pizzaPrice,
                 size: pizzaSizeByIndex[order.priceIndex]
               }

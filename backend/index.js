@@ -44,4 +44,10 @@ io.on('connection', socket => {
 
     io.sockets.emit('ADD_ORDER', order)
   })
+
+  socket.on('REMOVE_ORDER', orderId => {
+    if (pizzas.removeOrder(orderId)) {
+      io.sockets.emit('REMOVE_ORDER', orderId)
+    }
+  })
 })

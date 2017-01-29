@@ -7,8 +7,9 @@
       <i>{{ user.username }}</i> - <b>{{ user.totalPrice }}€</b>
     </h3>
 
-    <p md-line *ngFor="let pizza of user.pizzas">
+    <p md-line *ngFor="let pizza of user.pizzas" [class.being-removed]="pizza.isBeingRemoved">
       {{ pizza.name }} ({{ pizza.size }})
+      <span class="btn-remove-order" (click)="removeOrder(pizza.orderId)" *ngIf="!pizza.isBeingRemoved">X</span>
     </p>
   </md-list-item>
 </md-list>

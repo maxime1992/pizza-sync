@@ -15,12 +15,19 @@ export class OrdersEffects {
   constructor(private _store$: Store<IStore>, private _actions$: Actions, private _webSocketService: WebsocketService) { }
 
   // tslint:disable-next-line:member-ordering
-  @Effect({ dispatch: false }) initialLoad$ = this._actions$
+  @Effect({ dispatch: false }) addOrder$ = this._actions$
     .ofType(Orders.ADD_ORDER)
     .withLatestFrom(this._store$.select(state => state.users.idCurrentUser))
     .map(([action, idCurrentUser]) =>
       this._webSocketService.addOrder(
         Object.assign({}, action.payload, { userId: idCurrentUser })
       )
+    );
+
+  // tslint:disable-next-line:member-ordering
+  @Effect({ dispatch: false }) removeOrder$ = this._actions$
+    .ofType(Orders.REMOVE_ORDER)
+    .map((action) =>
+      this._webSocketService.removeOrder(action.payload.id)
     );
 }
