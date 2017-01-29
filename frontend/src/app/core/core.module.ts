@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Ng2Webstorage } from 'ng2-webstorage';
 
 import './rxjs-operators';
 import { createTranslateLoader } from '../shared/helpers/aot.helper';
@@ -34,7 +35,8 @@ import { UsersEffects } from './../shared/state/users/users.effects';
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
       deps: [Http]
-    })
+    }),
+    Ng2Webstorage
   ],
   providers: [
     PizzasService,

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { IStore } from './../../shared/interfaces/store.interface';
 import { Users } from './../../shared/state/users/users.reducer';
@@ -16,13 +17,19 @@ export class IdentificationDialogComponent implements OnInit {
   public identificationForm: FormGroup;
   public isIdentifying$: Observable<boolean>;
 
-  constructor(private _store$: Store<IStore>, private _fb: FormBuilder) { }
+  constructor(
+    private _store$: Store<IStore>,
+    private _fb: FormBuilder,
+    private _storage: LocalStorageService
+  ) { }
 
   ngOnInit() {
     this.isIdentifying$ = this._store$.select(state => state.users.isIdentifying);
 
+    const username = this._storage.retrieve('username') || '';
+
     this.identificationForm = this._fb.group({
-      username: ['', Validators.required]
+      username: [username, Validators.required]
     });
   }
 

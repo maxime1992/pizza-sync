@@ -3329,6 +3329,10 @@ ng2-translate@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/ng2-translate/-/ng2-translate-5.0.0.tgz#0adbb510eb5007a2d6ded5f5d26888c14760aca5"
 
+ng2-webstorage@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ng2-webstorage/-/ng2-webstorage-1.5.0.tgz#65c8c1269d2bcff99a14299eaf16ca7a0105ec5e"
+
 ngrx-store-freeze@0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.1.6.tgz#69acddf0c28172349d6d21a084fd4428235e82b8"

@@ -1,6 +1,7 @@
 <form [formGroup]="identificationForm" fxLayout="column" (ngSubmit)="onSubmit(identificationForm)">
   <md-input-container>
-    <input mdInput placeholder="Github username" formControlName="username" required autocomplete="off">
+    <input mdInput placeholder="Github username" formControlName="username" required autocomplete="off" autocorrect="off" autocapitalize="off"
+      spellcheck="false">
 
     <span mdPrefix>
       <md-icon svgIcon="github" color="accent"></md-icon>
