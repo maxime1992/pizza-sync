@@ -30,7 +30,7 @@ app.post('/orders', (req, res) => {
 app.post('/users', (req, res) => {
   const username = req.body.username
   pizzas.addUser(username).then(user => {
-    res.json({})
+    res.json(user)
     io.sockets.emit('USER_CONNECTED', user)
   })
 })

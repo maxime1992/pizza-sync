@@ -36,10 +36,9 @@ class Pizzas {
   addOrder(order) {
     const orderId = this._getOrderId()
 
-    this.pizzas.orders.byId[orderId] = {
-      id: orderId,
-      order
-    }
+    this.pizzas.orders.byId[orderId] = order
+    this.pizzas.orders.byId[orderId].id = orderId
+
     this.pizzas.orders.allIds.push(orderId)
 
     return this.pizzas.orders.byId[orderId]
@@ -56,61 +55,68 @@ class Pizzas {
       request(
         Object.assign({ url: 'http://www.pizzadelormeau.com/nos-pizzas/' }, requestOptions),
         (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-          // build the response object containing the pizzas and pizzas categories
-          const res = {
-            pizzas: { byId: {}, allIds: [] },
-            pizzasCategories: { byId: {}, allIds: [] },
-            users: { byId: {}, allIds: [] },
-            orders: { byId: {}, allIds: [] }
-          }
+          if (!error && response.statusCode == 200) {
+            // build the response object containing the pizzas and pizzas categories
+            const idUser1 = this._getUserId()
+            const idUser2 = this._getUserId()
 
-          const $ = cheerio.load(body)
+            const idOrder1 = this._getOrderId()
+            const idOrder2 = this._getOrderId()
+            const idOrder3 = this._getOrderId()
 
-          const sectionsDom = $('.entry-content .section')
-
-          sectionsDom.map(i => {
-            const sectionDom = $(sectionsDom[i])
-
-            const pizzaCategory = sectionDom.find($('.title')).children().remove().end().text()
-
-            const finalPizzaCategory = {
-              id: this._getPizzaCategoryId(),
-              name: pizzaCategory
+            const res = {
+              pizzas: { byId: {}, allIds: [] },
+              pizzasCategories: { byId: {}, allIds: [] },
+              users: { byId: {}, allIds: [] },
+              orders: { byId: {}, allIds: [] }
             }
 
-            res.pizzasCategories.byId[finalPizzaCategory.id] = finalPizzaCategory
-            res.pizzasCategories.allIds.push(finalPizzaCategory.id)
+            const $ = cheerio.load(body)
 
-            const pizzasDom = sectionDom.find($('.corps'))
+            const sectionsDom = $('.entry-content .section')
 
-            pizzasDom.map(j => {
-              const pizzaDom = $(pizzasDom[j])
+            sectionsDom.map(i => {
+              const sectionDom = $(sectionsDom[i])
 
-              const pizzaName = pizzaDom.find($('.nom')).children().remove().end().text()
-              const pizzaIngredients = pizzaDom.find($('.composition')).text()
-              const pizzaPricesDom = pizzaDom.find($('.prix'))
+              const pizzaCategory = sectionDom.find($('.title')).children().remove().end().text()
 
-              const pizzaPrices = []
-              pizzaPricesDom.map(k => {
-                const price = $(pizzaPricesDom[k]).children().remove().end().text()
-                pizzaPrices.push(parseFloat(price))
-              })
-
-              const finalPizza = {
-                id: this._getPizzaId(),
-                name: pizzaName,
-                ingredients: pizzaIngredients,
-                prices: pizzaPrices,
-                category: finalPizzaCategory.id
+              const finalPizzaCategory = {
+                id: this._getPizzaCategoryId(),
+                name: pizzaCategory
               }
 
-              res.pizzas.byId[finalPizza.id] = finalPizza
-              res.pizzas.allIds.push(finalPizza.id)
-            })
-          })
+              res.pizzasCategories.byId[finalPizzaCategory.id] = finalPizzaCategory
+              res.pizzasCategories.allIds.push(finalPizzaCategory.id)
 
-          this.pizzas = res
+              const pizzasDom = sectionDom.find($('.corps'))
+
+              pizzasDom.map(j => {
+                const pizzaDom = $(pizzasDom[j])
+
+                const pizzaName = pizzaDom.find($('.nom')).children().remove().end().text()
+                const pizzaIngredients = pizzaDom.find($('.composition')).text()
+                const pizzaPricesDom = pizzaDom.find($('.prix'))
+
+                const pizzaPrices = []
+                pizzaPricesDom.map(k => {
+                  const price = $(pizzaPricesDom[k]).children().remove().end().text()
+                  pizzaPrices.push(parseFloat(price))
+                })
+
+                const finalPizza = {
+                  id: this._getPizzaId(),
+                  name: pizzaName,
+                  ingredients: pizzaIngredients,
+                  prices: pizzaPrices,
+                  category: finalPizzaCategory.id
+                }
+
+                res.pizzas.byId[finalPizza.id] = finalPizza
+                res.pizzas.allIds.push(finalPizza.id)
+              })
+            })
+
+            this.pizzas = res
 
             resolve(res)
           }
@@ -132,12 +138,12 @@ class Pizzas {
             id: userId,
             username,
             thumbnail
-        }
+          }
 
           this.pizzas.users.allIds.push(userId)
 
           solve(this.pizzas.users.byId[userId])
-      })
+        })
     })
   }
 }

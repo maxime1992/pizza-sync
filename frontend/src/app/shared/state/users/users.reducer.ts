@@ -30,7 +30,7 @@ export class Users {
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION_SUCCESS = `${Users.reducerName}_IDENTIFICATION_SUCCESS`;
   private static identificationSuccess(users, type, payload) {
-    return Object.assign(<IUsers>{}, users, <IUsers>{ isIdentifying: false });
+    return Object.assign(<IUsers>{}, users, <IUsers>{ isIdentifying: false, idCurrentUser: payload });
   }
 
   // tslint:disable-next-line:member-ordering

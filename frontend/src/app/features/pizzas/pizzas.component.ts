@@ -29,8 +29,6 @@ export class PizzasComponent implements OnInit {
     this._store$.dispatch({
       type: Orders.ADD_ORDER,
       payload: {
-        // TODO pass current user
-        userId: 'userId1',
         pizzaId: pizza.id,
         priceIndex: priceIndex
       }

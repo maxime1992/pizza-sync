@@ -27,7 +27,6 @@ export class IdentificationDialogComponent implements OnInit {
   }
 
   onSubmit({value}: FormGroup) {
-    console.log(value);
     this._store$.dispatch({ type: Users.IDENTIFICATION, payload: value });
 
     this.identificationForm.controls['username'].disable();

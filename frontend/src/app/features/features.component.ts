@@ -41,7 +41,6 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.isDialogIdentificationOpen$ = this._store$.select(state => state.ui.isDialogIdentificationOpen);
 
     this.isDialogIdentificationOpenSub = this.isDialogIdentificationOpen$.subscribe(isDialogIdentificationOpen => {
-      console.log(isDialogIdentificationOpen);
       this.isDialogIdentificationOpen = isDialogIdentificationOpen;
 
       this.handleOpenAndCloseDialog();

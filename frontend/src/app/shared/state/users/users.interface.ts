@@ -9,6 +9,7 @@ export interface IUser {
 
 export interface IUsers {
   isIdentifying: boolean;
+  idCurrentUser: string;
 
   byId: { [key: string]: IUser };
   allIds: string[];

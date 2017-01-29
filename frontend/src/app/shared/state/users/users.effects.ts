@@ -8,6 +8,7 @@ import { batchActions } from 'redux-batched-actions';
 import { UsersService } from './../../services/users.service';
 import { Users } from './users.reducer';
 import { Ui } from './../ui/ui.reducer';
+import { IUser } from './users.interface';
 
 @Injectable()
 export class UsersEffects {
@@ -18,9 +19,9 @@ export class UsersEffects {
     .ofType(Users.IDENTIFICATION)
     .switchMap((action: Action) =>
       this._usersService.identification(action.payload)
-        .map(user => {
+        .map((user: IUser) => {
           return batchActions([
-            { type: Users.IDENTIFICATION_SUCCESS },
+            { type: Users.IDENTIFICATION_SUCCESS, payload: user.id },
             { type: Ui.CLOSE_DIALOG_IDENTIFICATION }
           ]);
         })

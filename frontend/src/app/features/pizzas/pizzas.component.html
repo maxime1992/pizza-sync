@@ -6,7 +6,7 @@
       <!--TODO : There's an ongoing issue with layout gap-->
       <!--https://github.com/angular/flex-layout/issues/125-->
       <!--once it's solve, set fxFlex to 33.3%-->
-      <md-card *ngFor="let pizza of pizzaCategorie.pizzas" fxFlex="30%">
+      <md-card *ngFor="let pizza of pizzaCategorie.pizzas" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
         <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
         <md-card-content>
           <p>{{ pizza.ingredients }}</p>
