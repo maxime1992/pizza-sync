@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { MdIconRegistry } from '@angular/material';
+
 import { LANGUAGES } from './core/opaque-tokens';
 import { IStore } from './shared/interfaces/store.interface';
 import { Ui } from './shared/state/ui/ui.reducer';
+import { WebsocketService } from './shared/services/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(LANGUAGES) public languages,
     private _store$: Store<IStore>,
     private _mdIconRegistry: MdIconRegistry,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _websocketService: WebsocketService
   ) { }
 
   ngOnInit() {

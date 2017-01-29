@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
@@ -9,7 +11,11 @@ const pizzas = new Pizzas()
 
 app.use(bodyParser.json())
 
-app.use(cors())
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: false
+}
+app.use(cors(corsOptions))
 
 app.get('/pizzas', (req, res) => {
   pizzas.getPizzas().then(pizzas => res.json(pizzas))
@@ -23,7 +29,12 @@ app.post('/orders', (req, res) => {
 
 app.post('/users', (req, res) => {
   const username = req.body.username
-  pizzas.addUser(username).then(user => res.json(user))
+  pizzas.addUser(username).then(user => {
+    res.json({})
+    io.sockets.emit('USER_CONNECTED', user)
+  })
 })
+
+server.listen(3000)
 
 app.listen(3000)

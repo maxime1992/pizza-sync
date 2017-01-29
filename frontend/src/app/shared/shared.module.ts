@@ -12,6 +12,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { OrdersService } from './services/orders.service';
 import { UsersService } from './services/users.service';
+import { WebsocketService } from './services/websocket.service';
 
 export const modules = [
   CommonModule,
@@ -28,7 +29,7 @@ export const modules = [
 
 export const declarations = [];
 
-export const providers = [OrdersService, UsersService];
+export const providers = [OrdersService, UsersService, WebsocketService];
 
 @NgModule({
   imports: modules,

@@ -21,7 +21,6 @@ export class UsersEffects {
         .map(user => {
           return batchActions([
             { type: Users.IDENTIFICATION_SUCCESS },
-            { type: Users.ADD_USER_SUCCESS, payload: user },
             { type: Ui.CLOSE_DIALOG_IDENTIFICATION }
           ]);
         })
