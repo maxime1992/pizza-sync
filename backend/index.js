@@ -22,18 +22,20 @@ app.get('/pizzas', (req, res) => {
   pizzas.getPizzas().then(pizzas => res.json(pizzas))
 })
 
-app.post('/orders', (req, res) => {
-  const order = pizzas.addOrder(req.body)
-
-  res.json(order)
-})
-
 app.post('/users', (req, res) => {
   const username = req.body.username
   pizzas.addUser(username).then(user => {
     res.json(user)
     io.sockets.emit('USER_CONNECTED', user)
   })
+})
+
+app.get('/users/:username', (req, res) => {
+  const username = req.params.username
+
+  const user = pizzas.getUser(username)
+
+  res.json(user)
 })
 
 server.listen(3000)

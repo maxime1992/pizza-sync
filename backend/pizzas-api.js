@@ -135,6 +135,24 @@ class Pizzas {
     })
   }
 
+  getUser(username) {
+    if (!this.pizzas) {
+      return null
+    }
+
+    const user = this.pizzas
+      .users
+      .allIds
+      .map(userId => this.pizzas.users.byId[userId])
+      .find(user => user.username === username)
+
+    if (typeof user !== 'undefined' && user) {
+      return user
+    }
+
+    return null
+  }
+
   addUser(username) {
     return new Promise(solve => {
       const userId = this._getUserId()

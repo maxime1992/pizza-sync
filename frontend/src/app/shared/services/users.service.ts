@@ -12,4 +12,8 @@ export class UsersService {
   identification(user: IUser) {
     return this._http.post(`${environment.urlBackend}/users`, user).map((res: Response) => res.json());
   }
+
+  checkUserAlreadyConnected(username: string) {
+    return this._http.get(`${environment.urlBackend}/users/${username}`).map((res: Response) => res.json());
+  }
 }

@@ -18,6 +18,7 @@ import { PizzasEffects } from './../features/pizzas/pizzas.effects';
 import { PizzasService } from './../features/pizzas/pizzas.service';
 import { OrdersEffects } from './../shared/state/orders/orders.effects';
 import { UsersEffects } from './../shared/state/users/users.effects';
+import { GuardService } from './../shared/services/guard.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { UsersEffects } from './../shared/state/users/users.effects';
   ],
   providers: [
     PizzasService,
+    GuardService,
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default

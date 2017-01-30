@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from 'ng2-webstorage';
 
 import { IStore } from './../../shared/interfaces/store.interface';
@@ -20,8 +19,7 @@ export class IdentificationDialogComponent implements OnInit {
   constructor(
     private _store$: Store<IStore>,
     private _fb: FormBuilder,
-    private _storage: LocalStorageService
-  ) { }
+    private _storage: LocalStorageService  ) { }
 
   ngOnInit() {
     this.isIdentifying$ = this._store$.select(state => state.users.isIdentifying);
