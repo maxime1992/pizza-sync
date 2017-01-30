@@ -15,53 +15,53 @@
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@angular-cli/base-href-webpack/-/base-href-webpack-1.0.15.tgz#a260c386392ed5fca179ac5aa7f3838893f3cb09"
 
-"@angular/common@2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.4.tgz#039520c6395476d7f35ca250973dfef946c62831"
+"@angular/common@2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.5.tgz#ada1a22b7ba01d1fdeb300115584478e031e9a4f"
 
-"@angular/compiler-cli@2.4.4", "@angular/compiler-cli@^2.3.1":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-2.4.4.tgz#726598f850e599677fa1638d1728096384665a63"
+"@angular/compiler-cli@2.4.5", "@angular/compiler-cli@^2.3.1":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-2.4.5.tgz#efabbe10558b233dcdfe985af2bd2e84f1414c97"
   dependencies:
     "@angular/tsc-wrapped" "0.5.1"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
-"@angular/compiler@2.4.4", "@angular/compiler@^2.3.1":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.4.tgz#86b861685ebc4c7b19b1133bf8c5bf4d28c71475"
+"@angular/compiler@2.4.5", "@angular/compiler@^2.3.1":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.5.tgz#521da325e2e002398e8f9de52cfb03d303729e72"
 
-"@angular/core@2.4.4", "@angular/core@^2.0.0", "@angular/core@^2.3.1":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.4.tgz#eafef7bbdefea321fa5e79998bb2f6707c70729d"
+"@angular/core@2.4.5", "@angular/core@^2.0.0", "@angular/core@^2.3.1":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.5.tgz#8b05156398afde9636e65527ffb61fc74236af5a"
 
-"@angular/flex-layout@2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-2.0.0-beta.1.tgz#719cbd77394700ced82015938454cc85b590f5c0"
+"@angular/flex-layout@^2.0.0-beta.4":
+  version "2.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-2.0.0-beta.4.tgz#b8cbc15ed17a35617738bb9cd76d8d80ba11638f"
 
-"@angular/forms@2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.4.4.tgz#9679ca369d5bc2968ee1a67634ac221d75487364"
+"@angular/forms@2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.4.5.tgz#468bd040518595c3598742ac1a22c506a7f1ab0f"
 
-"@angular/http@2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.4.4.tgz#e41a9808eeec9cfdf3d5f9f92d0041b5c041fd60"
+"@angular/http@2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.4.5.tgz#de94b2daa4ff24e8b6c8839ffaf8089b62d4430b"
 
 "@angular/material@https://github.com/angular/material2-builds.git":
   version "2.0.0-beta.1"
-  resolved "https://github.com/angular/material2-builds.git#7aa366c32667c84eccdd329db3ccdcf9b3bccb22"
+  resolved "https://github.com/angular/material2-builds.git#6b121a766833f3c500664448490bc4e7c2ad6778"
 
-"@angular/platform-browser-dynamic@2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.4.tgz#b5948cf2cac33c9634a400a7ece8fb5600f83107"
+"@angular/platform-browser-dynamic@2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.4.5.tgz#36fa975a8ee2dfe3f60bab561143974e6bdb1eff"
 
-"@angular/platform-browser@2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.4.tgz#0bff3512d00b199211ff28df0aa5c6841718a19c"
+"@angular/platform-browser@2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.4.5.tgz#fa1bc891b1309bca83845787b9a08db36a787fee"
 
-"@angular/router@3.4.4":
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-3.4.4.tgz#8564889d5bf322a1a4b679bd82c053df03eabb72"
+"@angular/router@3.4.5":
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-3.4.5.tgz#5a471a4e49a7eba6a460761129c0684a4b730a1a"
 
 "@angular/tsc-wrapped@0.5.1", "@angular/tsc-wrapped@^0.5.0":
   version "0.5.1"
@@ -102,9 +102,9 @@
   version "2.5.41"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.41.tgz#d5e86161a0af80d52062b310a33ed65b051a0713"
 
-"@types/node@7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.1.tgz#858610f58e4d48dd4410145eef9e12c97e3aacfd"
+"@types/node@7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.4.tgz#9aabc135979ded383325749f508894c662948c8b"
 
 "@types/node@^6.0.46":
   version "6.0.60"
@@ -2734,9 +2734,9 @@ karma-webpack@^1.8.0:
     source-map "^0.1.41"
     webpack-dev-middleware "^1.0.11"
 
-karma@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-1.4.0.tgz#bf5edbccabb8579cb68ae699871f3e79608ec94b"
+karma@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-1.4.1.tgz#41981a71d54237606b0a3ea8c58c90773f41650e"
   dependencies:
     bluebird "^3.3.0"
     body-parser "^1.12.4"
@@ -5121,9 +5121,9 @@ tslint-loader@^3.3.0:
     object-assign "^4.0.1"
     rimraf "^2.4.4"
 
-tslint@4.3.1, tslint@^4.0.2:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/tslint/-/tslint-4.3.1.tgz#28f679c53ca4b273688bcb6fcf0dde7ff1bb2169"
+tslint@4.4.2, tslint@^4.0.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/tslint/-/tslint-4.4.2.tgz#b14cb79ae039c72471ab4c2627226b940dda19c6"
   dependencies:
     babel-code-frame "^6.20.0"
     colors "^1.1.2"
@@ -5132,7 +5132,6 @@ tslint@4.3.1, tslint@^4.0.2:
     glob "^7.1.1"
     optimist "~0.6.0"
     resolve "^1.1.7"
-    underscore.string "^3.3.4"
     update-notifier "^1.0.2"
 
 tty-browserify@0.0.0:
@@ -5188,13 +5187,6 @@ uid-number@~0.0.6:
 ultron@1.0.x:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.0.2.tgz#ace116ab557cd197386a4e88f4685378c8b2e4fa"
-
-underscore.string@^3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/underscore.string/-/underscore.string-3.3.4.tgz#2c2a3f9f83e64762fdc45e6ceac65142864213db"
-  dependencies:
-    sprintf-js "^1.0.3"
-    util-deprecate "^1.0.2"
 
 underscore.string@~2.3.3:
   version "2.3.3"
@@ -5283,7 +5275,7 @@ useragent@^2.1.10:
   dependencies:
     lru-cache "2.2.x"
 
-util-deprecate@^1.0.2, util-deprecate@~1.0.1:
+util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
