@@ -14,11 +14,13 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
 })
 export class OrderComponent implements OnInit {
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
+  public idCurrentUser$: Observable<string>;
 
   constructor(private _store$: Store<IStore>) { }
 
   ngOnInit() {
     this.fullOrder$ = this._store$.let(getFullOrder());
+    this.idCurrentUser$ = this._store$.select(state => state.users.idCurrentUser);
   }
 
   removeOrder(orderId: string) {

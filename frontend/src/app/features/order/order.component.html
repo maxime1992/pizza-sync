@@ -9,7 +9,7 @@
 
     <p md-line *ngFor="let pizza of user.pizzas" [class.being-removed]="pizza.isBeingRemoved">
       {{ pizza.name }} ({{ pizza.size }})
-      <span class="btn-remove-order" (click)="removeOrder(pizza.orderId)" *ngIf="!pizza.isBeingRemoved">X</span>
+      <span class="btn-remove-order" (click)="removeOrder(pizza.orderId)" *ngIf="!pizza.isBeingRemoved && (idCurrentUser$ | async) === user.id">X</span>
     </p>
   </md-list-item>
 </md-list>
