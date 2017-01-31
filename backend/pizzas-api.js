@@ -110,7 +110,7 @@ class Pizzas {
 
                 const pizzaPrices = []
                 pizzaPricesDom.map(k => {
-                  const price = $(pizzaPricesDom[k]).children().remove().end().text()
+                  const price = $(pizzaPricesDom[k]).children().remove().end().text().replace(',', '.')
                   pizzaPrices.push(parseFloat(price))
                 })
 
