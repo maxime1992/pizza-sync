@@ -160,13 +160,21 @@ class Pizzas {
       request(
         Object.assign({ url: `https://api.github.com/users/${username}` }, requestOptions),
         (error, response, body) => {
-          body = JSON.parse(body)
-          const thumbnail = body['avatar_url'] || ''
+          if (error) {
+            this.pizzas.users.byId[userId] = {
+              id: userId,
+              username,
+              thumbnail: ''
+            }
+          } else {
+            body = JSON.parse(body)
+            const thumbnail = body['avatar_url'] || ''
 
-          this.pizzas.users.byId[userId] = {
-            id: userId,
-            username,
-            thumbnail
+            this.pizzas.users.byId[userId] = {
+              id: userId,
+              username,
+              thumbnail
+            }
           }
 
           this.pizzas.users.allIds.push(userId)

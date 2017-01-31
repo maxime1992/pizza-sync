@@ -6,6 +6,7 @@ import { IStore } from './../../shared/interfaces/store.interface';
 import { IUsers, IUserWithPizzas } from './../../shared/state/users/users.interface';
 import { getFullOrder } from './../../shared/state/users/users.selector';
 import { Orders } from './../../shared/state/orders/orders.reducer';
+import { IUser } from './../../shared/state/users/users.interface';
 
 @Component({
   selector: 'app-order',
@@ -25,5 +26,9 @@ export class OrderComponent implements OnInit {
 
   removeOrder(orderId: string) {
     this._store$.dispatch({ type: Orders.REMOVE_ORDER, payload: { id: orderId } });
+  }
+
+  getThumbnail(user: IUser) {
+    return user.thumnail || 'assets/img/icon-person.png';
   }
 }

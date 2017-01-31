@@ -2,7 +2,7 @@
 
 <md-list>
   <md-list-item *ngFor="let user of (fullOrder$ | async).users">
-    <img md-list-avatar [src]="user.thumbnail">
+    <img md-list-avatar [src]="getThumbnail(user)">
     <h3 md-line>
       <i>{{ user.username }}</i> - <b>{{ user.totalPrice }}€</b>
     </h3>
