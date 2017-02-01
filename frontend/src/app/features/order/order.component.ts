@@ -29,6 +29,6 @@ export class OrderComponent implements OnInit {
   }
 
   getThumbnail(user: IUser) {
-    return user.thumnail || 'assets/img/icon-person.png';
+    return user.thumbnail || 'assets/img/icon-person.png';
   }
 }
