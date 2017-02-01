@@ -10,7 +10,7 @@ if [ "$latestRemoteHash" == "$latestLocalHash" ];then
   echo "GIT IS UP-TO-DATE, NO NEED TO FETCH AND REBASE"
 else
   needsGitUpdate=true
-  echo "GIT IS NO UP-TO-DATE, FETCHING AND REBASING"
+  echo "GIT IS NOT UP-TO-DATE, FETCHING AND REBASING"
   git fetch && git pull --rebase
 fi
 
@@ -37,7 +37,7 @@ else
   npm
 fi
 
-if [ "$needsGitUpdate" = true ]; then
+if [ "$needsGitUpdate" = true -o ! -d dist ]; then
   if [ -d dist ]; then
     rm -rf dist
   fi
@@ -58,7 +58,7 @@ else
   npm
 fi
 
-if [ "$needsGitUpdate" = true ]; then
+if [ "$needsGitUpdate" = true -o ! -d public ]; then
   if [ -d public ]; then
     rm -rf public
   fi
