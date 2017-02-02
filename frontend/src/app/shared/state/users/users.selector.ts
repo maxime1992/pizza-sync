@@ -11,6 +11,11 @@ export function _getFullOrder(store$: Store<IStore>) {
   return store$.select(state => {
     return { users: state.users, pizzas: state.pizzas, orders: state.orders };
   })
+    .distinctUntilChanged((p, n) =>
+      p.users === n.users &&
+      p.pizzas === n.pizzas &&
+      p.orders === n.orders
+    )
     .map(({ users, pizzas, orders }) => {
       const usersWithPizzas = users.allIds.map(userId => {
         const ordersOfUser = orders
