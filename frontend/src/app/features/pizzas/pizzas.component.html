@@ -1,5 +1,5 @@
 <div class="pizzas">
-  <div *ngFor="let pizzaCategorie of (pizzasCategories$ | async)">
+  <div *ngFor="let pizzaCategorie of pizzasCategories">
     <h1 class="color-primary">{{ pizzaCategorie.name }}</h1>
 
     <div fxLayout="row" fxLayoutWrap fxLayoutGap="10px">

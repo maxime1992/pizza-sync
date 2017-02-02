@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -15,14 +15,33 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
   styleUrls: ['./pizzas.component.scss']
 })
 export class PizzasComponent implements OnInit {
-  public pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
+  private _pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
+  public pizzasCategories: IPizzaCategoryWithPizzas[];
 
-  constructor(private _store$: Store<IStore>) { }
+  constructor(private _cd: ChangeDetectorRef, private _store$: Store<IStore>) { }
 
   ngOnInit() {
     this._store$.dispatch({ type: Pizzas.LOAD_PIZZAS });
 
-    this.pizzasCategories$ = this._store$.let(getCategoriesAndPizzas());
+    this._pizzasCategories$ = this._store$.let(getCategoriesAndPizzas());
+
+    // pizzas are fetched once and never updated for the session
+    // we basically need to get values once
+    // as we're building the view from a selector, everytime the
+    // part of store being watched is updated, it'll re-compute
+    // everything. To avoid that, manually launch the detect changes
+    // once as soon as the pizzas are fetched and then detach from
+    // change detection
+    this
+      ._pizzasCategories$
+      .filter(p => p.length > 0)
+      .first()
+      .do(cp => {
+        this.pizzasCategories = cp;
+        this._cd.detectChanges();
+        this._cd.detach();
+      })
+      .subscribe();
   }
 
   addOrder(pizza: IPizza, priceIndex: number) {
