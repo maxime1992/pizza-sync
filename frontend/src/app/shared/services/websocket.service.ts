@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { IStore } from './../interfaces/store.interface';
 import { Users } from './../state/users/users.reducer';
-import { IOrder } from './../state/orders/orders.interface';
+import { IOrderCommon } from './../state/orders/orders.interface';
 import { environment } from './../../../environments/environment';
 import { Orders } from './../state/orders/orders.reducer';
 
@@ -25,11 +25,11 @@ export class WebsocketService {
     this._store$.dispatch({ type: Users.ADD_USER_SUCCESS, payload: user });
   }
 
-  public addOrder(order: IOrder) {
+  public addOrder(order: IOrderCommon) {
     this._socket.emit('ADD_ORDER', order);
   }
 
-  private _onAddOrder(order: IOrder) {
+  private _onAddOrder(order: IOrderCommon) {
     this._store$.dispatch({
       type: Orders.ADD_ORDER_SUCCESS,
       payload: order

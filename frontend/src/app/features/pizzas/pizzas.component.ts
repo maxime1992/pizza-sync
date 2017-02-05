@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { IPizza, IPizzas } from './../../shared/state/pizzas/pizzas.interface';
+import { IPizzaCommon, IPizzasTable } from './../../shared/state/pizzas/pizzas.interface';
 import { IStore } from './../../shared/interfaces/store.interface';
 import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
 import { getCategoriesAndPizzas } from './../../shared/state/pizzas-categories/pizzas-categories.selector';
@@ -44,7 +44,7 @@ export class PizzasComponent implements OnInit {
       .subscribe();
   }
 
-  addOrder(pizza: IPizza, priceIndex: number) {
+  addOrder(pizza: IPizzaCommon, priceIndex: number) {
     this._store$.dispatch({
       type: Orders.ADD_ORDER,
       payload: {

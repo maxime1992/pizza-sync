@@ -9,7 +9,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { UsersService } from './../../services/users.service';
 import { Users } from './users.reducer';
 import { Ui } from './../ui/ui.reducer';
-import { IUser } from './users.interface';
+import { IUserCommon } from './users.interface';
 
 @Injectable()
 export class UsersEffects {
@@ -24,7 +24,7 @@ export class UsersEffects {
     .ofType(Users.IDENTIFICATION)
     .switchMap((action: Action) =>
       this._usersService.identification(action.payload)
-        .map((user: IUser) => {
+        .map((user: IUserCommon) => {
           this._storage.store('username', user.username);
 
           return batchActions([

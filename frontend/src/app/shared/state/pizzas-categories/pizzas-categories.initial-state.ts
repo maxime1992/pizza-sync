@@ -1,6 +1,6 @@
-import { IPizzasCategories } from './pizzas-categories.interface';
+import { IPizzasCategoriesTable } from './pizzas-categories.interface';
 
-export function pizzasCategoriesState(): IPizzasCategories {
+export function pizzasCategoriesState(): IPizzasCategoriesTable {
   return {
     byId: { },
     allIds: []

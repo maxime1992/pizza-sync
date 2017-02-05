@@ -1,23 +1,23 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { IPizzasCategories } from './pizzas-categories.interface';
+import { IPizzasCategoriesTable } from './pizzas-categories.interface';
 import { pizzasCategoriesState } from './pizzas-categories.initial-state';
 
 export class PizzasCategories {
   private static reducerName = 'PIZZAS_CATEGORIES_REDUCER';
 
-  public static reducer(pizzasCategories = pizzasCategoriesState(), {type, payload}: Action) {
+  public static reducer(pizzasCategoriesTbl = pizzasCategoriesState(), {type, payload}: Action) {
     if (typeof PizzasCategories.mapActionsToMethod[type] === 'undefined') {
-      return pizzasCategories;
+      return pizzasCategoriesTbl;
     }
 
-    return PizzasCategories.mapActionsToMethod[type](pizzasCategories, type, payload);
+    return PizzasCategories.mapActionsToMethod[type](pizzasCategoriesTbl, type, payload);
   }
 
   // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS_CATEGORIES_SUCCESS = `${PizzasCategories.reducerName}_LOAD_PIZZAS_CATEGORIES_SUCCESS`;
-  private static loadPizzasCategoriesSuccess(pizzasCategories, type, payload) {
-    return Object.assign(<IPizzasCategories>{}, pizzasCategories, payload);
+  private static loadPizzasCategoriesSuccess(pizzasCategoriesTbl, type, payload) {
+    return Object.assign(<IPizzasCategoriesTable>{}, pizzasCategoriesTbl, payload);
   }
 
   // ---------------------------------------------------------------

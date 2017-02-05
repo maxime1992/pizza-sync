@@ -93,7 +93,8 @@ class Pizzas {
 
               const finalPizzaCategory = {
                 id: this._getPizzaCategoryId(),
-                name: pizzaCategory
+                name: pizzaCategory,
+                pizzasIds: []
               }
 
               res.pizzasCategories.byId[finalPizzaCategory.id] = finalPizzaCategory
@@ -118,12 +119,13 @@ class Pizzas {
                   id: this._getPizzaId(),
                   name: pizzaName,
                   ingredients: pizzaIngredients,
-                  prices: pizzaPrices,
-                  category: finalPizzaCategory.id
+                  prices: pizzaPrices
                 }
 
                 res.pizzas.byId[finalPizza.id] = finalPizza
                 res.pizzas.allIds.push(finalPizza.id)
+
+                finalPizzaCategory.pizzasIds.push(finalPizza.id)
               })
             })
 

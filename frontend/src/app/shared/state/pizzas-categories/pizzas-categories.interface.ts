@@ -1,15 +1,16 @@
-import { IPizza } from './../pizzas/pizzas.interface';
+import { IPizzaCommon } from './../pizzas/pizzas.interface';
 
-export interface IPizzaCategory {
+export interface IPizzaCategoryCommon {
   id: string;
   name: string;
+  pizzasIds: string[];
 }
 
-export interface IPizzasCategories {
-  byId: { [key: string]: IPizzaCategory };
+export interface IPizzasCategoriesTable {
+  byId: { [key: string]: IPizzaCategoryCommon };
   allIds: string[];
 }
 
-export interface IPizzaCategoryWithPizzas extends IPizzaCategory {
-  pizzas: IPizza[];
+export interface IPizzaCategoryWithPizzas extends IPizzaCategoryCommon {
+  pizzas: IPizzaCommon[];
 }

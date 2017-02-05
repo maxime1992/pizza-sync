@@ -1,6 +1,6 @@
-import { IUsers } from './users.interface';
+import { IUsersTable } from './users.interface';
 
-export function usersState(): IUsers {
+export function usersState(): IUsersTable {
   return {
     isIdentifying: false,
     idCurrentUser: '',

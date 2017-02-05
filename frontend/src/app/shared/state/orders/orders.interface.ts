@@ -1,6 +1,6 @@
-import { IPizza } from './../pizzas/pizzas.interface';
+import { IPizzaCommon } from './../pizzas/pizzas.interface';
 
-export interface IOrder {
+export interface IOrderCommon {
   id: string;
   userId: string;
   pizzaId: string;
@@ -8,11 +8,11 @@ export interface IOrder {
   isBeingRemoved: boolean;
 }
 
-export interface IOrders {
-  byId: { [key: string]: IOrder };
+export interface IOrdersTable {
+  byId: { [key: string]: IOrderCommon };
   allIds: string[];
 }
 
-export interface IOrderWithPizzas extends IOrder {
-  pizzas: IPizza[];
+export interface IOrderWithPizzas extends IOrderCommon {
+  pizzas: IPizzaCommon[];
 }
