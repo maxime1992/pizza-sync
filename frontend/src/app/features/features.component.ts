@@ -30,7 +30,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public isDialogIdentificationOpen: boolean;
 
   constructor(
-    @Inject(LANGUAGES) public languages,
+    @Inject(LANGUAGES) public languages: any,
     private _store$: Store<IStore>,
     public dialog: MdDialog
   ) { }
