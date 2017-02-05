@@ -35,4 +35,8 @@ export class OrdersComponent implements OnInit {
   removeOrder(orderId: string) {
     this._store$.dispatch({ type: Orders.REMOVE_ORDER, payload: { id: orderId } });
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

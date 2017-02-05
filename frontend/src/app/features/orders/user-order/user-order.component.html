@@ -5,7 +5,7 @@
     <i>{{ user.username }}</i> - <b>{{ user.totalPrice | number:'1.2-2' }}€</b>
   </h3>
 
-  <p md-line *ngFor="let pizza of user.pizzas" [class.being-removed]="pizza.isBeingRemoved">
+  <p md-line *ngFor="let pizza of user.pizzas; trackBy: trackById" [class.being-removed]="pizza.isBeingRemoved">
     {{ pizza.name }} ({{ pizza.size }})
     <span class="btn-remove-order" (click)="onRemoveOrder.next({ orderId: pizza.orderId })" *ngIf="!pizza.isBeingRemoved && idCurrentUser === user.id">X</span>
   </p>

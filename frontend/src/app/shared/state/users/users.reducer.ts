@@ -30,7 +30,6 @@ export class Users {
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION_SUCCESS = `${Users.reducerName}_IDENTIFICATION_SUCCESS`;
   private static identificationSuccess(usersTbl, type, payload) {
-    console.log(Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: false, idCurrentUser: payload }));
     return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: false, idCurrentUser: payload });
   }
 

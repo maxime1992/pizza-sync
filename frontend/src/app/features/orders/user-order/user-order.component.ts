@@ -18,4 +18,8 @@ export class UserOrderComponent {
   getThumbnail(user: IUserWithPizzas) {
     return user.thumbnail || 'assets/img/icon-person.png';
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

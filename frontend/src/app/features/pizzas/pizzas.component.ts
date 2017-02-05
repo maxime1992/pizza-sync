@@ -52,4 +52,8 @@ export class PizzasComponent implements OnInit {
       }
     });
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }
