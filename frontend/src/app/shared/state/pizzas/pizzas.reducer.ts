@@ -1,17 +1,17 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
 import { pizzasState } from './pizzas.initial-state';
-import { IPizzas } from './pizzas.interface';
+import { IPizzasTable } from './pizzas.interface';
 
 export class Pizzas {
   private static reducerName = 'PIZZAS_REDUCER';
 
-  public static reducer(pizzas = pizzasState(), {type, payload}: Action) {
+  public static reducer(pizzasTbl = pizzasState(), {type, payload}: Action) {
     if (typeof Pizzas.mapActionsToMethod[type] === 'undefined') {
-      return pizzas;
+      return pizzasTbl;
     }
 
-    return Pizzas.mapActionsToMethod[type](pizzas, type, payload);
+    return Pizzas.mapActionsToMethod[type](pizzasTbl, type, payload);
   }
 
   // tslint:disable-next-line:member-ordering
@@ -19,8 +19,8 @@ export class Pizzas {
 
   // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS_SUCCESS = `${Pizzas.reducerName}_LOAD_PIZZAS_SUCCESS`;
-  private static loadPizzasSuccess(pizzas, type, payload) {
-    return Object.assign(<IPizzas>{}, pizzas, payload);
+  private static loadPizzasSuccess(pizzasTbl, type, payload) {
+    return Object.assign(<IPizzasTable>{}, pizzasTbl, payload);
   }
 
   // ---------------------------------------------------------------

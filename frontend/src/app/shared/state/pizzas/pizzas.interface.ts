@@ -1,17 +1,16 @@
-export interface IPizza {
+export interface IPizzaCommon {
   id: string;
   name: string;
   ingredients: string;
   prices: [number];
-  category: string;
 }
 
-export interface IPizzas {
-  byId: { [key: string]: IPizza };
+export interface IPizzasTable {
+  byId: { [key: string]: IPizzaCommon };
   allIds: string[];
 }
 
-export interface IPizzaWithPrice extends IPizza {
+export interface IPizzaWithPrice extends IPizzaCommon {
   orderId: string;
   price: number;
   size: string;

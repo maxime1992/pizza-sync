@@ -1,0 +1,12 @@
+.being-removed {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.btn-remove-order {
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+}

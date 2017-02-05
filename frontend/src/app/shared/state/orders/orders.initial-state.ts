@@ -1,6 +1,6 @@
-import { IOrders } from './orders.interface';
+import { IOrdersTable } from './orders.interface';
 
-export function ordersState(): IOrders {
+export function ordersState(): IOrdersTable {
   return {
     byId: { },
     allIds: []

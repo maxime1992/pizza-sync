@@ -1,0 +1,7 @@
+<h1 class="sum">{{ (fullOrder$ | async).totalPrice | number:'1.2-2' }}€</h1>
+
+<md-list>
+  <div *ngFor="let user of (fullOrder$ | async).users; trackBy: trackById">
+    <app-user-order [user]="user" [idCurrentUser]="idCurrentUser" (onRemoveOrder)="removeOrder($event.orderId)"></app-user-order>
+  </div>
+</md-list>

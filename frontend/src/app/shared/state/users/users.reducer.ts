@@ -1,44 +1,44 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { IUsers } from './users.interface';
+import { IUsersTable } from './users.interface';
 import { usersState } from './users.initial-state';
 
 
 export class Users {
   private static reducerName = 'USERS_REDUCER';
 
-  public static reducer(users = usersState(), {type, payload}: Action) {
+  public static reducer(usersTbl = usersState(), {type, payload}: Action) {
     if (typeof Users.mapActionsToMethod[type] === 'undefined') {
-      return users;
+      return usersTbl;
     }
 
-    return Users.mapActionsToMethod[type](users, type, payload);
+    return Users.mapActionsToMethod[type](usersTbl, type, payload);
   }
 
   // tslint:disable-next-line:member-ordering
   public static LOAD_USERS_SUCCESS = `${Users.reducerName}_LOAD_USERS_SUCCESS`;
-  private static loadUsersSuccess(users, type, payload) {
-    return Object.assign(<IUsers>{}, users, payload);
+  private static loadUsersSuccess(usersTbl, type, payload) {
+    return Object.assign(<IUsersTable>{}, usersTbl, payload);
   }
 
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION = `${Users.reducerName}_IDENTIFICATION`;
-  private static identification(users, type, payload) {
-    return Object.assign(<IUsers>{}, users, <IUsers>{ isIdentifying: true });
+  private static identification(usersTbl, type, payload) {
+    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: true });
   }
 
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION_SUCCESS = `${Users.reducerName}_IDENTIFICATION_SUCCESS`;
-  private static identificationSuccess(users, type, payload) {
-    return Object.assign(<IUsers>{}, users, <IUsers>{ isIdentifying: false, idCurrentUser: payload });
+  private static identificationSuccess(usersTbl, type, payload) {
+    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: false, idCurrentUser: payload });
   }
 
   // tslint:disable-next-line:member-ordering
   public static ADD_USER_SUCCESS = `${Users.reducerName}_ADD_USER_SUCCESS`;
-  private static addUserSuccess(users, type, payload) {
-    return Object.assign(<IUsers>{}, users, <IUsers>{
-      byId: Object.assign({}, users.byId, { [payload.id]: payload }),
-      allIds: [...users.allIds, payload.id]
+  private static addUserSuccess(usersTbl, type, payload) {
+    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{
+      byId: Object.assign({}, usersTbl.byId, { [payload.id]: payload }),
+      allIds: [...usersTbl.allIds, payload.id]
     });
   }
 

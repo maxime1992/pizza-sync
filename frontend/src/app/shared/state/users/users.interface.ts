@@ -1,21 +1,21 @@
 import { IPizzaWithPrice } from './../pizzas/pizzas.interface';
 
-export interface IUser {
+export interface IUserCommon {
   id: string;
   name: string;
   username: string;
   thumbnail: string;
 }
 
-export interface IUsers {
+export interface IUsersTable {
   isIdentifying: boolean;
   idCurrentUser: string;
 
-  byId: { [key: string]: IUser };
+  byId: { [key: string]: IUserCommon };
   allIds: string[];
 }
 
-export interface IUserWithPizzas extends IUser {
+export interface IUserWithPizzas extends IUserCommon {
   totalPrice: number;
   pizzas: IPizzaWithPrice[];
 }

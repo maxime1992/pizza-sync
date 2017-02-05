@@ -41,10 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._languageSub = this._store$
       .select(state => state.ui.language)
       .filter(language => language !== '')
-      .map(language => {
-        this._translate.use(language)
-      })
-      .subscribe();
+      .subscribe(language => this._translate.use(language));
 
     const safeLogo = this._sanitizer.bypassSecurityTrustResourceUrl('/assets/img/github-logo.svg');
     this._mdIconRegistry.addSvgIcon('github', safeLogo);

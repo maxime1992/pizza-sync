@@ -1,6 +1,6 @@
-import { IPizzas } from './pizzas.interface';
+import { IPizzasTable } from './pizzas.interface';
 
-export function pizzasState(): IPizzas {
+export function pizzasState(): IPizzasTable {
   return {
     byId: { },
     allIds: []
