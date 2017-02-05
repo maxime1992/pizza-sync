@@ -6,7 +6,6 @@ import { IStore } from './../../shared/interfaces/store.interface';
 import { IUserWithPizzas } from './../../shared/state/users/users.interface';
 import { getFullOrder } from './../../shared/state/users/users.selector';
 import { Orders } from './../../shared/state/orders/orders.reducer';
-import { IUser } from './../../shared/state/users/users.interface';
 
 @Component({
   selector: 'app-orders',
@@ -16,19 +15,21 @@ import { IUser } from './../../shared/state/users/users.interface';
 export class OrdersComponent implements OnInit {
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
   private _idCurrentUser$: Observable<string>;
-  public idCurrentUser: string;
+  public idCurrentUser = '';
 
   constructor(private _store$: Store<IStore>) { }
 
   ngOnInit() {
     this.fullOrder$ = this._store$.let(getFullOrder());
-    this._idCurrentUser$ = this._store$.select(state => state.users.idCurrentUser);
+    this._idCurrentUser$ = this
+      ._store$
+      .select(state => state.users.idCurrentUser)
+      .filter(idCurrentUser => idCurrentUser !== '');
 
     this
       ._idCurrentUser$
       .first()
-      .do(idCurrentUser => this.idCurrentUser = idCurrentUser)
-      .subscribe()
+      .subscribe(idCurrentUser => this.idCurrentUser = idCurrentUser);
   }
 
   removeOrder(orderId: string) {

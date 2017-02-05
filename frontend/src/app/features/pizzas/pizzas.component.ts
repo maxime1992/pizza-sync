@@ -36,12 +36,11 @@ export class PizzasComponent implements OnInit {
       ._pizzasCategories$
       .filter(p => p.length > 0)
       .first()
-      .do(cp => {
+      .subscribe(cp => {
         this.pizzasCategories = cp;
         this._cd.detectChanges();
         this._cd.detach();
-      })
-      .subscribe();
+      });
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {

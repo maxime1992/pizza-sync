@@ -29,12 +29,9 @@ export const modules = [
 
 export const declarations = [];
 
-export const providers = [OrdersService, UsersService, WebsocketService];
-
 @NgModule({
   imports: modules,
   exports: [...modules, ...declarations],
-  declarations,
-  providers
+  declarations
 })
 export class SharedModule { }

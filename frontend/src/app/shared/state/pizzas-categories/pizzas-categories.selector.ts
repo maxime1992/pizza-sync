@@ -12,21 +12,20 @@ export function _getCategoriesAndPizzas(store$: Store<IStore>) {
       p.pizzasCategories === n.pizzasCategories
     )
     .map(({pizzas, pizzasCategories}) => {
-      const rslt = pizzasCategories.allIds.map(pizzasCategorieId => {
+      return pizzasCategories.allIds.map(pizzasCategorieId => {
         const pizzasCategorie = <IPizzaCategoryWithPizzas>Object.assign(
           {},
-          pizzasCategories.byId[pizzasCategorieId]
+          pizzasCategories.byId[pizzasCategorieId],
+          <IPizzaCategoryWithPizzas>{
+            pizzas: pizzasCategories
+              .byId[pizzasCategorieId]
+              .pizzasIds
+              .map(pizzaId => pizzas.byId[pizzaId])
+          }
         );
-
-        pizzasCategorie.pizzas = pizzas
-          .allIds
-          .map(pizzaId => pizzas.byId[pizzaId])
-          .filter(pizza => pizza.category === pizzasCategorieId);
 
         return pizzasCategorie;
       });
-
-      return rslt;
     });
 }
 

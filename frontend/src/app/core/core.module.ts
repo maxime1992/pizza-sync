@@ -19,6 +19,9 @@ import { PizzasService } from './../features/pizzas/pizzas.service';
 import { OrdersEffects } from './../shared/state/orders/orders.effects';
 import { UsersEffects } from './../shared/state/users/users.effects';
 import { GuardService } from './../shared/services/guard.service';
+import { OrdersService } from './../shared/services/orders.service';
+import { UsersService } from './../shared/services/users.service';
+import { WebsocketService } from './../shared/services/websocket.service';
 
 @NgModule({
   imports: [
@@ -41,6 +44,9 @@ import { GuardService } from './../shared/services/guard.service';
   ],
   providers: [
     PizzasService,
+    OrdersService,
+    UsersService,
+    WebsocketService,
     GuardService,
     {
       provide: LANGUAGES,
