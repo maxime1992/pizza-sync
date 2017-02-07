@@ -1,5 +1,7 @@
 # Pizza-Sync
 
+![Image](./demo.gif?raw=true)
+
 ## Why ?
 This project has been built to easily order our pizzas at work.
 
