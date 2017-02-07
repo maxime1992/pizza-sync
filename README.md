@@ -1,0 +1,61 @@
+# Pizza-Sync
+
+## Why ?
+This project has been built to easily order our pizzas at work.
+
+We usually order at [pizzadelormeau](http://www.pizzadelormeau.com) and thus, the backend part of the project is parsing this website.
+
+## Is it just about Pizza ?
+It could :pizza: :heart: ... But not totally.
+
+It's also a demo to show how to use Angular with the following stack :
+- **@angular/cli**  
+- **@angular/material**  
+- **@angular/flex-layout**  
+- **@ngrx/store**  
+- **@ngrx/effects**  
+- **socket.io**  
+
+## How do I run it locally ?
+### Dev mode
+**Terminal 1 :**
+```
+cd backend
+yarn
+nodemon index.js
+```
+If you don't have *yarn* you can also run `npm i`.  
+You can use *nodemon* to auto-reload server if needed or simply run `node index.js` otherwise.
+
+**Terminal 2 :**
+```
+cd frontend
+yarn
+ng serve
+```
+
+### Prod mode
+Simply run :
+```
+./build-and-serve-prod.sh
+```
+
+It'll check if any update from *origin/master* is available.  
+If so, it'll update the project and the dependencies.  
+Then it'll build the frontend and copy it into the backend folder so it can be served.  
+The server starts and you can access the project at [http://localhost:3000](http://localhost:3000).
+
+### Contribution
+Any contribution is very welcome :sparkles: !
+
+There's plenty of things to do with this small project.  
+Here are some ideas :  
+
+- [ ] Improve the layout (theme, responsiveness, logo, ...)  
+- [ ] Angular universal ? Having a super fast init would be awesome !  
+- [ ] Add a timer to block the orders when it reaches 0  
+- [ ] Randomly select someone to call the pizzeria  
+- [ ] Create a PWA with at least a service worker to cache the assets  
+- [ ] Add mocks to run the app without the backend  
+- [ ] Deploy the app on Github pages (needs mocks first)  
+  
