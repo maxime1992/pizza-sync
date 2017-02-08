@@ -66,7 +66,7 @@ if [ "$needsGitUpdate" = true -o ! -d public ]; then
   cp -r ../frontend/dist/ ./public
 fi
 
-ip=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+ip=$(ip route get 1.1.1.1 | awk '{print $NF; exit}')
 
 echo "PIZZA SYNC NOW AVAILABLE AT http://$ip:3000"
 
