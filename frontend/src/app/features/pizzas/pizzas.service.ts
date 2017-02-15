@@ -12,7 +12,9 @@ import { environment } from './../../../environments/environment';
 export class PizzasService {
   constructor(private _http: Http) { }
 
+  // TODO : As we're now calling initial-state
+  // we should move this call into another service
   getPizzas(): Observable<{pizzas: IPizzasTable, pizzasCategories: IPizzasCategoriesTable, users: IUsersTable, orders: IOrdersTable}> {
-    return this._http.get(`${environment.urlBackend}/pizzas`).map((res: Response) => res.json());
+    return this._http.get(`${environment.urlBackend}/initial-state`).map((res: Response) => res.json());
   }
 }
