@@ -1,8 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Http } from '@angular/http';
-import { MaterialModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -25,8 +23,6 @@ import { WebsocketService } from './../shared/services/websocket.service';
 
 @NgModule({
   imports: [
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
     // TODO : Keep an eye on ngrx V3 to have lazy loaded reducers
     // https://github.com/ngrx/store/pull/269
     StoreModule.provideStore(getRootReducer),
