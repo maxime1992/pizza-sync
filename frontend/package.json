@@ -7,8 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
-    "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
     "prod": "ng build --prod --aot --no-sourcemap"
   },
   "private": true,
@@ -42,7 +42,7 @@
     "zone.js": "0.7.7"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-beta.30",
+    "@angular/cli": "1.0.0-beta.31",
     "@angular/compiler-cli": "2.4.7",
     "@types/jasmine": "2.5.43",
     "@types/node": "7.0.5",
@@ -53,11 +53,11 @@
     "karma": "1.4.1",
     "karma-chrome-launcher": "2.0.0",
     "karma-cli": "1.0.1",
+    "karma-coverage-istanbul-reporter": "0.2.2",
     "karma-jasmine": "1.1.0",
-    "karma-remap-istanbul": "0.6.0",
     "protractor": "5.1.1",
     "ts-node": "2.1.0",
     "tslint": "4.4.2",
-    "typescript": "2.0.3"
+    "typescript": "2.0.0"
   }
 }

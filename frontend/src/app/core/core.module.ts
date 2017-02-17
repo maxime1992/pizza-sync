@@ -16,7 +16,6 @@ import { PizzasEffects } from './../features/pizzas/pizzas.effects';
 import { PizzasService } from './../features/pizzas/pizzas.service';
 import { OrdersEffects } from './../shared/state/orders/orders.effects';
 import { UsersEffects } from './../shared/state/users/users.effects';
-import { GuardService } from './../shared/services/guard.service';
 import { OrdersService } from './../shared/services/orders.service';
 import { UsersService } from './../shared/services/users.service';
 import { WebsocketService } from './../shared/services/websocket.service';
@@ -43,7 +42,6 @@ import { WebsocketService } from './../shared/services/websocket.service';
     OrdersService,
     UsersService,
     WebsocketService,
-    GuardService,
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default
