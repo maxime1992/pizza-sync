@@ -6,6 +6,7 @@
 This project has been built to easily order our pizzas at work.
 
 We usually order at [pizzadelormeau](http://www.pizzadelormeau.com) and thus, the backend part of the project is parsing this website.
+There's an [opened issue](https://github.com/maxime1992/pizza-sync/issues/5) so ***Pizza-Sync*** can accept others *pizzas-providers*. 
 
 ## Is it just about Pizza ?
 It could :pizza: :heart: ... But not totally.

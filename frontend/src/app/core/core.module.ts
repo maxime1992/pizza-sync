@@ -19,6 +19,7 @@ import { UsersEffects } from './../shared/state/users/users.effects';
 import { OrdersService } from './../shared/services/orders.service';
 import { UsersService } from './../shared/services/users.service';
 import { WebsocketService } from './../shared/services/websocket.service';
+import { CountdownService } from './../shared/services/countdown.service';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { WebsocketService } from './../shared/services/websocket.service';
     OrdersService,
     UsersService,
     WebsocketService,
+    CountdownService,
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default
