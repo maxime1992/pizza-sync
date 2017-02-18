@@ -18,6 +18,7 @@ import { IdentificationDialogComponent } from './identification-dialog/identific
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
   public ui$: Observable<IUi>;
+  public lockOrders = false;
 
   public language = '';
   private _languageSub: Subscription;

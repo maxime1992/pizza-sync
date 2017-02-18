@@ -20,9 +20,9 @@
 
   <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
     <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
-      <app-orders></app-orders>
+      <app-orders [locked]="lockOrders"></app-orders>
     </md-sidenav>
 
-    <app-pizzas></app-pizzas>
+    <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
 </div>

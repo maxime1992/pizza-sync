@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,6 +13,7 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  @Input() locked: boolean;
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
   private _idCurrentUser$: Observable<string>;
   public idCurrentUser = '';

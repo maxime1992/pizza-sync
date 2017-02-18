@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -14,7 +14,8 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
   templateUrl: './pizzas.component.html',
   styleUrls: ['./pizzas.component.scss']
 })
-export class PizzasComponent implements OnInit {
+export class PizzasComponent implements OnInit, OnChanges {
+  @Input() locked: boolean;
   private _pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
   public pizzasCategories: IPizzaCategoryWithPizzas[];
 
@@ -41,6 +42,10 @@ export class PizzasComponent implements OnInit {
         this._cd.detectChanges();
         this._cd.detach();
       });
+  }
+
+  ngOnChanges() {
+    this._cd.detectChanges();
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {
