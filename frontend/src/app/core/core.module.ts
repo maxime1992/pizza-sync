@@ -1,8 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Http } from '@angular/http';
-import { MaterialModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -18,15 +16,12 @@ import { PizzasEffects } from './../features/pizzas/pizzas.effects';
 import { PizzasService } from './../features/pizzas/pizzas.service';
 import { OrdersEffects } from './../shared/state/orders/orders.effects';
 import { UsersEffects } from './../shared/state/users/users.effects';
-import { GuardService } from './../shared/services/guard.service';
 import { OrdersService } from './../shared/services/orders.service';
 import { UsersService } from './../shared/services/users.service';
 import { WebsocketService } from './../shared/services/websocket.service';
 
 @NgModule({
   imports: [
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
     // TODO : Keep an eye on ngrx V3 to have lazy loaded reducers
     // https://github.com/ngrx/store/pull/269
     StoreModule.provideStore(getRootReducer),
@@ -47,7 +42,6 @@ import { WebsocketService } from './../shared/services/websocket.service';
     OrdersService,
     UsersService,
     WebsocketService,
-    GuardService,
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default

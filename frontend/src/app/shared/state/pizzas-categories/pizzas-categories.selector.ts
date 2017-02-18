@@ -13,16 +13,15 @@ export function _getCategoriesAndPizzas(store$: Store<IStore>) {
     )
     .map(({pizzas, pizzasCategories}) => {
       return pizzasCategories.allIds.map(pizzasCategorieId => {
-        const pizzasCategorie = <IPizzaCategoryWithPizzas>Object.assign(
-          {},
-          pizzasCategories.byId[pizzasCategorieId],
-          <IPizzaCategoryWithPizzas>{
+        const pizzasCategorie = <IPizzaCategoryWithPizzas>{
+          ...pizzasCategories.byId[pizzasCategorieId],
+          ...<IPizzaCategoryWithPizzas>{
             pizzas: pizzasCategories
               .byId[pizzasCategorieId]
               .pizzasIds
               .map(pizzaId => pizzas.byId[pizzaId])
           }
-        );
+      };
 
         return pizzasCategorie;
       });

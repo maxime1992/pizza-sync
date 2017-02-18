@@ -20,7 +20,7 @@ export class Pizzas {
   // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS_SUCCESS = `${Pizzas.reducerName}_LOAD_PIZZAS_SUCCESS`;
   private static loadPizzasSuccess(pizzasTbl, type, payload) {
-    return Object.assign(<IPizzasTable>{}, pizzasTbl, payload);
+    return <IPizzasTable>{ ...pizzasTbl, ...payload };
   }
 
   // ---------------------------------------------------------------

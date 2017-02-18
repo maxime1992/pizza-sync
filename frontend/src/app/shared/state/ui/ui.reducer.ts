@@ -17,37 +17,37 @@ export class Ui {
   // tslint:disable-next-line:member-ordering
   public static SET_LANGUAGE = `${Ui.reducerName}_SET_LANGUAGE`;
   private static setLanguage(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ language: payload });
+    return <IUi>{ ...ui, ...<IUi>{ language: payload } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static TOGGLE_SIDENAV = `${Ui.reducerName}_TOGGLE_SIDENAV`;
   private static toggleSidenav(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ isSidenavVisible: !ui.isSidenavVisible });
+    return <IUi>{ ...ui, ...<IUi>{ isSidenavVisible: !ui.isSidenavVisible } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static OPEN_SIDENAV = `${Ui.reducerName}_OPEN_SIDENAV`;
   private static openSidenav(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ isSidenavVisible: true });
+    return <IUi>{ ...ui, ...<IUi>{ isSidenavVisible: true } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static CLOSE_SIDENAV = `${Ui.reducerName}_CLOSE_SIDENAV`;
   private static closeSidenav(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ isSidenavVisible: false });
+    return <IUi>{...ui, ...<IUi>{ isSidenavVisible: false }};
   }
 
   // tslint:disable-next-line:member-ordering
   public static OPEN_DIALOG_IDENTIFICATION = `${Ui.reducerName}_OPEN_DIALOG_IDENTIFICATION`;
   private static openDialogIdentification(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ isDialogIdentificationOpen: true });
+    return <IUi>{...ui, ...<IUi>{ isDialogIdentificationOpen: true }};
   }
 
   // tslint:disable-next-line:member-ordering
   public static CLOSE_DIALOG_IDENTIFICATION = `${Ui.reducerName}_CLOSE_DIALOG_IDENTIFICATION`;
   private static closeDialogIdentification(ui, type, payload) {
-    return Object.assign(<IUi>{}, ui, <IUi>{ isDialogIdentificationOpen: false });
+    return <IUi>{...ui, ...<IUi>{ isDialogIdentificationOpen: false }};
   }
 
   // ---------------------------------------------------------------
