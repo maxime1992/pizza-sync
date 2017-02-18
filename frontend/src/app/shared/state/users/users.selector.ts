@@ -28,24 +28,25 @@ export function _getFullOrder(store$: Store<IStore>) {
             const pizza = pizzas.byId[order.pizzaId];
             const pizzaPrice = pizza.prices[order.priceIndex];
 
-            return <IPizzaWithPrice>Object.assign(
-              {},
-              pizzas.byId[order.pizzaId],
-              {
-                orderId: order.id,
-                isBeingRemoved: order.isBeingRemoved,
-                price: pizzaPrice,
-                size: pizzaSizeByIndex[order.priceIndex]
-              }
-            );
+            return <IPizzaWithPrice>{
+              ...pizzas.byId[order.pizzaId],
+
+              orderId: order.id,
+              isBeingRemoved: order.isBeingRemoved,
+              price: pizzaPrice,
+              size: pizzaSizeByIndex[order.priceIndex]
+            };
           });
 
         const totalPriceOfUser = pizzasOfUser.reduce((acc, pizza) => acc + pizza.price, 0);
 
-        return <IUserWithPizzas>Object.assign({}, users.byId[userId], <IUserWithPizzas>{
-          totalPrice: totalPriceOfUser,
-          pizzas: pizzasOfUser
-        });
+        return <IUserWithPizzas>{
+          ...users.byId[userId],
+          ...<IUserWithPizzas>{
+            totalPrice: totalPriceOfUser,
+            pizzas: pizzasOfUser
+          }
+        };
       });
 
       const totalPrice = usersWithPizzas.reduce((acc, user) => acc + user.totalPrice, 0);

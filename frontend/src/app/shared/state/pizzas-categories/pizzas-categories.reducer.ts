@@ -17,7 +17,7 @@ export class PizzasCategories {
   // tslint:disable-next-line:member-ordering
   public static LOAD_PIZZAS_CATEGORIES_SUCCESS = `${PizzasCategories.reducerName}_LOAD_PIZZAS_CATEGORIES_SUCCESS`;
   private static loadPizzasCategoriesSuccess(pizzasCategoriesTbl, type, payload) {
-    return Object.assign(<IPizzasCategoriesTable>{}, pizzasCategoriesTbl, payload);
+    return <IPizzasCategoriesTable>{ ...pizzasCategoriesTbl, ...payload };
   }
 
   // ---------------------------------------------------------------

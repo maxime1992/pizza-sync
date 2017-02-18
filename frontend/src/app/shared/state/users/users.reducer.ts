@@ -18,28 +18,34 @@ export class Users {
   // tslint:disable-next-line:member-ordering
   public static LOAD_USERS_SUCCESS = `${Users.reducerName}_LOAD_USERS_SUCCESS`;
   private static loadUsersSuccess(usersTbl, type, payload) {
-    return Object.assign(<IUsersTable>{}, usersTbl, payload);
+    return <IUsersTable>{ ...usersTbl, ...payload };
   }
 
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION = `${Users.reducerName}_IDENTIFICATION`;
   private static identification(usersTbl, type, payload) {
-    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: true });
+    return <IUsersTable>{ ...usersTbl, ...<IUsersTable>{ isIdentifying: true } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static IDENTIFICATION_SUCCESS = `${Users.reducerName}_IDENTIFICATION_SUCCESS`;
   private static identificationSuccess(usersTbl, type, payload) {
-    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{ isIdentifying: false, idCurrentUser: payload });
+    return <IUsersTable>{
+      ...usersTbl,
+      ...<IUsersTable>{ isIdentifying: false, idCurrentUser: payload }
+    };
   }
 
   // tslint:disable-next-line:member-ordering
   public static ADD_USER_SUCCESS = `${Users.reducerName}_ADD_USER_SUCCESS`;
   private static addUserSuccess(usersTbl, type, payload) {
-    return Object.assign(<IUsersTable>{}, usersTbl, <IUsersTable>{
-      byId: Object.assign({}, usersTbl.byId, { [payload.id]: payload }),
-      allIds: [...usersTbl.allIds, payload.id]
-    });
+    return <IUsersTable>{
+      ...usersTbl,
+      ...<IUsersTable>{
+        byId: { ...usersTbl.byId, [payload.id]: payload },
+        allIds: [...usersTbl.allIds, payload.id]
+      }
+    };
   }
 
   // ---------------------------------------------------------------

@@ -20,7 +20,7 @@ export class OrdersEffects {
     .withLatestFrom(this._store$.select(state => state.users.idCurrentUser))
     .map(([action, idCurrentUser]) =>
       this._webSocketService.addOrder(
-        Object.assign({}, action.payload, { userId: idCurrentUser })
+        { ...action.payload, userId: idCurrentUser }
       )
     );
 
