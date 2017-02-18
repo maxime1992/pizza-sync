@@ -19,12 +19,28 @@ class UsersModel {
     }
   }
 
+  // TODO : might be refactored and improved by using username as ID
+  // it would avoid to go through the array with a `find` and allow
+  // us to access to the object in a more efficient way
   getUser(username) {
-    if (typeof this._byId[username] !== 'undefined') {
-      return this._byId[username]
+    const user = this
+      ._allIds
+      .map(userId => this._byId[userId])
+      .find(user => user.username === username)
+
+    if (user) {
+      return user
     }
 
     return null
+  }
+
+  getNbConnectionsUser(user) {
+    if (typeof this._byId[user.id] !== 'undefined') {
+      return this._byId[user.id].nbConnections
+    }
+
+    return 0
   }
 
   addUser(username) {
@@ -38,7 +54,8 @@ class UsersModel {
             this._byId[userId] = {
               id: userId,
               username,
-              thumbnail: ''
+              thumbnail: '',
+              nbConnections: 0
             }
           } else {
             body = JSON.parse(body)
@@ -47,7 +64,8 @@ class UsersModel {
             this._byId[userId] = {
               id: userId,
               username,
-              thumbnail
+              thumbnail,
+              nbConnections: 0
             }
           }
 
@@ -56,6 +74,16 @@ class UsersModel {
           resolve(this._byId[userId])
         })
     })
+  }
+
+  setUserOnline(user) {
+    this._byId[user.id].isOnline = true
+    this._byId[user.id].nbConnections++
+  }
+
+  setUserOffline(user) {
+    this._byId[user.id].isOnline = false
+    this._byId[user.id].nbConnections--
   }
 }
 

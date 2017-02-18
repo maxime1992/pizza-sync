@@ -1,6 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 
-import { IUsersTable } from './users.interface';
+import { IUsersTable, IUserCommon } from './users.interface';
 import { usersState } from './users.initial-state';
 
 
@@ -42,10 +42,39 @@ export class Users {
     return <IUsersTable>{
       ...usersTbl,
       ...<IUsersTable>{
-        byId: { ...usersTbl.byId, [payload.id]: payload },
-        allIds: [...usersTbl.allIds, payload.id]
+        byId: {
+          ...usersTbl.byId,
+          [payload.id]: {
+            ...payload,
+            ...<IUserCommon>{ isOnline: true }
+          },
+        },
+        allIds: [...Array.from(new Set([...usersTbl.allIds, payload.id]))]
       }
     };
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static SET_USER_ONLINE = `${Users.reducerName}_SET_USER_ONLINE`;
+  private static setUserOnline(users, type, payload, online = true) {
+    return <IUsersTable>{
+      ...users,
+      ...<IUsersTable>{
+        byId: {
+          ...users.byId,
+          [payload.id]: {
+            ...users.byId[payload.id],
+            ...<IUserCommon>{ isOnline: online }
+          }
+        }
+      }
+    };
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static SET_USER_OFFLINE = `${Users.reducerName}_SET_USER_OFFLINE`;
+  private static setUserOffline(users, type, payload, online = true) {
+    return Users.setUserOnline(users, type, payload, false);
   }
 
   // ---------------------------------------------------------------
@@ -55,6 +84,8 @@ export class Users {
     [Users.LOAD_USERS_SUCCESS]: Users.loadUsersSuccess,
     [Users.IDENTIFICATION]: Users.identification,
     [Users.IDENTIFICATION_SUCCESS]: Users.identificationSuccess,
-    [Users.ADD_USER_SUCCESS]: Users.addUserSuccess
+    [Users.ADD_USER_SUCCESS]: Users.addUserSuccess,
+    [Users.SET_USER_ONLINE]: Users.setUserOnline,
+    [Users.SET_USER_OFFLINE]: Users.setUserOffline
   };
 }

@@ -29,32 +29,46 @@ appCtrl
       res.json(appCtrl.getInitialState())
     })
 
-    app.get('/users/:username', (req, res) => {
-      const username = req.params.username
+    io.sockets.on('connection', socket => {
+      let currentUser = null
 
-      const user = appCtrl.getUsersModel().getUser(username)
-      res.json(user)
-    })
+      socket.on('CONNECT_USER', username => {
+        const user = appCtrl.getUsersModel().getUser(username)
 
-    app.post('/users', (req, res) => {
-      const username = req.body.username
+        if (user) {
+          appCtrl.getUsersModel().setUserOnline(user)
 
-      appCtrl.getUsersModel().addUser(username).then(user => {
-        res.json(user)
-        io.sockets.emit('USER_CONNECTED', user)
+          currentUser = user
+          io.sockets.emit('CONNECT_USER_SUCCESS', user)
+        } else {
+
+          appCtrl.getUsersModel().addUser(username).then(user => {
+            appCtrl.getUsersModel().setUserOnline(user)
+            currentUser = user
+            io.sockets.emit('CONNECT_USER_SUCCESS', user)
+          })
+        }
       })
-    })
 
-    io.on('connection', socket => {
       socket.on('ADD_ORDER', orderWithoutId => {
         const order = appCtrl.getOrdersModel().addOrder(orderWithoutId)
 
-        io.sockets.emit('ADD_ORDER', order)
+        io.sockets.emit('ADD_ORDER_SUCCESS', order)
       })
 
       socket.on('REMOVE_ORDER', orderId => {
         if (appCtrl.getOrdersModel().removeOrder(orderId)) {
-          io.sockets.emit('REMOVE_ORDER', orderId)
+          io.sockets.emit('REMOVE_ORDER_SUCCESS', orderId)
+        }
+      })
+
+      socket.on('disconnect', () => {
+        if (currentUser === null) {
+          return
+        }
+        appCtrl.getUsersModel().setUserOffline(currentUser)
+        if (appCtrl.getUsersModel().getNbConnectionsUser(currentUser) === 0) {
+          io.sockets.emit('DISCONNECT_USER_SUCCESS', currentUser.id)
         }
       })
     })

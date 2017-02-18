@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
-import { batchActions } from 'redux-batched-actions';
 
-import { Orders } from './orders.reducer';
-import { OrdersService } from './../../services/orders.service';
-import { WebsocketService } from './../../services/websocket.service';
 import { IStore } from './../../interfaces/store.interface';
+import { Orders } from './orders.reducer';
+import { WebsocketService } from './../../services/websocket.service';
 
 @Injectable()
 export class OrdersEffects {
@@ -18,16 +14,12 @@ export class OrdersEffects {
   @Effect({ dispatch: false }) addOrder$ = this._actions$
     .ofType(Orders.ADD_ORDER)
     .withLatestFrom(this._store$.select(state => state.users.idCurrentUser))
-    .map(([action, idCurrentUser]) =>
-      this._webSocketService.addOrder(
-        { ...action.payload, userId: idCurrentUser }
-      )
+    .do(([action, idCurrentUser]) =>
+      this._webSocketService.addOrder({ ...action.payload, userId: idCurrentUser })
     );
 
   // tslint:disable-next-line:member-ordering
   @Effect({ dispatch: false }) removeOrder$ = this._actions$
     .ofType(Orders.REMOVE_ORDER)
-    .map((action) =>
-      this._webSocketService.removeOrder(action.payload.id)
-    );
+    .do(action => this._webSocketService.removeOrder(action.payload.id));
 }

@@ -1,36 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
-import { batchActions } from 'redux-batched-actions';
-import { LocalStorageService } from 'ng2-webstorage';
 
-import { UsersService } from './../../services/users.service';
+import { WebsocketService } from './../../services/websocket.service';
 import { Users } from './users.reducer';
-import { Ui } from './../ui/ui.reducer';
-import { IUserCommon } from './users.interface';
 
 @Injectable()
 export class UsersEffects {
   constructor(
     private _actions$: Actions,
-    private _usersService: UsersService,
-    private _storage: LocalStorageService
+    private _websocketService: WebsocketService
   ) { }
 
   // tslint:disable-next-line:member-ordering
-  @Effect({ dispatch: true }) identification$: Observable<Action> = this._actions$
+  @Effect({ dispatch: false }) identification$ = this._actions$
     .ofType(Users.IDENTIFICATION)
-    .switchMap((action: Action) =>
-      this._usersService.identification(action.payload)
-        .map((user: IUserCommon) => {
-          this._storage.store('username', user.username);
-
-          return batchActions([
-            { type: Users.IDENTIFICATION_SUCCESS, payload: user.id },
-            { type: Ui.CLOSE_DIALOG_IDENTIFICATION }
-          ]);
-        })
-    );
+    .do(action => this._websocketService.connectUser(action.payload.username));
 }

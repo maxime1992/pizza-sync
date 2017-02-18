@@ -36,6 +36,8 @@ yarn
 ng serve
 ```
 
+You'll be able to open the app at : [http://localhost:4200](http://localhost:4200).
+
 ### Prod mode
 Simply run :
 ```
@@ -45,7 +47,7 @@ Simply run :
 It'll check if any update from *origin/master* is available.  
 If so, it'll update the project and the dependencies.  
 Then it'll build the frontend and copy it into the backend folder so it can be served.  
-The server starts and you can access the project at [http://localhost:3000](http://localhost:3000).
+The server starts and you can access the app at [http://localhost:3000](http://localhost:3000).
 
 ### Contribution
 Any contribution is very welcome :sparkles: !
@@ -60,4 +62,5 @@ Here are some ideas :
 - [ ] Create a PWA with at least a service worker to cache the assets  
 - [ ] Add mocks to run the app without the backend  
 - [ ] Deploy the app on Github pages (needs mocks first)  
-  
+
+You can also take a look into the [issues](https://github.com/maxime1992/pizza-sync/issues) and pick up one which is not already assigned.
