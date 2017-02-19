@@ -5,7 +5,8 @@
     "cors": "2.8.1",
     "express": "4.14.1",
     "request": "2.79.0",
-    "socket.io": "1.7.2"
+    "socket.io": "1.7.2",
+    "vorpal": "1.11.4"
   },
   "devDependencies": {
     "@types/cheerio": "0.17.31",

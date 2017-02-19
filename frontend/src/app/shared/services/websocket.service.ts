@@ -22,6 +22,9 @@ export class WebsocketService {
     this._socket.on('ADD_ORDER_SUCCESS', order => this._onAddOrderSuccess(order));
     this._socket.on('REMOVE_ORDER_SUCCESS', orderId => this._onRemoveOrderSuccess(orderId));
     this._socket.on('DISCONNECT_USER_SUCCESS', userId => this._onDisconnectUserSuccess(userId));
+    this._socket.on('SET_COUNTDOWN',
+      ({ hour, minute }: { hour: number, minute: number }) => this._onSetCountdown(hour, minute)
+    );
   }
 
   public connectUser(username: string) {
@@ -69,5 +72,9 @@ export class WebsocketService {
       type: Users.SET_USER_OFFLINE,
       payload: { id: userId }
     });
+  }
+
+  private _onSetCountdown(hour: number, minute: number) {
+    console.log('countdown : ', hour, minute)
   }
 }
