@@ -1,0 +1,13 @@
+md-card {
+  margin-bottom: 15px;
+
+  md-card-actions {
+    padding-left: 16px;
+
+    button[md-mini-fab] {
+      font-size: 12px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+    }
+  }
+}

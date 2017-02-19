@@ -48,7 +48,7 @@ export class PizzasComponent implements OnInit, OnChanges {
     this._cd.detectChanges();
   }
 
-  addOrder(pizza: IPizzaCommon, priceIndex: number) {
+  addOrder({pizza, priceIndex}: {pizza: IPizzaCommon, priceIndex: number}) {
     this._store$.dispatch({
       type: Orders.ADD_ORDER,
       payload: {

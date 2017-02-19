@@ -1,0 +1,12 @@
+<md-card>
+  <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
+  <md-card-content>
+   <p>{{ pizza.ingredients }}</p>
+  </md-card-content>
+  <md-card-actions fxLayout="row">
+    <button md-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">
+      <span *ngIf="price">{{ price | number:'1.1-1' }}€</span>
+      <span *ngIf="!price">-</span>
+    </button>
+  </md-card-actions>
+</md-card>
