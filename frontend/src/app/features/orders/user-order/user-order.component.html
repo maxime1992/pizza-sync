@@ -8,6 +8,6 @@
 
   <p md-line *ngFor="let pizza of user.pizzas; trackBy: trackById" [class.being-removed]="pizza.isBeingRemoved">
     {{ pizza.name }} ({{ pizza.size }})
-    <span class="btn-remove-order" (click)="onRemoveOrder.next({ orderId: pizza.orderId })" *ngIf="!pizza.isBeingRemoved && idCurrentUser === user.id">X</span>
+    <span class="btn-remove-order" (click)="onRemoveOrder.next({ orderId: pizza.orderId })" *ngIf="!pizza.isBeingRemoved && idCurrentUser === user.id && !locked">X</span>
   </p>
 </md-list-item>

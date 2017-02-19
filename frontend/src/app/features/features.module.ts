@@ -6,6 +6,7 @@ import { PizzasModule } from './pizzas/pizzas.module';
 import { FeaturesComponent } from './features.component';
 import { OrdersModule } from './orders/orders.module';
 import { IdentificationDialogComponent } from './identification-dialog/identification-dialog.component';
+import { CountdownComponent } from './countdown/countdown.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,11 @@ import { IdentificationDialogComponent } from './identification-dialog/identific
     PizzasModule,
     OrdersModule
   ],
-  declarations: [FeaturesComponent, IdentificationDialogComponent],
+  declarations: [
+    FeaturesComponent,
+    IdentificationDialogComponent,
+    CountdownComponent
+  ],
   entryComponents: [IdentificationDialogComponent]
 })
 export class FeaturesModule { }

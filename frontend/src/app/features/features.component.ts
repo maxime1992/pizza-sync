@@ -18,6 +18,8 @@ import { IdentificationDialogComponent } from './identification-dialog/identific
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
   public ui$: Observable<IUi>;
+  public lockOrders = true;
+  public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
 
   public language = '';
   private _languageSub: Subscription;
@@ -46,6 +48,13 @@ export class FeaturesComponent implements OnInit, OnDestroy {
         this.isDialogIdentificationOpen = isDialogIdentificationOpen;
         this.handleOpenAndCloseDialog();
       });
+
+    this.hourAndMinuteEnd$ = this
+      ._store$
+      .select(state => {
+        return { hour: state.orders.hourEnd, minute: state.orders.minuteEnd }
+      })
+      .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
   }
 
   ngOnDestroy() {

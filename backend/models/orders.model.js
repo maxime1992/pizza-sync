@@ -1,5 +1,9 @@
 class OrdersModel {
   constructor() {
+    // when the app should stop accepting orders
+    this.hourEnd = null
+    this.minuteEnd = null
+
     this._byId = {}
     this._allIds = []
   }
@@ -35,6 +39,22 @@ class OrdersModel {
 
     this._allIds = this._allIds.filter(orderIdTmp => orderIdTmp !== orderId)
     return true
+  }
+
+  getHourEnd() {
+    return this.hourEnd
+  }
+
+  getMinuteEnd() {
+    return this.minuteEnd
+  }
+
+  setHourEnd(hourEnd) {
+    this.hourEnd = hourEnd
+  }
+
+  setMinuteEnd(minuteEnd) {
+    this.minuteEnd = minuteEnd
   }
 }
 

@@ -68,6 +68,18 @@ export class Orders {
     return ordersTmp;
   }
 
+  // tslint:disable-next-line:member-ordering
+  public static SET_COUNTDOWN = `${Orders.reducerName}_SET_COUNTDOWN`;
+  private static setCountdown(ordersTbl: IOrdersTable, type, payload) {
+    return <IOrdersTable>{
+      ...ordersTbl,
+      ...<IOrdersTable>{
+        hourEnd: payload.hour,
+        minuteEnd: payload.minute
+      }
+    };
+  }
+
   // ---------------------------------------------------------------
 
   // tslint:disable-next-line:member-ordering
@@ -75,6 +87,7 @@ export class Orders {
     [Orders.LOAD_ORDERS_SUCCESS]: Orders.loadOrdersSuccess,
     [Orders.ADD_ORDER_SUCCESS]: Orders.addOrderSuccess,
     [Orders.REMOVE_ORDER]: Orders.removeOrder,
-    [Orders.REMOVE_ORDER_SUCCESS]: Orders.removeOrderSuccess
+    [Orders.REMOVE_ORDER_SUCCESS]: Orders.removeOrderSuccess,
+    [Orders.SET_COUNTDOWN]: Orders.setCountdown
   };
 }

@@ -14,7 +14,7 @@ export function _getFullOrder(store$: Store<IStore>) {
     .distinctUntilChanged((p, n) =>
       p.users === n.users &&
       p.pizzas === n.pizzas &&
-      p.orders === n.orders
+      p.orders.byId === n.orders.byId
     )
     .map(({ users, pizzas, orders }) => {
       const usersWithPizzas = users.allIds.map(userId => {

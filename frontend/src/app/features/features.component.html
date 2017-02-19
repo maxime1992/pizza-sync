@@ -10,6 +10,14 @@
 
     <div fxFlex></div>
 
+    <app-countdown
+      *ngIf="(hourAndMinuteEnd$ | async).hour && (hourAndMinuteEnd$ | async).minute"
+      [hour]="(hourAndMinuteEnd$ | async).hour"
+      [minute]="(hourAndMinuteEnd$ | async).minute"
+      (onCountdownStart)="lockOrders = false"
+      (onCountdownEnd)="lockOrders = true">
+    </app-countdown>
+
     <!--<md-select id="language" name="language" [(ngModel)]="language">
       <md-option *ngFor="let l of languages" [value]="l">{{ l }}</md-option>
     </md-select>-->
@@ -17,9 +25,9 @@
 
   <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
     <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
-      <app-orders></app-orders>
+      <app-orders [locked]="lockOrders"></app-orders>
     </md-sidenav>
 
-    <app-pizzas></app-pizzas>
+    <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
 </div>

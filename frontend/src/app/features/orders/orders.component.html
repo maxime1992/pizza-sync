@@ -2,6 +2,6 @@
 
 <md-list>
   <div *ngFor="let user of (fullOrder$ | async).users; trackBy: trackById">
-    <app-user-order [user]="user" [idCurrentUser]="idCurrentUser" (onRemoveOrder)="removeOrder($event.orderId)"></app-user-order>
+    <app-user-order [user]="user" [idCurrentUser]="idCurrentUser" [locked]="locked" (onRemoveOrder)="removeOrder($event.orderId)"></app-user-order>
   </div>
 </md-list>

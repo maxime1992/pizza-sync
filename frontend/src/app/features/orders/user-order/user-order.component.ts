@@ -11,6 +11,7 @@ import { IUserWithPizzas } from './../../../shared/state/users/users.interface';
 export class UserOrderComponent {
   @Input() user: IUserWithPizzas;
   @Input() idCurrentUser: string;
+  @Input() locked: boolean;
   @Output() onRemoveOrder = new EventEmitter();
 
   constructor() { }
