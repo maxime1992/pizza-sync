@@ -40,11 +40,6 @@ appCtrl
         minute: appCtrl.getOrdersModel().getMinuteEnd()
       })
 
-      console.log({
-        hour: appCtrl.getOrdersModel().getHourEnd(),
-        minute: appCtrl.getOrdersModel().getMinuteEnd()
-      })
-
       socket.on('CONNECT_USER', username => {
         const user = appCtrl.getUsersModel().getUser(username)
 
@@ -64,12 +59,14 @@ appCtrl
       })
 
       socket.on('ADD_ORDER', orderWithoutId => {
+        // TODO : Block if current time >= hourEnd and minuteEnd
         const order = appCtrl.getOrdersModel().addOrder(orderWithoutId)
 
         io.sockets.emit('ADD_ORDER_SUCCESS', order)
       })
 
       socket.on('REMOVE_ORDER', orderId => {
+        // TODO : Block if current time >= hourEnd and minuteEnd
         if (appCtrl.getOrdersModel().removeOrder(orderId)) {
           io.sockets.emit('REMOVE_ORDER_SUCCESS', orderId)
         }
@@ -91,13 +88,13 @@ appCtrl
       .option('--hour <hour>', 'Set or change the hour when to block the orders')
       .option('--minute <minute>', 'Set or change the minute when to block the orders')
       .action((args, callback) => {
-        if (!args.options.hour || !args.options.minute) {
-          console.log('You need to define --hour and --minute')
+        if (typeof args.options.hour === 'undefined' || typeof args.options.minute === 'undefined') {
+          console.error('You need to define --hour and --minute')
           return callback()
         }
 
         if (typeof args.options.hour !== 'number' || typeof args.options.minute !== 'number') {
-          console.log('"hour" and "minute" should be integers')
+          console.error('"hour" and "minute" should be integers')
           return callback()
         }
 
@@ -105,26 +102,17 @@ appCtrl
         const minuteEnd = parseInt(args.options.minute)
 
         if (hourEnd < 0 || hourEnd > 23) {
-          console.log('"hour" must be between 0 and 23')
+          console.error('"hour" must be between 0 and 23')
           return callback()
         }
 
         if (minuteEnd < 0 || minuteEnd > 59) {
-          console.log('"minute" must be between 0 and 59')
+          console.error('"minute" must be between 0 and 59')
           return callback()
         }
 
-        if (args.options.hour) {
-          console.log(args.options.hour)
-          const hourEnd = parseInt(args.options.hour)
-          appCtrl.getOrdersModel().setHourEnd(hourEnd)
-        }
-
-        if (args.options.minute) {
-          console.log(args.options.minute)
-          const hourMinute = parseInt(args.options.minute)
-          appCtrl.getOrdersModel().setMinuteEnd(hourMinute)
-        }
+        appCtrl.getOrdersModel().setHourEnd(hourEnd)
+        appCtrl.getOrdersModel().setMinuteEnd(minuteEnd)
 
         io.sockets.emit('SET_COUNTDOWN', {
           hour: appCtrl.getOrdersModel().getHourEnd(),

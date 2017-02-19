@@ -9,6 +9,10 @@ export interface IOrderCommon {
 }
 
 export interface IOrdersTable {
+  // when should we lock the orders
+  hourEnd: number;
+  minuteEnd: number;
+
   byId: { [key: string]: IOrderCommon };
   allIds: string[];
 }
