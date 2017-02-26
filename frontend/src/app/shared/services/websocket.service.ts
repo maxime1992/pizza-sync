@@ -75,6 +75,6 @@ export class WebsocketService {
   }
 
   private _onSetCountdown(hour: number, minute: number) {
-    this._store$.dispatch({ type: Orders.SET_COUNTDOWN, payload: { hour, minute }})
+    this._store$.dispatch({ type: Orders.SET_COUNTDOWN, payload: { hour, minute }});
   }
 }

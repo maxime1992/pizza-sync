@@ -52,7 +52,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.hourAndMinuteEnd$ = this
       ._store$
       .select(state => {
-        return { hour: state.orders.hourEnd, minute: state.orders.minuteEnd }
+        return { hour: state.orders.hourEnd, minute: state.orders.minuteEnd };
       })
       .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
   }
