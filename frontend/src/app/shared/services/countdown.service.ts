@@ -33,6 +33,7 @@ export class CountdownService {
 
             previousSecond = ts.seconds;
           },
+          // tslint:disable-next-line:no-bitwise
           countdown.MINUTES | countdown.SECONDS
         );
 
@@ -41,6 +42,6 @@ export class CountdownService {
         // if nobody's listening, clean the countdown
         window.clearInterval(timerId);
       };
-    })
+    });
   }
 }

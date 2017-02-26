@@ -43,7 +43,7 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
         this.countdown = '';
         this.onCountdownEnd.next();
       }
-    )
+    );
   }
 
   ngOnDestroy() {
