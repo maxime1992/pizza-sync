@@ -2926,9 +2926,9 @@ matcher-collection@^1.0.0:
   dependencies:
     minimatch "^3.0.2"
 
-material-design-icons@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/material-design-icons/-/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
+material-design-icons-iconfont@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/material-design-icons-iconfont/-/material-design-icons-iconfont-3.0.3.tgz#154a1084047d4e27237fa7f5a37e1075ceea6df2"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.16"
