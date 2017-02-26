@@ -18,7 +18,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/material-design-icons/iconfont/material-icons.css",
+        "../node_modules/material-design-icons-iconfont/dist/material-design-icons.css",
         "styles.scss"
       ],
       "scripts": [],
