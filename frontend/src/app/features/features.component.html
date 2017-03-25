@@ -11,7 +11,6 @@
     <div fxFlex></div>
 
     <app-countdown
-      *ngIf="(hourAndMinuteEnd$ | async).hour && (hourAndMinuteEnd$ | async).minute"
       [hour]="(hourAndMinuteEnd$ | async).hour"
       [minute]="(hourAndMinuteEnd$ | async).minute"
       (onCountdownStart)="lockOrders = false"
@@ -31,3 +30,4 @@
     <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
 </div>
+
