@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
 import countdown from 'countdown';
+import { getFormatedTime } from '../helpers/time.helper';
 
 @Injectable()
 export class CountdownService {
@@ -16,9 +17,8 @@ export class CountdownService {
       const timerId =
         countdown(
           new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, 0),
-          ts => {
-            // if minutes or seconds are < 10 add a 0 before
-            const time = `${('0' + ts.minutes).slice(-2)}:${('0' + ts.seconds).slice(-2)}`;
+          (ts: { hours: number, minutes: number, seconds: number }) => {
+            const time = getFormatedTime(ts);
 
             // tell listeners that a new value is available
             if (previousSecond && previousSecond > ts.seconds) {
@@ -26,7 +26,7 @@ export class CountdownService {
             }
 
             // stop the countdown if 0:0 or if already finished
-            if ((ts.minutes === 0 && ts.seconds === 0) ||  previousSecond && previousSecond < ts.seconds) {
+            if ((ts.hours === 0 && ts.minutes === 0 && ts.seconds === 0) || previousSecond && previousSecond < ts.seconds) {
               window.clearInterval(timerId);
               observer.complete();
             }
@@ -34,7 +34,7 @@ export class CountdownService {
             previousSecond = ts.seconds;
           },
           // tslint:disable-next-line:no-bitwise
-          countdown.MINUTES | countdown.SECONDS
+          countdown.HOURS | countdown.MINUTES | countdown.SECONDS
         );
 
       // this will be called if unsubscribe's called
