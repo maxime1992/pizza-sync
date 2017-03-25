@@ -58,8 +58,14 @@ class UsersModel {
               nbConnections: 0
             }
           } else {
-            body = JSON.parse(body)
-            const thumbnail = body['avatar_url'] || ''
+            let thumbnail = ''
+
+            try {
+              body = JSON.parse(body)
+              thumbnail = body['avatar_url'] || ''
+            } catch (e) {
+              thumbnail = ''
+            }
 
             this._byId[userId] = {
               id: userId,
