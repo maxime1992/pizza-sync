@@ -1,6 +1,6 @@
 import { PizzaSyncPage } from './app.po';
 
-describe('pizza-sync App', function() {
+describe('pizza-sync App', () => {
   let page: PizzaSyncPage;
 
   beforeEach(() => {
