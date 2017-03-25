@@ -45,7 +45,7 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.0",
+    "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "4.0.0",
     "@types/jasmine": "2.5.46",
     "@types/node": "7.0.11",
@@ -60,6 +60,7 @@
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",
     "protractor": "5.1.1",
+    "redux": "3.6.0",
     "ts-node": "3.0.2",
     "tslint": "4.5.1",
     "typescript": "2.2.1"
