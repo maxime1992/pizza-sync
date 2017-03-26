@@ -1,4 +1,7 @@
 {
+  "name": "pizza-sync",
+  "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "1.16.0",
     "cheerio": "0.22.0",
