@@ -12,6 +12,8 @@ const { PizzaDeLOrmeau } = require('./pizzas-providers/parse-pizza-de-l-ormeau')
 const pizzaProvider = new PizzaDeLOrmeau()
 const appCtrl = new AppController(pizzaProvider)
 
+const currentDate = new Date()
+
 // ----------------------------------------------------------------------------
 
 let isServerStarted = false
@@ -83,6 +85,14 @@ appCtrl
       })
     })
 
+    appCtrl.getOrdersModel().setHourEnd(currentDate.getHours() + 1)
+    appCtrl.getOrdersModel().setMinuteEnd(currentDate.getMinutes())
+
+    if (!isServerStarted) {
+      isServerStarted = true
+      server.listen(3000)
+    }
+
     vorpal
       .command('countdown', 'Set or change when to stop the orders')
       .option('--hour <hour>', 'Set or change the hour when to block the orders')
@@ -119,16 +129,10 @@ appCtrl
           minute: appCtrl.getOrdersModel().getMinuteEnd()
         })
 
-        if (!isServerStarted) {
-          isServerStarted = true
-          server.listen(3000)
-        }
-
         callback()
       })
 
     vorpal
       .delimiter('pizza-sync$')
-      .show();
+      .show()
   })
-

@@ -30,8 +30,9 @@ nodemon index.js
 
 Then a prompt `pizza-sync$` will appear.  
 It's up to the admin to decide when the app should stop accepting orders.  
-To do that simply run in that prompt `countdown --hour X --minute Y` with X = 11 and Y = 20 for example.  
-The app will update the countdown in realtime. Even if the countdown has already reached 0, you can run this command multiple times.
+By default, it's set to current time + 1 hour.  
+Admin can change the countdown on the fly. To do that simply run the following command into the prompt `countdown --hour X --minute Y` with X = 11 and Y = 20 for example.  
+The app will update the countdown in realtime. Even if the countdown has already reached 0, you can run this command multiple times.  
 
 If you don't have *yarn* you can also run `npm i`.  
 You can use *nodemon* to auto-reload server if needed or simply run `node index.js` otherwise.
