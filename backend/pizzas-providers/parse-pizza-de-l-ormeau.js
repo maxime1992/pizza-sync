@@ -8,23 +8,30 @@ const { PizzasCategoriesModel } = require('../models/pizzas-categories.model')
 
 class PizzaDeLOrmeau {
   constructor() {
-    this._url = 'http://www.pizzadelormeau.com/nos-pizzas/'
+    this._pizzeria = {
+      name: `Pizza de l'Ormeau`,
+      phone: '',
+      url: 'http://www.pizzadelormeau.com/nos-pizzas/'
+    }
   }
 
   getPizzasAndPizzasCategories() {
     return new Promise(resolve => {
       // fetch the website
       request(
-        Object.assign({ url: this._url }, requestOptions),
+        Object.assign({ url: this._pizzeria.url }, requestOptions),
         (error, response, body) => {
           if (!error && response.statusCode == 200) {
             // build the response object containing the pizzas and pizzas categories
             const res = {
+              pizzeria: this._pizzeria,
               pizzas: [],
               pizzasCategories: []
             }
 
             const $ = cheerio.load(body)
+
+            res.pizzeria.phone = $('.header-main .site_info').text()
 
             const sectionsDom = $('.entry-content .section')
 

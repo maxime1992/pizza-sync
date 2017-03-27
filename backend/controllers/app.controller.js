@@ -11,7 +11,9 @@ class AppController {
   }
 
   getInitialState() {
-    return this._appMdl.getInitialState()
+    return Object.assign({}, this._appMdl.getInitialState(), {
+      pizzeria: this._parsePizzaProviderCache.pizzeria
+    })
   }
 
   getPizzasModel() {
@@ -41,6 +43,7 @@ class AppController {
           .then(pizzasAndPizzasCategories => {
             // normalize the pizzas
             const normalizedPizzasAndPizzasCaterogies = {
+              pizzeria: pizzasAndPizzasCategories.pizzeria,
               pizzas: normalizeArray(pizzasAndPizzasCategories.pizzas),
               pizzasCategories: normalizeArray(pizzasAndPizzasCategories.pizzasCategories)
             }

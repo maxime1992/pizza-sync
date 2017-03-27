@@ -4,6 +4,13 @@ export function uiState(): IUi {
   return {
     language: '',
     isSidenavVisible: true,
-    isDialogIdentificationOpen: true
+    isDialogIdentificationOpen: true,
+
+    // pizzeria information
+    pizzeria: {
+      name: '',
+      phone: '',
+      url: ''
+    }
   };
 };

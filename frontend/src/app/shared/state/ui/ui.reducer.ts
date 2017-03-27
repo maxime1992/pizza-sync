@@ -6,7 +6,7 @@ import { IUi } from './ui.interface';
 export class Ui {
   private static reducerName = 'UI_REDUCER';
 
-  public static reducer(ui = uiState(), {type, payload}: Action) {
+  public static reducer(ui = uiState(), { type, payload }: Action) {
     if (typeof Ui.mapActionsToMethod[type] === 'undefined') {
       return ui;
     }
@@ -35,19 +35,28 @@ export class Ui {
   // tslint:disable-next-line:member-ordering
   public static CLOSE_SIDENAV = `${Ui.reducerName}_CLOSE_SIDENAV`;
   private static closeSidenav(ui, type, payload) {
-    return <IUi>{...ui, ...<IUi>{ isSidenavVisible: false }};
+    return <IUi>{ ...ui, ...<IUi>{ isSidenavVisible: false } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static OPEN_DIALOG_IDENTIFICATION = `${Ui.reducerName}_OPEN_DIALOG_IDENTIFICATION`;
   private static openDialogIdentification(ui, type, payload) {
-    return <IUi>{...ui, ...<IUi>{ isDialogIdentificationOpen: true }};
+    return <IUi>{ ...ui, ...<IUi>{ isDialogIdentificationOpen: true } };
   }
 
   // tslint:disable-next-line:member-ordering
   public static CLOSE_DIALOG_IDENTIFICATION = `${Ui.reducerName}_CLOSE_DIALOG_IDENTIFICATION`;
   private static closeDialogIdentification(ui, type, payload) {
-    return <IUi>{...ui, ...<IUi>{ isDialogIdentificationOpen: false }};
+    return <IUi>{ ...ui, ...<IUi>{ isDialogIdentificationOpen: false } };
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public static UPDATE_PIZZERIA_INFORMATION = `${Ui.reducerName}_UPDATE_PIZZERIA_INFORMATION`;
+  private static updatePizzeriaInformation(ui, type, payload: { name: string, phone: string, url: string }) {
+    return <IUi>{
+      ...ui,
+      pizzeria: { ...payload }
+    };
   }
 
   // ---------------------------------------------------------------
@@ -59,6 +68,7 @@ export class Ui {
     [Ui.OPEN_SIDENAV]: Ui.openSidenav,
     [Ui.CLOSE_SIDENAV]: Ui.closeSidenav,
     [Ui.OPEN_DIALOG_IDENTIFICATION]: Ui.openDialogIdentification,
-    [Ui.CLOSE_DIALOG_IDENTIFICATION]: Ui.closeDialogIdentification
+    [Ui.CLOSE_DIALOG_IDENTIFICATION]: Ui.closeDialogIdentification,
+    [Ui.UPDATE_PIZZERIA_INFORMATION]: Ui.updatePizzeriaInformation
   };
 }

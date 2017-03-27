@@ -2,13 +2,37 @@ md-sidenav {
   width: 300px;
 }
 
-md-toolbar {
+md-toolbar.header {
   .logo-toolbar {
     height: 45px;
     margin-right: 10px;
   }
 
   button {
+    margin-right: 5px;
+  }
+}
+
+md-toolbar.footer {
+  .pizzeria-name {
+    font-weight: bold;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:focus,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  .split {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  md-icon {
     margin-right: 5px;
   }
 }
