@@ -1,5 +1,5 @@
 <div fxLayout="column" fxFill>
-  <md-toolbar color="primary">
+  <md-toolbar color="primary" class="header">
     <button md-icon-button (click)="toggleSidenav()">
       <md-icon>menu</md-icon>
     </button>
@@ -29,5 +29,17 @@
 
     <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
+
+  <md-toolbar color="primary" class="footer" fxLayout="row" fxLayoutAlign="center center">
+    <span class="pizzeria-name">{{ (ui$ | async).pizzeria.name }}</span>
+
+    <span class="split">|</span>
+
+    <md-icon>phone</md-icon> {{ (ui$ | async).pizzeria.phone }}
+
+    <span class="split">|</span>
+
+    <a [href]="(ui$ | async).pizzeria.url" target="_blank"><md-icon>public</md-icon></a>
+  </md-toolbar>
 </div>
 

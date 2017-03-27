@@ -10,6 +10,7 @@ import { PizzasService } from './pizzas.service';
 import { PizzasCategories } from './../../shared/state/pizzas-categories/pizzas-categories.reducer';
 import { Users } from './../../shared/state/users/users.reducer';
 import { Orders } from './../../shared/state/orders/orders.reducer';
+import { Ui } from './../../shared/state/ui/ui.reducer';
 
 @Injectable()
 export class PizzasEffects {
@@ -37,6 +38,10 @@ export class PizzasEffects {
             {
               type: Orders.LOAD_ORDERS_SUCCESS,
               payload: res.orders
+            },
+            {
+              type: Ui.UPDATE_PIZZERIA_INFORMATION,
+              payload: res.pizzeria
             }
           ]);
         })
