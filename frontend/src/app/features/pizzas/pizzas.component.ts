@@ -1,13 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-
-import { IPizzaCommon, IPizzasTable } from './../../shared/state/pizzas/pizzas.interface';
-import { IStore } from './../../shared/interfaces/store.interface';
-import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
-import { getCategoriesAndPizzas } from './../../shared/state/pizzas-categories/pizzas-categories.selector';
-import { IPizzaCategoryWithPizzas } from './../../shared/state/pizzas-categories/pizzas-categories.interface';
-import { Orders } from './../../shared/state/orders/orders.reducer';
+import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import { getCategoriesAndPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.selector';
+import { IPizzaCommon } from 'app/shared/states/pizzas/pizzas.interface';
+import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 
 @Component({
   selector: 'app-pizzas',
@@ -16,15 +15,15 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
 })
 export class PizzasComponent implements OnInit, OnChanges {
   @Input() locked: boolean;
-  private _pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
+  private pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
   public pizzasCategories: IPizzaCategoryWithPizzas[];
 
-  constructor(private _cd: ChangeDetectorRef, private _store$: Store<IStore>) { }
+  constructor(private cd: ChangeDetectorRef, private store$: Store<IStore>) { }
 
   ngOnInit() {
-    this._store$.dispatch({ type: Pizzas.LOAD_PIZZAS });
+    this.store$.dispatch(new PizzasActions.LoadPizzas());
 
-    this._pizzasCategories$ = this._store$.let(getCategoriesAndPizzas());
+    this.pizzasCategories$ = this.store$.let(getCategoriesAndPizzas());
 
     // pizzas are fetched once and never updated for the session
     // we basically need to get values once
@@ -34,28 +33,26 @@ export class PizzasComponent implements OnInit, OnChanges {
     // once as soon as the pizzas are fetched and then detach from
     // change detection
     this
-      ._pizzasCategories$
+      .pizzasCategories$
       .filter(p => p.length > 0)
       .first()
-      .subscribe(cp => {
+      .do(cp => {
         this.pizzasCategories = cp;
-        this._cd.detectChanges();
-        this._cd.detach();
-      });
+        this.cd.detectChanges();
+        this.cd.detach();
+      })
+      .subscribe();
   }
 
   ngOnChanges() {
-    this._cd.detectChanges();
+    this.cd.detectChanges();
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {
-    this._store$.dispatch({
-      type: Orders.ADD_ORDER,
-      payload: {
-        pizzaId: pizza.id,
-        priceIndex: priceIndex
-      }
-    });
+    this.store$.dispatch(new OrdersActions.AddOrder({
+      pizzaId: pizza.id,
+      priceIndex
+    }));
   }
 
   trackById(index, item) {

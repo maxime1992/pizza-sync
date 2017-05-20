@@ -2,4 +2,6 @@
 @import './shared/_shared';
 
 // themes
+// we do not have a barrel for the themes folder (_themes.scss) because we want to import only one theme here
+// if you want to compile multiple themes to allow the user to switch from one to another,
 @import './styles/themes/_light.theme';

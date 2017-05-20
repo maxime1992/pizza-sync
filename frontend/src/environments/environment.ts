@@ -20,6 +20,11 @@ export const environment = {
   // or hit the real API
   mock: true,
 
+  // HTTPDELAY (ms)
+  // when using mocked data, you can use that
+  // variable with `.delay` to simulate a network latency
+  httpDelay: 500,
+
   // HASHLOCATIONSTRATEGY
   // should the URL be
   // http://some-domain#/your/app/routes (true)

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from './../../shared/shared.module';
-import { PizzasComponent } from './pizzas.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { PizzasComponent } from 'app/features/pizzas/pizzas.component';
 
 @NgModule({
   imports: [

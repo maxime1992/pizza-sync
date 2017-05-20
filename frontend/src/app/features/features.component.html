@@ -16,10 +16,6 @@
       (onCountdownStart)="lockOrders = false"
       (onCountdownEnd)="lockOrders = true">
     </app-countdown>
-
-    <!--<md-select id="language" name="language" [(ngModel)]="language">
-      <md-option *ngFor="let l of languages" [value]="l">{{ l }}</md-option>
-    </md-select>-->
   </md-toolbar>
 
   <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
@@ -42,4 +38,3 @@
     <a [href]="(ui$ | async).pizzeria.url" target="_blank"><md-icon>public</md-icon></a>
   </md-toolbar>
 </div>
-

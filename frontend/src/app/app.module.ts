@@ -1,16 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import 'hammerjs';
 
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { FeaturesModule } from './features/features.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { CoreModule } from 'app/core/core.module';
+import { SharedModule } from 'app/shared/shared.module';
+import { AppRoutingModule } from 'app/app-routing.module';
+import { AppComponent } from 'app/app.component';
 
+/**
+ * this module should be kept as small as possible and shouldn't be modified
+ * if you feel like you want to add something here, you should take a look into SharedModule or CoreModule
+ */
 @NgModule({
   declarations: [
     AppComponent

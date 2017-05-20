@@ -1,7 +1,11 @@
 @import './_colors';
 
-.width-full {
+.full-width {
   width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .no-border-radius {
@@ -20,6 +24,24 @@
   font-weight: bold;
 }
 
+.light-bold {
+  font-weight: 500;
+}
+
+.hidden {
+  display: none;
+}
+
+.color-primary-light-bold {
+  @extend .color-primary;
+  @extend .light-bold;
+}
+
+.color-accent-light-bold {
+  @extend .color-accent;
+  @extend .light-bold;
+}
+
 .color-primary-bold {
   @extend .color-primary;
   @extend .bold;
@@ -28,4 +50,53 @@
 .color-accent-bold {
   @extend .color-accent;
   @extend .bold;
+}
+
+// ---------------------------------------------------------------
+
+// generate padding and margin according to directions + px
+$sizes: (x0: 0, x1: 10, x2: 20, x3: 30, x4: 40);
+$directions: '', '-left', '-right', '-top', '-bottom';
+
+@each $keySize, $valueSize in $sizes {
+  @each $dir in $directions {
+    .padding#{$dir}-#{$keySize} {
+      padding#{$dir}: #{$valueSize}px !important;
+    }
+
+    .margin#{$dir}-#{$keySize} {
+      margin#{$dir}: #{$valueSize}px !important;
+    }
+
+    .margin#{$dir}-#{$keySize}-no-last:not(:last-child) {
+      margin#{$dir}: #{$valueSize}px !important;
+    }
+  }
+}
+
+// ---------------------------------------------------------------
+
+// generate the color palette
+@mixin generate-colors($name, $colorHexa, $index, $lightOrDark) {
+  .color-#{$name}-x#{$index} {
+    color: lighten($colorHexa, 10 * $index);
+  }
+
+  .background-color-#{$name}-x#{$index} {
+    background-color: lighten($colorHexa, 10 * $index);
+  }
+
+  .border-color-#{$name}-x#{$index} {
+    border-color: lighten($colorHexa, 10 * $index);
+  }
+
+  .background-color-hover-#{$name}-x#{$index}:hover {
+    background-color: lighten($colorHexa, 10 * $index);
+  }
+}
+
+@each $colorName, $colorHexa in $color-palette {
+  @for $indexColor from 1 through $color-declination {
+    @include generate-colors($colorName, $colorHexa, $indexColor, "");
+  }
 }
