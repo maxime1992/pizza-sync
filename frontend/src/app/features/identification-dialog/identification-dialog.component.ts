@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { LocalStorageService } from 'ng2-webstorage';
 
-import { IStore } from './../../shared/interfaces/store.interface';
-import { Users } from './../../shared/state/users/users.reducer';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import * as UsersActions from 'app/shared/states/users/users.actions';
 
 @Component({
   selector: 'app-identification-dialog',
@@ -17,22 +17,22 @@ export class IdentificationDialogComponent implements OnInit {
   public isIdentifying$: Observable<boolean>;
 
   constructor(
-    private _store$: Store<IStore>,
-    private _fb: FormBuilder,
-    private _storage: LocalStorageService  ) { }
+    private store$: Store<IStore>,
+    private fb: FormBuilder,
+    private storage: LocalStorageService  ) { }
 
   ngOnInit() {
-    this.isIdentifying$ = this._store$.select(state => state.users.isIdentifying);
+    this.isIdentifying$ = this.store$.select(state => state.users.isIdentifying);
 
-    const username = this._storage.retrieve('username') || '';
+    const username = this.storage.retrieve('username') || '';
 
-    this.identificationForm = this._fb.group({
+    this.identificationForm = this.fb.group({
       username: [username, Validators.required]
     });
   }
 
   onSubmit({value}: FormGroup) {
-    this._store$.dispatch({ type: Users.IDENTIFICATION, payload: value });
+    this.store$.dispatch(new UsersActions.Identification(value));
 
     this.identificationForm.controls['username'].disable();
   }

@@ -1,15 +1,14 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
-import { LANGUAGES } from '../core/opaque-tokens';
-import { IStore } from '../shared/interfaces/store.interface';
-import { IUi } from '../shared/state/ui/ui.interface';
-import { Ui } from './../shared/state/ui/ui.reducer';
-import { IdentificationDialogComponent } from './identification-dialog/identification-dialog.component';
+import * as UiActions from 'app/shared/states/ui/ui.actions';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import { IUi } from 'app/shared/states/ui/ui.interface';
+import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
 
 @Component({
   selector: 'app-features',
@@ -17,40 +16,38 @@ import { IdentificationDialogComponent } from './identification-dialog/identific
   styleUrls: ['./features.component.scss']
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
+  private componentDestroyed$ = new Subject<void>();
+
   public ui$: Observable<IUi>;
   public lockOrders = true;
   public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
 
-  public language = '';
-  private _languageSub: Subscription;
-
   private dialogRef: MdDialogRef<IdentificationDialogComponent>;
 
   public isDialogIdentificationOpen$: Observable<boolean>;
-  public isDialogIdentificationOpenSub: Subscription;
 
   public isDialogIdentificationOpen: boolean;
 
   constructor(
-    @Inject(LANGUAGES) public languages: any,
-    private _store$: Store<IStore>,
+    private store$: Store<IStore>,
     public dialog: MdDialog
   ) { }
 
   ngOnInit() {
-    this.ui$ = this._store$.select(state => state.ui);
+    this.ui$ = this.store$.select(state => state.ui);
 
-    this.isDialogIdentificationOpen$ = this._store$.select(state => state.ui.isDialogIdentificationOpen);
+    this.isDialogIdentificationOpen$ = this.store$.select(state => state.ui.isDialogIdentificationOpen);
 
-    this.isDialogIdentificationOpenSub = this
-      .isDialogIdentificationOpen$
-      .subscribe(isDialogIdentificationOpen => {
+    this.isDialogIdentificationOpen$
+      .takeUntil(this.componentDestroyed$)
+      .do(isDialogIdentificationOpen => {
         this.isDialogIdentificationOpen = isDialogIdentificationOpen;
         this.handleOpenAndCloseDialog();
-      });
+      })
+      .subscribe();
 
     this.hourAndMinuteEnd$ = this
-      ._store$
+      .store$
       .select(state => {
         return { hour: state.orders.hourEnd, minute: state.orders.minuteEnd };
       })
@@ -58,7 +55,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._languageSub.unsubscribe();
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
   handleOpenAndCloseDialog() {
@@ -70,15 +68,15 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   }
 
   openSidenav() {
-    this._store$.dispatch({ type: Ui.OPEN_SIDENAV });
+    this.store$.dispatch(new UiActions.OpenSidenav());
   }
 
   closeSidenav() {
-    this._store$.dispatch({ type: Ui.CLOSE_SIDENAV });
+    this.store$.dispatch(new UiActions.CloseSidenav());
   }
 
   toggleSidenav() {
-    this._store$.dispatch({ type: Ui.TOGGLE_SIDENAV });
+    this.store$.dispatch(new UiActions.ToggleSidenav());
   }
 
   openDialog() {
@@ -86,8 +84,11 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       disableClose: true
     });
 
-    this.dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef = null;
-    });
+    this.dialogRef
+      .afterClosed()
+      .do(result => {
+        this.dialogRef = null;
+      })
+      .subscribe();
   }
 }

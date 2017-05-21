@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { IPizzasTable } from './../../shared/state/pizzas/pizzas.interface';
-import { IPizzasCategoriesTable } from './../../shared/state/pizzas-categories/pizzas-categories.interface';
-import { IUsersTable } from './../../shared/state/users/users.interface';
-import { IOrdersTable } from './../../shared/state/orders/orders.interface';
-import { environment } from './../../../environments/environment';
+import { environment } from 'environments/environment';
+import { IPizzasTable } from 'app/shared/states/pizzas/pizzas.interface';
+import { IPizzasCategoriesTable } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
+import { IUsersTable } from 'app/shared/states/users/users.interface';
+import { IOrdersTable } from 'app/shared/states/orders/orders.interface';
 
 @Injectable()
 export class PizzasService {
-  constructor(private _http: Http) { }
+  constructor(private http: Http) { }
 
   // TODO : As we're now calling initial-state
   // we should move this call into another service
@@ -25,6 +25,6 @@ export class PizzasService {
     users: IUsersTable,
     orders: IOrdersTable
   }> {
-    return this._http.get(`${environment.urlBackend}/initial-state`).map((res: Response) => res.json());
+    return this.http.get(`${environment.urlBackend}/initial-state`).map((res: Response) => res.json());
   }
 }

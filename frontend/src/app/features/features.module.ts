@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
-import { FeaturesRoutingModule } from './features-routing.module';
-import { PizzasModule } from './pizzas/pizzas.module';
-import { FeaturesComponent } from './features.component';
-import { OrdersModule } from './orders/orders.module';
-import { IdentificationDialogComponent } from './identification-dialog/identification-dialog.component';
-import { CountdownComponent } from './countdown/countdown.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { FeaturesRoutingModule } from 'app/features/features-routing.module';
+import { PizzasModule } from 'app/features/pizzas/pizzas.module';
+import { FeaturesComponent } from 'app/features/features.component';
+import { OrdersModule } from 'app/features/orders/orders.module';
+import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
+import { CountdownComponent } from 'app/features/countdown/countdown.component';
 
 @NgModule({
   imports: [

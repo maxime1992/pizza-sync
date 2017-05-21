@@ -3,78 +3,69 @@ import { Store } from '@ngrx/store';
 import { connect } from 'socket.io-client';
 import { LocalStorageService } from 'ng2-webstorage';
 
-import { environment } from './../../../environments/environment';
-import { IStore } from './../interfaces/store.interface';
-import { Users } from './../state/users/users.reducer';
-import { Ui } from './../state/ui/ui.reducer';
-import { IOrderCommon } from './../state/orders/orders.interface';
-import { Orders } from './../state/orders/orders.reducer';
+import { environment } from 'environments/environment';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import { IOrderCommon } from 'app/shared/states/orders/orders.interface';
+import * as UsersActions from 'app/shared/states/users/users.actions';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import * as UiActions from 'app/shared/states/ui/ui.actions';
 
 @Injectable()
 export class WebsocketService {
-  private _socket: SocketIOClient.Socket;
+  private socket: SocketIOClient.Socket;
 
-  constructor(private _store$: Store<IStore>, private _storage: LocalStorageService) {
-    this._socket = connect(environment.urlBackend);
+  constructor(private store$: Store<IStore>, private storage: LocalStorageService) {
+    this.socket = connect(environment.urlBackend);
 
     // TODO(SPLIT_SOCKET) : Instead of handling every socket from here, we should handle them from separate services
-    this._socket.on('CONNECT_USER_SUCCESS', user => this._connectUserSuccess(user));
-    this._socket.on('ADD_ORDER_SUCCESS', order => this._onAddOrderSuccess(order));
-    this._socket.on('REMOVE_ORDER_SUCCESS', orderId => this._onRemoveOrderSuccess(orderId));
-    this._socket.on('DISCONNECT_USER_SUCCESS', userId => this._onDisconnectUserSuccess(userId));
-    this._socket.on('SET_COUNTDOWN',
-      ({ hour, minute }: { hour: number, minute: number }) => this._onSetCountdown(hour, minute)
-    );
+    this.socket.on('CONNECT_USER_SUCCESS', user => this.connectUserSuccess(user));
+    this.socket.on('ADD_ORDER_SUCCESS', order => this.onAddOrderSuccess(order));
+    this.socket.on('REMOVE_ORDER_SUCCESS', orderId => this.onRemoveOrderSuccess(orderId));
+    this.socket.on('DISCONNECT_USER_SUCCESS', userId => this.onDisconnectUserSuccess(userId));
+    this.socket.on('SET_COUNTDOWN',
+      ({ hour, minute }: { hour: number, minute: number }) =>
+        this.onSetCountdown(hour, minute));
   }
 
   public connectUser(username: string) {
-    this._storage.store('username', username);
-    this._socket.emit('CONNECT_USER', username);
+    this.storage.store('username', username);
+    this.socket.emit('CONNECT_USER', username);
   }
 
-  private _connectUserSuccess(user) {
-    if (this._storage.retrieve('username') === user.username) {
-      this._store$.dispatch({ type: Users.IDENTIFICATION_SUCCESS, payload: user.id });
-      this._store$.dispatch({ type: Ui.CLOSE_DIALOG_IDENTIFICATION });
+  private connectUserSuccess(user) {
+    if (this.storage.retrieve('username') === user.username) {
+      this.store$.dispatch(new UsersActions.IdentificationSuccess(user.id));
+      this.store$.dispatch(new UiActions.CloseDialogIdentification());
     }
 
-    this._store$.dispatch({ type: Users.ADD_USER_SUCCESS, payload: user });
+    this.store$.dispatch(new UsersActions.AddUserSuccess(user));
   }
 
   public addOrder(order: IOrderCommon) {
-    this._socket.emit('ADD_ORDER', order);
+    this.socket.emit('ADD_ORDER', order);
   }
 
-  private _onAddOrderSuccess(order: IOrderCommon) {
-    this._store$.dispatch({
-      type: Orders.ADD_ORDER_SUCCESS,
-      payload: order
-    });
+  private onAddOrderSuccess(order: IOrderCommon) {
+    this.store$.dispatch(new OrdersActions.AddOrderSuccess(order));
   }
 
   public removeOrder(orderId: string) {
-    this._socket.emit('REMOVE_ORDER', orderId);
+    this.socket.emit('REMOVE_ORDER', orderId);
   }
 
-  private _onRemoveOrderSuccess(orderId: string) {
-    this._store$.dispatch({ type: Orders.REMOVE_ORDER_SUCCESS, payload: { id: orderId } });
+  private onRemoveOrderSuccess(id: string) {
+    this.store$.dispatch(new OrdersActions.RemoveOrderSuccess({ id }));
   }
 
-  private _onUserOnline(userId: string) {
-    this._store$.dispatch({
-      type: Users.SET_USER_ONLINE,
-      payload: { id: userId }
-    });
+  private onUserOnline(id: string) {
+    this.store$.dispatch(new UsersActions.SetUserOnline({ id }));
   }
 
-  private _onDisconnectUserSuccess(userId: string) {
-    this._store$.dispatch({
-      type: Users.SET_USER_OFFLINE,
-      payload: { id: userId }
-    });
+  private onDisconnectUserSuccess(id: string) {
+    this.store$.dispatch(new UsersActions.SetUserOffline({ id }));
   }
 
-  private _onSetCountdown(hour: number, minute: number) {
-    this._store$.dispatch({ type: Orders.SET_COUNTDOWN, payload: { hour, minute }});
+  private onSetCountdown(hour: number, minute: number) {
+    this.store$.dispatch(new OrdersActions.SetCountdown({ hour, minute }));
   }
 }

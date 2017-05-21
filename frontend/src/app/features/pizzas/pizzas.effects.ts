@@ -5,44 +5,29 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { batchActions, BatchAction } from 'redux-batched-actions';
 
-import { Pizzas } from './../../shared/state/pizzas/pizzas.reducer';
-import { PizzasService } from './pizzas.service';
-import { PizzasCategories } from './../../shared/state/pizzas-categories/pizzas-categories.reducer';
-import { Users } from './../../shared/state/users/users.reducer';
-import { Orders } from './../../shared/state/orders/orders.reducer';
-import { Ui } from './../../shared/state/ui/ui.reducer';
+import { PizzasService } from 'app/features/pizzas/pizzas.service';
+import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
+import * as PizzasCategoriesActions from 'app/shared/states/pizzas-categories/pizzas-categories.actions';
+import * as UsersActions from 'app/shared/states/users/users.actions';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import * as UiActions from 'app/shared/states/ui/ui.actions';
 
 @Injectable()
 export class PizzasEffects {
-  constructor(private _actions$: Actions, private _pizzaService: PizzasService) { }
+  constructor(private actions$: Actions, private pizzaService: PizzasService) { }
 
   // tslint:disable-next-line:member-ordering
-  @Effect({ dispatch: true }) initialLoad$: Observable<BatchAction> = this._actions$
-    .ofType(Pizzas.LOAD_PIZZAS)
+  @Effect({ dispatch: true }) initialLoad$: Observable<BatchAction> = this.actions$
+    .ofType(PizzasActions.LOAD_PIZZAS)
     .switchMap((action: Action) =>
-      this._pizzaService.getPizzas()
+      this.pizzaService.getPizzas()
         .map(res => {
           return batchActions(<Action[]>[
-            {
-              type: Pizzas.LOAD_PIZZAS_SUCCESS,
-              payload: res.pizzas
-            },
-            {
-              type: PizzasCategories.LOAD_PIZZAS_CATEGORIES_SUCCESS,
-              payload: res.pizzasCategories
-            },
-            {
-              type: Users.LOAD_USERS_SUCCESS,
-              payload: res.users
-            },
-            {
-              type: Orders.LOAD_ORDERS_SUCCESS,
-              payload: res.orders
-            },
-            {
-              type: Ui.UPDATE_PIZZERIA_INFORMATION,
-              payload: res.pizzeria
-            }
+            new PizzasActions.LoadPizzasSuccess(res.pizzas),
+              new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(res.pizzasCategories),
+              new UsersActions.LoadUsersSuccess(res.users),
+              new OrdersActions.LoadOrdersSuccess(res.orders),
+              new UiActions.UpdatePizzeriaInformation(res.pizzeria),
           ]);
         })
     );

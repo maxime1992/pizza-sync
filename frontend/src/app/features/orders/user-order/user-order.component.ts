@@ -1,6 +1,6 @@
 import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
 
-import { IUserWithPizzas } from './../../../shared/state/users/users.interface';
+import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 
 @Component({
   selector: 'app-user-order',

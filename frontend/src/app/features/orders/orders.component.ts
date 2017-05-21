@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { IStore } from './../../shared/interfaces/store.interface';
-import { IUserWithPizzas } from './../../shared/state/users/users.interface';
-import { getFullOrder } from './../../shared/state/users/users.selector';
-import { Orders } from './../../shared/state/orders/orders.reducer';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
+import { getFullOrder } from 'app/shared/states/users/users.selector';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 
 @Component({
   selector: 'app-orders',
@@ -15,26 +15,20 @@ import { Orders } from './../../shared/state/orders/orders.reducer';
 export class OrdersComponent implements OnInit {
   @Input() locked: boolean;
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
-  private _idCurrentUser$: Observable<string>;
-  public idCurrentUser = '';
+  private idCurrentUser$: Observable<string>;
 
-  constructor(private _store$: Store<IStore>) { }
+  constructor(private store$: Store<IStore>) { }
 
   ngOnInit() {
-    this.fullOrder$ = this._store$.let(getFullOrder());
-    this._idCurrentUser$ = this
-      ._store$
-      .select(state => state.users.idCurrentUser)
-      .filter(idCurrentUser => idCurrentUser !== '');
+    this.fullOrder$ = this.store$.let(getFullOrder());
 
-    this
-      ._idCurrentUser$
-      .first()
-      .subscribe(idCurrentUser => this.idCurrentUser = idCurrentUser);
+    this.idCurrentUser$ = this.store$
+      .select(state => state.users.idCurrentUser)
+      .filter(idCurrentUser => !!idCurrentUser);
   }
 
-  removeOrder(orderId: string) {
-    this._store$.dispatch({ type: Orders.REMOVE_ORDER, payload: { id: orderId } });
+  removeOrder(id: string) {
+    this.store$.dispatch(new OrdersActions.RemoveOrder({ id }));
   }
 
   trackById(index, item) {
