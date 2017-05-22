@@ -13,6 +13,14 @@ export interface INewOrder {
   priceIndex: number;
 }
 
+export interface IPizzaOrderSummary {
+  pizzaName: string;
+  howManyPerSize: { [size: string]: { size: string, howMany: number } };
+}
+
+// tslint:disable:no-empty-interface
+export interface IOrdersSummary extends Array<IPizzaOrderSummary> { }
+
 export interface IOrdersTable {
   // when should we lock the orders
   hourEnd: number;

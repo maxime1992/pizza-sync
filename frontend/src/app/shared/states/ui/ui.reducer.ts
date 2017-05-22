@@ -46,6 +46,20 @@ export function uiReducer(ui: IUi = uiInitialState(), action: UiActions.All): IU
       };
     }
 
+    case UiActions.OPEN_DIALOG_ORDER_SUMMARY: {
+      return {
+        ...ui,
+        isDialogOrderSummaryOpen: true
+      };
+    }
+
+    case UiActions.CLOSE_DIALOG_ORDER_SUMMARY: {
+      return {
+        ...ui,
+        isDialogOrderSummaryOpen: false
+      };
+    }
+
     case UiActions.UPDATE_PIZZERIA_INFORMATION: {
       return {
         ...ui,

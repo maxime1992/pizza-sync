@@ -9,6 +9,7 @@ import * as UiActions from 'app/shared/states/ui/ui.actions';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IUi } from 'app/shared/states/ui/ui.interface';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
+import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 
 @Component({
   selector: 'app-features',
@@ -22,11 +23,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public lockOrders = true;
   public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
 
-  private dialogRef: MdDialogRef<IdentificationDialogComponent>;
-
-  public isDialogIdentificationOpen$: Observable<boolean>;
-
-  public isDialogIdentificationOpen: boolean;
+  private dialogIdentificationRef: MdDialogRef<IdentificationDialogComponent>;
+  private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
 
   constructor(
     private store$: Store<IStore>,
@@ -36,21 +34,29 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.ui$ = this.store$.select(state => state.ui);
 
-    this.isDialogIdentificationOpen$ = this.store$.select(state => state.ui.isDialogIdentificationOpen);
-
-    this.isDialogIdentificationOpen$
+    this.store$
+      .select(state => state.ui.isDialogIdentificationOpen)
       .takeUntil(this.componentDestroyed$)
-      .do(isDialogIdentificationOpen => {
-        this.isDialogIdentificationOpen = isDialogIdentificationOpen;
-        this.handleOpenAndCloseDialog();
-      })
+      .do(isDialogIdentificationOpen => this.handleOpenAndCloseDialog(
+        this.dialogIdentificationRef,
+        () => this.openDialogIdentification(),
+        isDialogIdentificationOpen
+      ))
+      .subscribe();
+
+    this.store$
+      .select(state => state.ui.isDialogOrderSummaryOpen)
+      .takeUntil(this.componentDestroyed$)
+      .do(isDialogOrderSummaryOpen => this.handleOpenAndCloseDialog(
+        this.dialogOrderSummaryRef,
+        () => this.openDialogOrderSummary(),
+        isDialogOrderSummaryOpen
+      ))
       .subscribe();
 
     this.hourAndMinuteEnd$ = this
       .store$
-      .select(state => {
-        return { hour: state.orders.hourEnd, minute: state.orders.minuteEnd };
-      })
+      .select(state => ({ hour: state.orders.hourEnd, minute: state.orders.minuteEnd }))
       .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
   }
 
@@ -59,11 +65,12 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.componentDestroyed$.complete();
   }
 
-  handleOpenAndCloseDialog() {
-    if (this.isDialogIdentificationOpen) {
-      this.openDialog();
-    } else if (typeof this.dialogRef !== 'undefined') {
-      this.dialogRef.close();
+  handleOpenAndCloseDialog<T>(mdDialogRef: MdDialogRef<T>, fnOpen: () => void, isOpened: boolean) {
+    if (isOpened) {
+      // open the corresponding dialog
+      fnOpen();
+    } else if (typeof mdDialogRef !== 'undefined') {
+      mdDialogRef.close();
     }
   }
 
@@ -79,15 +86,33 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.store$.dispatch(new UiActions.ToggleSidenav());
   }
 
-  openDialog() {
-    this.dialogRef = this.dialog.open(IdentificationDialogComponent, {
+  openOrderSummaryDialog() {
+    this.store$.dispatch(new UiActions.OpenDialogOrderSummary());
+  }
+
+  openDialogIdentification() {
+    this.dialogIdentificationRef = this.dialog.open(IdentificationDialogComponent, {
       disableClose: true
     });
 
-    this.dialogRef
+    this.dialogIdentificationRef
       .afterClosed()
+      .takeUntil(this.componentDestroyed$)
+      .do(result => this.dialogIdentificationRef = null)
+      .subscribe();
+  }
+
+  openDialogOrderSummary() {
+    this.dialogOrderSummaryRef = this.dialog.open(OrderSummaryDialogComponent, {
+      disableClose: false
+    });
+
+    this.dialogOrderSummaryRef
+      .afterClosed()
+      .first()
       .do(result => {
-        this.dialogRef = null;
+        this.store$.dispatch(new UiActions.CloseDialogOrderSummary());
+        this.dialogOrderSummaryRef = null;
       })
       .subscribe();
   }
