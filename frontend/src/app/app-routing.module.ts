@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: 'app/features/features.module#FeaturesModule'
+  },
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
