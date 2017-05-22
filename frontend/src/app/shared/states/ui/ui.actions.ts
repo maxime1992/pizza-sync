@@ -42,6 +42,20 @@ export class CloseDialogIdentification implements Action {
   constructor() { }
 }
 
+export const OPEN_DIALOG_ORDER_SUMMARY = 'Open dialog order summary';
+export class OpenDialogOrderSummary implements Action {
+  readonly type = OPEN_DIALOG_ORDER_SUMMARY;
+
+  constructor() { }
+}
+
+export const CLOSE_DIALOG_ORDER_SUMMARY = 'Close dialog order summary';
+export class CloseDialogOrderSummary implements Action {
+  readonly type = CLOSE_DIALOG_ORDER_SUMMARY;
+
+  constructor() { }
+}
+
 export const UPDATE_PIZZERIA_INFORMATION = 'Update pizzeria information';
 export class UpdatePizzeriaInformation implements Action {
   readonly type = UPDATE_PIZZERIA_INFORMATION;
@@ -56,4 +70,6 @@ export type All
   | CloseSidenav
   | OpenDialogIdentification
   | CloseDialogIdentification
+  | OpenDialogOrderSummary
+  | CloseDialogOrderSummary
   | UpdatePizzeriaInformation;

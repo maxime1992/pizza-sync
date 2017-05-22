@@ -1,0 +1,8 @@
+<md-list>
+  <h3 md-subheader>Easy order view</h3>
+
+  <md-list-item *ngFor="let pizza of orderSummary$ | async">
+    <h4 md-line class="pizza-name">{{ pizza.pizzaName }}</h4>
+    <p md-line class="how-many-per-size">{{ howManyPerSize(pizza) }}</p>
+  </md-list-item>
+</md-list>

@@ -1,0 +1,15 @@
+@import '../../../styles/shared/_colors';
+
+md-list {
+  min-width: 300px;
+  max-height: 400px;
+}
+
+.pizza-name {
+  color: mat-color($primary);
+  font-weight: bold;
+}
+
+.how-many-per-size {
+  color: grey;
+}

@@ -7,6 +7,7 @@ import { FeaturesComponent } from 'app/features/features.component';
 import { OrdersModule } from 'app/features/orders/orders.module';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
 import { CountdownComponent } from 'app/features/countdown/countdown.component';
+import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,9 @@ import { CountdownComponent } from 'app/features/countdown/countdown.component';
   declarations: [
     FeaturesComponent,
     IdentificationDialogComponent,
-    CountdownComponent
+    CountdownComponent,
+    OrderSummaryDialogComponent
   ],
-  entryComponents: [IdentificationDialogComponent]
+  entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent]
 })
 export class FeaturesModule { }

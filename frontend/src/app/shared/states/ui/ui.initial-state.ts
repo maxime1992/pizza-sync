@@ -5,6 +5,7 @@ export function uiInitialState(): IUi {
     language: '',
     isSidenavVisible: true,
     isDialogIdentificationOpen: true,
+    isDialogOrderSummaryOpen: false,
 
     // pizzeria information
     pizzeria: {
