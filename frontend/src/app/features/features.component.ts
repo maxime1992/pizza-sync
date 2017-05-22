@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { trigger, transition, animate, style } from '@angular/animations';
 import { TranslateService } from 'ng2-translate';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -14,7 +15,17 @@ import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/o
 @Component({
   selector: 'app-features',
   templateUrl: './features.component.html',
-  styleUrls: ['./features.component.scss']
+  styleUrls: ['./features.component.scss'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({ opacity: 0 }),
+          animate('1000ms', style({ opacity: 1 }))
+        ])
+      ]
+    )
+  ]
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
   private componentDestroyed$ = new Subject<void>();
