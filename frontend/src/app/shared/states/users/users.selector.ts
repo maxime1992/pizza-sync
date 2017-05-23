@@ -61,3 +61,30 @@ export function _getFullOrder(store$: Store<IStore>) {
 export function getFullOrder() {
   return _getFullOrder;
 }
+
+export function getFullOrderCsvFormat({ users }: { users: IUserWithPizzas[], totalPrice: number }) {
+  const header = ['Person name', 'Pizza', 'Size', 'Price', 'Pay', 'Change', 'Done ✓ or not yet ✕'];
+
+  // the row index starts at 2 because in a speadsheet, it starts at 1 and we'll have the header
+  let i = 2;
+
+  const data = users.reduce((acc, user) => {
+    user.pizzas.forEach(pizza => {
+      acc.push([
+        user.username,
+        pizza.name,
+        pizza.size,
+        pizza.price,
+        '0',
+        `=E${i}-D${i}`,
+        '✕'
+      ]);
+
+      i++;
+    });
+
+    return acc;
+  }, []);
+
+  return [header, ...data];
+}

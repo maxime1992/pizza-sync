@@ -26,6 +26,10 @@
     <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
 
+  <button md-mini-fab class="csv-download" (click)="downloadCsv()" [disabled]="!lockOrders">
+    <md-icon>file_download</md-icon>
+  </button>
+
   <button md-mini-fab class="order-summary" (click)="openOrderSummaryDialog()">
     <md-icon>receipt</md-icon>
   </button>
