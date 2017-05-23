@@ -1350,6 +1350,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   dependencies:
     cssom "0.3.x"
 
+csv-file-creator@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/csv-file-creator/-/csv-file-creator-1.0.7.tgz#3389261da639f43c1def0d2cd1578c66b9a80259"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -1373,23 +1377,23 @@ dateformat@^1.0.11:
     get-stdin "^4.0.1"
     meow "^3.3.0"
 
-debug@*, debug@2, debug@2.3.3, debug@^2.1.3, debug@^2.2.0:
+debug@*, debug@2.3.3, debug@^2.1.3, debug@^2.2.0:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
     ms "0.7.2"
+
+debug@2, debug@2.6.7, debug@^2.1.1, debug@^2.6.3:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
+  dependencies:
+    ms "2.0.0"
 
 debug@2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
     ms "0.7.1"
-
-debug@2.6.7, debug@^2.1.1, debug@^2.6.3:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
-  dependencies:
-    ms "2.0.0"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
@@ -5502,9 +5506,13 @@ type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.15"
 
-typescript@2.3.2, "typescript@>=2.0.0 <2.3.0":
+typescript@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+
+"typescript@>=2.0.0 <2.3.0":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
 
 uglify-js@3.0.x:
   version "3.0.9"
@@ -6062,6 +6070,10 @@ yn@^1.2.0:
   dependencies:
     object-assign "^4.1.1"
 
-zone.js@0.8.10, zone.js@^0.7.2:
+zone.js@0.8.10:
   version "0.8.10"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.10.tgz#6d1b696492c029cdbe808e59e87bbd9491b98aa8"
+
+zone.js@^0.7.2:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.7.8.tgz#4f3fe8834d44597f2639053a0fa438df34fffded"

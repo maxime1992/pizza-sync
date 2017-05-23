@@ -5,12 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { MdDialog, MdDialogRef } from '@angular/material';
+import csv from 'csv-file-creator';
 
 import * as UiActions from 'app/shared/states/ui/ui.actions';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IUi } from 'app/shared/states/ui/ui.interface';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
+import { getCurrentDateFormatted } from 'app/shared/helpers/date.helper';
+import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
+import { getFullOrder, getFullOrderCsvFormat } from 'app/shared/states/users/users.selector';
 
 @Component({
   selector: 'app-features',
@@ -36,6 +40,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   private dialogIdentificationRef: MdDialogRef<IdentificationDialogComponent>;
   private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
+
+  public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
 
   constructor(
     private store$: Store<IStore>,
@@ -69,6 +75,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       .store$
       .select(state => ({ hour: state.orders.hourEnd, minute: state.orders.minuteEnd }))
       .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
+
+    this.fullOrder$ = this.store$.let(getFullOrder());
   }
 
   ngOnDestroy() {
@@ -124,6 +132,17 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       .do(result => {
         this.store$.dispatch(new UiActions.CloseDialogOrderSummary());
         this.dialogOrderSummaryRef = null;
+      })
+      .subscribe();
+  }
+
+  downloadCsv() {
+    this.fullOrder$
+      .first()
+      .map(getFullOrderCsvFormat)
+      .do(fullOrderCsvFormat => {
+        const currentDate = getCurrentDateFormatted();
+        csv(`pizza-sync-${currentDate}.csv`, fullOrderCsvFormat);
       })
       .subscribe();
   }
