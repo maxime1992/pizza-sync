@@ -67,6 +67,13 @@ export function uiReducer(ui: IUi = uiInitialState(), action: UiActions.All): IU
       };
     }
 
+    case UiActions.UPDATE_PIZZA_SEARCH: {
+      return {
+        ...ui,
+        pizzaSearch: action.payload.search
+      };
+    }
+
     default:
       return ui;
   }

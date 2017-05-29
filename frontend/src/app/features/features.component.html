@@ -8,11 +8,12 @@
 
     PIZZA SYNC
 
-    <div fxFlex></div>
+    <app-pizzas-search (onSearch)="search($event)" fxFlex class="margin-left-x4 margin-right-x4"></app-pizzas-search>
 
     <app-countdown
-      [hour]="(hourAndMinuteEnd$ | async).hour"
-      [minute]="(hourAndMinuteEnd$ | async).minute"
+      *ngIf="hourAndMinuteEnd$ | async as hourAndMinuteEnd"
+      [hour]="hourAndMinuteEnd.hour"
+      [minute]="hourAndMinuteEnd.minute"
       (onCountdownStart)="lockOrders = false"
       (onCountdownEnd)="lockOrders = true">
     </app-countdown>

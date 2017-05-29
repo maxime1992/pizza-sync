@@ -37,6 +37,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public ui$: Observable<IUi>;
   public lockOrders = true;
   public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
+  public pizzaSearch$: Observable<string>;
 
   private dialogIdentificationRef: MdDialogRef<IdentificationDialogComponent>;
   private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
@@ -145,5 +146,9 @@ export class FeaturesComponent implements OnInit, OnDestroy {
         csv(`pizza-sync-${currentDate}.csv`, fullOrderCsvFormat);
       })
       .subscribe();
+  }
+
+  search(search: string) {
+    this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }));
   }
 }

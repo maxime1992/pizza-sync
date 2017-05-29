@@ -3,6 +3,7 @@ export interface IUi {
   readonly isSidenavVisible: boolean;
   readonly isDialogIdentificationOpen: boolean;
   readonly isDialogOrderSummaryOpen: boolean;
+  readonly pizzaSearch: string;
 
   // pizzeria information
   readonly pizzeria: {
