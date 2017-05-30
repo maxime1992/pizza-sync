@@ -63,6 +63,13 @@ export class UpdatePizzeriaInformation implements Action {
   constructor(public payload: { name: string, phone: string, url: string }) { }
 }
 
+export const UPDATE_PIZZA_SEARCH = 'Update pizza search';
+export class UpdatePizzaSearch implements Action {
+  readonly type = UPDATE_PIZZA_SEARCH;
+
+  constructor(public payload: { search: string }) { }
+}
+
 export type All
   = SetLanguage
   | ToggleSidenav
@@ -72,4 +79,5 @@ export type All
   | CloseDialogIdentification
   | OpenDialogOrderSummary
   | CloseDialogOrderSummary
-  | UpdatePizzeriaInformation;
+  | UpdatePizzeriaInformation
+  | UpdatePizzaSearch;

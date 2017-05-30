@@ -8,6 +8,7 @@ import { OrdersModule } from 'app/features/orders/orders.module';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
 import { CountdownComponent } from 'app/features/countdown/countdown.component';
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
+import { PizzasSearchComponent } from './pizzas-search/pizzas-search.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/o
     FeaturesComponent,
     IdentificationDialogComponent,
     CountdownComponent,
-    OrderSummaryDialogComponent
+    OrderSummaryDialogComponent,
+    PizzasSearchComponent
   ],
   entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent]
 })

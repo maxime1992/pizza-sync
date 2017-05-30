@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { getCategoriesAndPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.selector';
@@ -13,39 +14,21 @@ import * as OrdersActions from 'app/shared/states/orders/orders.actions';
   templateUrl: './pizzas.component.html',
   styleUrls: ['./pizzas.component.scss']
 })
-export class PizzasComponent implements OnInit, OnChanges {
+export class PizzasComponent implements OnInit {
   @Input() locked: boolean;
+
   private pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
   public pizzasCategories: IPizzaCategoryWithPizzas[];
+  public search$: Observable<string>;
 
-  constructor(private cd: ChangeDetectorRef, private store$: Store<IStore>) { }
+  constructor(private store$: Store<IStore>) { }
 
   ngOnInit() {
     this.store$.dispatch(new PizzasActions.LoadPizzas());
 
-    this.pizzasCategories$ = this.store$.let(getCategoriesAndPizzas());
+    this.search$ = this.store$.select(state => state.ui.pizzaSearch);
 
-    // pizzas are fetched once and never updated for the session
-    // we basically need to get values once
-    // as we're building the view from a selector, everytime the
-    // part of store being watched is updated, it'll re-compute
-    // everything. To avoid that, manually launch the detect changes
-    // once as soon as the pizzas are fetched and then detach from
-    // change detection
-    this
-      .pizzasCategories$
-      .filter(p => p.length > 0)
-      .first()
-      .do(cp => {
-        this.pizzasCategories = cp;
-        this.cd.detectChanges();
-        this.cd.detach();
-      })
-      .subscribe();
-  }
-
-  ngOnChanges() {
-    this.cd.detectChanges();
+    this.pizzasCategories$ = this.store$.let(getCategoriesAndPizzas);
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {
