@@ -5,6 +5,7 @@ const { requestOptions } = require('../helpers/http.helper')
 
 const { PizzasModel } = require('../models/pizzas.model')
 const { PizzasCategoriesModel } = require('../models/pizzas-categories.model')
+const { IngredientsModel } = require('../models/ingredients.model')
 
 class PizzaDeLOrmeau {
   constructor() {
@@ -26,7 +27,8 @@ class PizzaDeLOrmeau {
             const res = {
               pizzeria: this._pizzeria,
               pizzas: [],
-              pizzasCategories: []
+              pizzasCategories: [],
+              ingredients: []
             }
 
             const $ = cheerio.load(body)
@@ -54,8 +56,11 @@ class PizzaDeLOrmeau {
                 const pizzaDom = $(pizzasDom[j])
 
                 const pizzaName = pizzaDom.find($('.nom')).children().remove().end().text()
-                const pizzaIngredients = pizzaDom.find($('.composition')).text()
+                const pizzaIngredientsTxt = pizzaDom.find($('.composition')).text()
                 const pizzaPricesDom = pizzaDom.find($('.prix'))
+
+                const pizzaIngredientsTxtArray = pizzaIngredientsTxt.replace('.', '').trim().split(', ')
+                const pizzaIngredients = pizzaIngredientsTxtArray.map(IngredientsModel.registerIfNewAndGetId)
 
                 const pizzaPrices = []
                 pizzaPricesDom.map(k => {
@@ -66,7 +71,7 @@ class PizzaDeLOrmeau {
                 const finalPizza = {
                   id: PizzasModel.getNewId(),
                   name: pizzaName,
-                  ingredients: pizzaIngredients,
+                  ingredientsIds: pizzaIngredients,
                   prices: pizzaPrices
                 }
 
@@ -74,6 +79,8 @@ class PizzaDeLOrmeau {
                 res.pizzas.push(finalPizza)
               })
             })
+
+            res.ingredients = IngredientsModel.getIngredients()
 
             resolve(res)
           }

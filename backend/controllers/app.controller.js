@@ -32,6 +32,10 @@ class AppController {
     return this._appMdl.getUsersModel()
   }
 
+  getIngredientsModel() {
+    return this._appMdl.getIngredientsModel()
+  }
+
   parsePizzaProvider() {
     return new Promise((resolve, reject) => {
       if (this._parsePizzaProviderCache) {
@@ -45,16 +49,19 @@ class AppController {
             const normalizedPizzasAndPizzasCaterogies = {
               pizzeria: pizzasAndPizzasCategories.pizzeria,
               pizzas: normalizeArray(pizzasAndPizzasCategories.pizzas),
-              pizzasCategories: normalizeArray(pizzasAndPizzasCategories.pizzasCategories)
+              pizzasCategories: normalizeArray(pizzasAndPizzasCategories.pizzasCategories),
+              ingredients: normalizeArray(pizzasAndPizzasCategories.ingredients)
             }
 
             this._parsePizzaProviderCache = normalizedPizzasAndPizzasCaterogies
 
             this.getPizzasModel().setNormalizedData(this._parsePizzaProviderCache.pizzas)
             this.getPizzasCategoriesModel().setNormalizedData(this._parsePizzaProviderCache.pizzasCategories)
+            this.getIngredientsModel().setNormalizedData(this._parsePizzaProviderCache.ingredients)
 
             resolve(this._parsePizzaProviderCache)
           })
+          .catch(e => { })
       }
     })
   }

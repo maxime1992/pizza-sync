@@ -5,6 +5,10 @@
  * @returns {id1: {id: 'id1', ...}}
  */
 function normalizeArray(arr) {
+  if (!arr) {
+    return { byId: {}, allIds: [] }
+  }
+
   return arr.reduce((acc, next) => {
     acc.byId[next.id] = next
     acc.allIds.push(next.id)
