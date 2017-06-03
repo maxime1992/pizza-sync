@@ -6,6 +6,7 @@ export function uiInitialState(): IUi {
     isSidenavVisible: true,
     isDialogIdentificationOpen: true,
     isDialogOrderSummaryOpen: false,
+    isFilterIngredientVisible: false,
     pizzaSearch: '',
 
     // pizzeria information

@@ -9,6 +9,7 @@ import { IdentificationDialogComponent } from 'app/features/identification-dialo
 import { CountdownComponent } from 'app/features/countdown/countdown.component';
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 import { PizzasSearchComponent } from './pizzas-search/pizzas-search.component';
+import { FilterIngredientsComponent } from './filter-ingredients/filter-ingredients.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { PizzasSearchComponent } from './pizzas-search/pizzas-search.component';
     IdentificationDialogComponent,
     CountdownComponent,
     OrderSummaryDialogComponent,
-    PizzasSearchComponent
+    PizzasSearchComponent,
+    FilterIngredientsComponent
   ],
   entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent]
 })

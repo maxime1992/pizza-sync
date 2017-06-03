@@ -8,6 +8,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import csv from 'csv-file-creator';
 
 import * as UiActions from 'app/shared/states/ui/ui.actions';
+import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IUi } from 'app/shared/states/ui/ui.interface';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
@@ -15,6 +16,8 @@ import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/o
 import { getCurrentDateFormatted } from 'app/shared/helpers/date.helper';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 import { getFullOrder, getFullOrderCsvFormat } from 'app/shared/states/users/users.selector';
+import { IIngredientsArray } from 'app/shared/states/ingredients/ingredients.interface';
+import { getIngredients } from 'app/shared/states/ingredients/ingredients.selector';
 
 @Component({
   selector: 'app-features',
@@ -43,6 +46,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
 
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
+  public ingredients$: Observable<IIngredientsArray>;
+  public isFilterIngredientsVisible$: Observable<boolean>;
 
   constructor(
     private store$: Store<IStore>,
@@ -78,6 +83,10 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
 
     this.fullOrder$ = this.store$.let(getFullOrder);
+
+    this.ingredients$ = this.store$.let(getIngredients);
+
+    this.isFilterIngredientsVisible$ = this.store$.select(state => state.ui.isFilterIngredientVisible);
   }
 
   ngOnDestroy() {
@@ -150,5 +159,17 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   search(search: string) {
     this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }));
+  }
+
+  toggleFilterIngredients() {
+    this.store$.dispatch(new UiActions.ToggleVisibilityFilterIngredient());
+  }
+
+  selectIngredient(id: string) {
+    this.store$.dispatch(new IngredientsActions.SelectIngredient({ id }));
+  }
+
+  unselectIngredient(id: string) {
+    this.store$.dispatch(new IngredientsActions.UnselectIngredient({ id }));
   }
 }

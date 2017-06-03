@@ -13,6 +13,32 @@ export function ingredientsReducer(ingredientsTbl = ingredientsState(), action: 
       };
     }
 
+    case IngredientsActions.SELECT_INGREDIENT: {
+      return {
+        ...ingredientsTbl,
+        byId: {
+          ...ingredientsTbl.byId,
+          [action.payload.id]: {
+            ...ingredientsTbl.byId[action.payload.id],
+            isSelected: true
+          }
+        }
+      };
+    }
+
+    case IngredientsActions.UNSELECT_INGREDIENT: {
+      return {
+        ...ingredientsTbl,
+        byId: {
+          ...ingredientsTbl.byId,
+          [action.payload.id]: {
+            ...ingredientsTbl.byId[action.payload.id],
+            isSelected: false
+          }
+        }
+      };
+    }
+
     default:
       return ingredientsTbl;
   }

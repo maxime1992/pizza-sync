@@ -11,7 +11,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
 import {
   MdButtonModule, MdCardModule, MdDialogModule, MdIconModule,
   MdInputModule, MdListModule, MdProgressSpinnerModule, MdRippleModule, MdSidenavModule,
-  MdTabsModule, MdToolbarModule, MdTooltipModule, MdSelectModule
+  MdTabsModule, MdToolbarModule, MdTooltipModule, MdSelectModule, MdChipsModule
 } from '@angular/material';
 import { JoinPipe } from './pipes/join.pipe';
 
@@ -28,7 +28,8 @@ const MaterialModules = [
   MdTabsModule,
   MdToolbarModule,
   MdTooltipModule,
-  MdSelectModule
+  MdSelectModule,
+  MdChipsModule
 ];
 
 /**

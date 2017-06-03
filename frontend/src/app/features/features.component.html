@@ -8,14 +8,19 @@
 
     PIZZA SYNC
 
-    <app-pizzas-search (onSearch)="search($event)" fxFlex class="margin-left-x4 margin-right-x4"></app-pizzas-search>
+    <app-pizzas-search (onSearch)="search($event)" fxFlex class="margin-left-x4 margin-right-x3"></app-pizzas-search>
+
+    <button md-button (click)="toggleFilterIngredients()">
+      <md-icon>sort</md-icon>
+    </button>
 
     <app-countdown
       *ngIf="hourAndMinuteEnd$ | async as hourAndMinuteEnd"
       [hour]="hourAndMinuteEnd.hour"
       [minute]="hourAndMinuteEnd.minute"
       (onCountdownStart)="lockOrders = false"
-      (onCountdownEnd)="lockOrders = true">
+      (onCountdownEnd)="lockOrders = true"
+      class="margin-left-x3">
     </app-countdown>
 
     <a href="https://github.com/maxime1992/pizza-sync" target="_blank">
@@ -27,6 +32,13 @@
     <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
       <app-orders [locked]="lockOrders"></app-orders>
     </md-sidenav>
+
+    <app-filter-ingredients
+      *ngIf="isFilterIngredientsVisible$ | async"
+      [ingredients]="ingredients$ | async"
+      (onIngredientSelected)="selectIngredient($event)"
+      (onIngredientUnselected)="unselectIngredient($event)">
+    </app-filter-ingredients>
 
     <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>

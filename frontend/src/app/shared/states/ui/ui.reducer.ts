@@ -74,6 +74,13 @@ export function uiReducer(ui: IUi = uiInitialState(), action: UiActions.All): IU
       };
     }
 
+    case UiActions.TOGGLE_VISIBILITY_FILTER_INGREDIENT: {
+      return {
+        ...ui,
+        isFilterIngredientVisible: !ui.isFilterIngredientVisible
+      };
+    }
+
     default:
       return ui;
   }

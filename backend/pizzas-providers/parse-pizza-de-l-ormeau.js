@@ -59,7 +59,16 @@ class PizzaDeLOrmeau {
                 const pizzaIngredientsTxt = pizzaDom.find($('.composition')).text()
                 const pizzaPricesDom = pizzaDom.find($('.prix'))
 
-                const pizzaIngredientsTxtArray = pizzaIngredientsTxt.replace('.', '').trim().split(', ')
+                const pizzaIngredientsTxtArray = pizzaIngredientsTxt
+                  .replace('.', '')
+                  .replace(', ', ',')
+                  .trim()
+                  .split(',')
+                  // some pizzas do not have ingredients as they're already written in their title
+                  // for example "Poire Williams / chocolat", "Banane / Chocolat" and "Ananas / Chocolat"
+                  // we do not want to have empty ingredients and thus, they should be removed
+                  .filter(x => x !== '');
+
                 const pizzaIngredients = pizzaIngredientsTxtArray.map(IngredientsModel.registerIfNewAndGetId)
 
                 const pizzaPrices = []

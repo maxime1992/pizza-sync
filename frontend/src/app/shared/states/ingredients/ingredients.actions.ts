@@ -9,4 +9,21 @@ export class LoadIngredientsSuccess implements Action {
   constructor(public payload: IIngredientsTable) { }
 }
 
-export type All = LoadIngredientsSuccess;
+export const SELECT_INGREDIENT = '[Ingredients] Select ingredient';
+export class SelectIngredient implements Action {
+  readonly type = SELECT_INGREDIENT;
+
+  constructor(public payload: { id: string }) { }
+}
+
+export const UNSELECT_INGREDIENT = '[Ingredients] Unselect ingredient';
+export class UnselectIngredient implements Action {
+  readonly type = UNSELECT_INGREDIENT;
+
+  constructor(public payload: { id: string }) { }
+}
+
+export type All =
+  | LoadIngredientsSuccess
+  | SelectIngredient
+  | UnselectIngredient;
