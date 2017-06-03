@@ -10,6 +10,7 @@ import { pizzasReducer } from 'app/shared/states/pizzas/pizzas.reducer';
 import { pizzasCategoriesReducer } from 'app/shared/states/pizzas-categories/pizzas-categories.reducer';
 import { usersReducer } from 'app/shared/states/users/users.reducer';
 import { ordersReducer } from 'app/shared/states/orders/orders.reducer';
+import { ingredientsReducer } from 'app/shared/states/ingredients/ingredients.reducer';
 
 // ------------------------------------------------------------------------------
 
@@ -19,7 +20,8 @@ const reducers = {
   pizzas: pizzasReducer,
   pizzasCategories: pizzasCategoriesReducer,
   users: usersReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  ingredients: ingredientsReducer
 };
 
 // ------------------------------------------------------------------------------

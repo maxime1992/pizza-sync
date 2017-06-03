@@ -11,6 +11,7 @@ import * as PizzasCategoriesActions from 'app/shared/states/pizzas-categories/pi
 import * as UsersActions from 'app/shared/states/users/users.actions';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 import * as UiActions from 'app/shared/states/ui/ui.actions';
+import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
 
 @Injectable()
 export class PizzasEffects {
@@ -28,6 +29,7 @@ export class PizzasEffects {
               new UsersActions.LoadUsersSuccess(res.users),
               new OrdersActions.LoadOrdersSuccess(res.orders),
               new UiActions.UpdatePizzeriaInformation(res.pizzeria),
+              new IngredientsActions.LoadIngredientsSuccess(res.ingredients)
           ]);
         })
     );

@@ -13,6 +13,7 @@ import {
   MdInputModule, MdListModule, MdProgressSpinnerModule, MdRippleModule, MdSidenavModule,
   MdTabsModule, MdToolbarModule, MdTooltipModule, MdSelectModule
 } from '@angular/material';
+import { JoinPipe } from './pipes/join.pipe';
 
 const MaterialModules = [
   MdButtonModule,
@@ -47,7 +48,7 @@ export const modules = [
   ...MaterialModules
 ];
 
-export const declarations = [];
+export const declarations = [JoinPipe];
 
 @NgModule({
   imports: modules,

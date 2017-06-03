@@ -1,13 +1,19 @@
+import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
+
 export interface IPizzaCommon {
   id: string;
   name: string;
-  ingredients: string;
-  prices: [number];
+  ingredientsIds: string[];
+  prices: number[];
 }
 
 export interface IPizzasTable {
   byId: { [key: string]: IPizzaCommon };
   allIds: string[];
+}
+
+export interface IPizzaWithIngredients extends IPizzaCommon {
+  ingredients: IIngredientCommon[];
 }
 
 export interface IPizzaWithPrice extends IPizzaCommon {
