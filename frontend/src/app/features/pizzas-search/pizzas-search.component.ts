@@ -11,7 +11,7 @@ export class PizzasSearchComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
 
   @Output() onSearch = new EventEmitter<string>();
-  private search = new FormControl();
+  public search = new FormControl();
 
   constructor() { }
 

@@ -17,7 +17,7 @@ import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 export class PizzasComponent implements OnInit {
   @Input() locked: boolean;
 
-  private pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
+  public pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
   public pizzasCategories: IPizzaCategoryWithPizzas[];
   public search$: Observable<string>;
 
