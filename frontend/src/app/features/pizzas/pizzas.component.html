@@ -11,7 +11,7 @@
           <md-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
             <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
             <md-card-content>
-              <p>{{ pizza.ingredients }}</p>
+              <p>{{ pizza.ingredients | join:'name' }}</p>
             </md-card-content>
             <md-card-actions fxLayout="row">
               <button md-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">

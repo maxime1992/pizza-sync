@@ -1,4 +1,4 @@
-import { IPizzaCommon } from 'app/shared/states/pizzas/pizzas.interface';
+import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
 
 export interface IPizzaCategoryCommon {
   id: string;
@@ -12,5 +12,5 @@ export interface IPizzasCategoriesTable {
 }
 
 export interface IPizzaCategoryWithPizzas extends IPizzaCategoryCommon {
-  pizzas: IPizzaCommon[];
+  pizzas: IPizzaWithIngredients[];
 }
