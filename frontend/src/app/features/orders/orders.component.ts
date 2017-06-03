@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit {
   constructor(private store$: Store<IStore>) { }
 
   ngOnInit() {
-    this.fullOrder$ = this.store$.let(getFullOrder());
+    this.fullOrder$ = this.store$.let(getFullOrder);
 
     this.idCurrentUser$ = this.store$
       .select(state => state.users.idCurrentUser)

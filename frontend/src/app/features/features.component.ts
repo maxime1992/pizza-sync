@@ -77,7 +77,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       .select(state => ({ hour: state.orders.hourEnd, minute: state.orders.minuteEnd }))
       .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
 
-    this.fullOrder$ = this.store$.let(getFullOrder());
+    this.fullOrder$ = this.store$.let(getFullOrder);
   }
 
   ngOnDestroy() {
