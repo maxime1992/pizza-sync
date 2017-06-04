@@ -12,6 +12,7 @@
 
     <button md-button (click)="toggleFilterIngredients()">
       <md-icon>sort</md-icon>
+      <span class="nb-filters-ingredients">x{{ nbIngredientsSelected$ | async }}</span>
     </button>
 
     <app-countdown

@@ -15,3 +15,16 @@ export function getIngredients(store$: Store<IStore>): Observable<IIngredientsAr
     .select(state => state.ingredients)
     .map(ingredients => _getIngredients(ingredients));
 }
+
+export function _getNbIngredientsSelected(ingredientsTable: IIngredientsTable): number {
+  return ingredientsTable
+    .allIds
+    .filter(ingredientId => ingredientsTable.byId[ingredientId].isSelected)
+    .length;
+}
+
+export function getNbIngredientsSelected(store$: Store<IStore>): Observable<number> {
+  return store$
+    .select(state => state.ingredients)
+    .map(ingredients => _getNbIngredientsSelected(ingredients));
+}

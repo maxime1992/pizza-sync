@@ -17,7 +17,7 @@ import { getCurrentDateFormatted } from 'app/shared/helpers/date.helper';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 import { getFullOrder, getFullOrderCsvFormat } from 'app/shared/states/users/users.selector';
 import { IIngredientsArray } from 'app/shared/states/ingredients/ingredients.interface';
-import { getIngredients } from 'app/shared/states/ingredients/ingredients.selector';
+import { getIngredients, getNbIngredientsSelected } from 'app/shared/states/ingredients/ingredients.selector';
 
 @Component({
   selector: 'app-features',
@@ -48,6 +48,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
   public ingredients$: Observable<IIngredientsArray>;
   public isFilterIngredientsVisible$: Observable<boolean>;
+  public nbIngredientsSelected$: Observable<number>;
 
   constructor(
     private store$: Store<IStore>,
@@ -87,6 +88,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.ingredients$ = this.store$.let(getIngredients);
 
     this.isFilterIngredientsVisible$ = this.store$.select(state => state.ui.isFilterIngredientVisible);
+
+    this.nbIngredientsSelected$ = this.store$.let(getNbIngredientsSelected);
   }
 
   ngOnDestroy() {
