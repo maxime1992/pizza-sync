@@ -3,6 +3,24 @@ import { Store } from '@ngrx/store';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
 import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
+import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.interface';
+
+export function getSelectedIngredientsIds(ingredients: IIngredientsTable): string[] {
+  return ingredients
+    .allIds
+    .filter(ingredientId =>
+      ingredients
+        .byId[ingredientId]
+        .isSelected);
+}
+
+export function doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds: string[], pizza: IPizzaWithIngredients): boolean {
+  return selectedIngredientsIds
+    .every(ingredientId =>
+      pizza
+        .ingredientsIds
+        .includes(ingredientId));
+}
 
 export function getCategoriesAndPizzas(store$: Store<IStore>) {
   return store$.select(state => {
@@ -21,6 +39,7 @@ export function getCategoriesAndPizzas(store$: Store<IStore>) {
     )
     .map(({ pizzasSearch, pizzas, pizzasCategories, ingredients }) => {
       pizzasSearch = pizzasSearch.toLowerCase();
+      const selectedIngredientsIds = getSelectedIngredientsIds(ingredients);
 
       return pizzasCategories
         .allIds
@@ -37,7 +56,9 @@ export function getCategoriesAndPizzas(store$: Store<IStore>) {
                   .ingredientsIds
                   .map(ingredientId => ingredients.byId[ingredientId])
               }))
-              .filter(p => p.name.toLowerCase().includes(pizzasSearch))
+              .filter(p =>
+                p.name.toLowerCase().includes(pizzasSearch)
+                && doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds, p))
           };
 
           return pizzasCategorie;

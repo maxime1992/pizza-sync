@@ -60,3 +60,20 @@ md-toolbar.footer {
   font-size: 12px;
   color: mat-color($accent);
 }
+
+.ingredients-selected {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid mat-color($accent);
+
+  &.border-top {
+    border-top: 1px solid mat-color($accent);
+  }
+
+  .title {
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
+}

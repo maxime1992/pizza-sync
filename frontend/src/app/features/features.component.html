@@ -41,6 +41,22 @@
       (onIngredientUnselected)="unselectIngredient($event)">
     </app-filter-ingredients>
 
+    <div *ngIf="ingredientsSelected$ | async as ingredientsSelected">
+      <div *ngIf="ingredientsSelected.length" class="ingredients-selected" [class.border-top]="isFilterIngredientsVisible$ | async">
+        <div class="title color-accent">Selected ingredient{{ ingredientsSelected.length > 1 ? 's': '' }}:</div>
+
+        <md-chip-list>
+          <md-chip
+            *ngFor="let ingredient of ingredientsSelected"
+            color="primary"
+            selected="true"
+            class="margin-bottom-x1">
+            {{ ingredient.name }}
+          </md-chip>
+        </md-chip-list>
+      </div>
+    </div>
+
     <app-pizzas [locked]="lockOrders"></app-pizzas>
   </md-sidenav-container>
 

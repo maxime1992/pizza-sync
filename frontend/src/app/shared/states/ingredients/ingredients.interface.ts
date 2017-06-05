@@ -9,4 +9,5 @@ export interface IIngredientsTable {
   allIds: string[];
 }
 
+// tslint:disable:no-empty-interface
 export interface IIngredientsArray extends Array<IIngredientCommon> { }
