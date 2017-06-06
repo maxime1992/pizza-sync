@@ -5,19 +5,25 @@
 ## Why ?
 This project has been built to easily order our pizzas at work.
 
-We usually order at [pizzadelormeau](http://www.pizzadelormeau.com) and thus, the backend part of the project is parsing this website.
-There's an [opened issue](https://github.com/maxime1992/pizza-sync/issues/5) so ***Pizza-Sync*** can accept others *pizzas-providers*. 
+We usually order at [l'Ormeau](http://www.pizzadelormeau.com/index.html%3Fp=61.html) and thus, the backend part of the project is parsing this website.
+
+***Pizza-Sync*** also accepts others *pizzas-providers*! So if you want to use it with your local pizzeria, you'd just have to add a new `pizza-provider` that parses the website.
 
 ## Is it just about Pizza ?
 It could :pizza: :heart: ... But not totally.
 
-It's also a demo to show how to use Angular with the following stack :
+**It's also a demo to show how to use Angular with the following stack :**
 - **@angular/cli**  
 - **@angular/material**  
 - **@angular/flex-layout**  
 - **@ngrx/store**  
 - **@ngrx/effects**  
 - **socket.io**  
+
+This is a medium size project, not too complicated but still, with a lot of things in it (normalized data with Redux, real time, little cli to interact with the app in command line, ...). If you see things to improve, feel free to open an issue, or even better: Make a PR !
+
+## I'd like to dig into the code but it seems huge and I don't know where to start
+No worries ! I've created a pull request per feature. Just take a look to the list of [PR](https://github.com/maxime1992/pizza-sync/pulls?q=is%3Apr+is%3Aclosed) from the beginning and it should help you get started.
 
 ## How do I run it locally ?
 ### Dev mode
@@ -44,7 +50,7 @@ yarn
 ng serve
 ```
 
-You'll be able to open the app at : [http://localhost:4200](http://localhost:4200).
+You'll then be able to open the app at : [http://localhost:4200](http://localhost:4200).
 
 ### Prod mode
 Simply run :
@@ -65,8 +71,6 @@ Here are some ideas :
 
 - [ ] Improve the layout (theme, responsiveness, logo, ...)  
 - [ ] Angular universal ? Having a super fast init would be awesome !  
-- [ ] Add a timer to block the orders when it reaches 0  
-- [ ] Randomly select someone to call the pizzeria  
 - [ ] Create a PWA with at least a service worker to cache the assets  
 - [ ] Add mocks to run the app without the backend  
 - [ ] Deploy the app on Github pages (needs mocks first)  
