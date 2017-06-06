@@ -53,6 +53,15 @@ class AppController {
               ingredients: normalizeArray(pizzasAndPizzasCategories.ingredients)
             }
 
+            // as the ingredients will appear in the order of the fetched pizzas
+            // sort the ingredients allIds array to match the alphabetical order
+            normalizedPizzasAndPizzasCaterogies.ingredients.allIds = normalizedPizzasAndPizzasCaterogies.ingredients.allIds.sort((ingId1, ingId2) => {
+              const ing1 = normalizedPizzasAndPizzasCaterogies.ingredients.byId[ingId1].name
+              const ing2 = normalizedPizzasAndPizzasCaterogies.ingredients.byId[ingId2].name
+
+              return ing1.localeCompare(ing2)
+            })
+
             this._parsePizzaProviderCache = normalizedPizzasAndPizzasCaterogies
 
             this.getPizzasModel().setNormalizedData(this._parsePizzaProviderCache.pizzas)
