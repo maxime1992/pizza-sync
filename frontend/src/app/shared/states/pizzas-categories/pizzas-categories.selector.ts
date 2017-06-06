@@ -1,4 +1,5 @@
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
@@ -22,7 +23,7 @@ export function doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds: 
         .includes(ingredientId));
 }
 
-export function getCategoriesAndPizzas(store$: Store<IStore>) {
+export function getCategoriesAndPizzas(store$: Store<IStore>): Observable<IPizzaCategoryWithPizzas[]> {
   return store$.select(state => {
     return {
       pizzasSearch: state.ui.pizzaSearch,

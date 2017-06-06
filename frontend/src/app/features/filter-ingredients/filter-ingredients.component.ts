@@ -18,6 +18,12 @@ export class FilterIngredientsComponent implements OnInit {
   ngOnInit() { }
 
   handleClick(ingredient: IIngredientCommon) {
+    // disabled property doesn't seem to work on an `md-chip`
+    // so this is a temporary fix
+    if (!ingredient.isSelectable) {
+      return;
+    }
+
     if (ingredient.isSelected) {
       this.onIngredientUnselected.emit(ingredient.id);
     } else {
