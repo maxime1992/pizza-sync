@@ -1,3 +1,5 @@
+@import '../../styles/shared/_colors';
+
 md-sidenav {
   width: 300px;
 }
@@ -49,4 +51,29 @@ md-toolbar.footer {
   position: absolute;
   right: 20px;
   bottom: 136px;
+}
+
+.nb-filters-ingredients {
+  position: absolute;
+  margin-left: -7px;
+  margin-top: 3px;
+  font-size: 12px;
+  color: mat-color($accent);
+}
+
+.ingredients-selected {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid mat-color($accent);
+
+  &.border-top {
+    border-top: 1px solid mat-color($accent);
+  }
+
+  .title {
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
 }

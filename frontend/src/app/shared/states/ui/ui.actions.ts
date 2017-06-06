@@ -70,6 +70,13 @@ export class UpdatePizzaSearch implements Action {
   constructor(public payload: { search: string }) { }
 }
 
+export const TOGGLE_VISIBILITY_FILTER_INGREDIENT = 'Toggle visibility filter ingredient';
+export class ToggleVisibilityFilterIngredient implements Action {
+  readonly type = TOGGLE_VISIBILITY_FILTER_INGREDIENT;
+
+  constructor() { }
+}
+
 export type All
   = SetLanguage
   | ToggleSidenav
@@ -80,4 +87,5 @@ export type All
   | OpenDialogOrderSummary
   | CloseDialogOrderSummary
   | UpdatePizzeriaInformation
-  | UpdatePizzaSearch;
+  | UpdatePizzaSearch
+  | ToggleVisibilityFilterIngredient;
