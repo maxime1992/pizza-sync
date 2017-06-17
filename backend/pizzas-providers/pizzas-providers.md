@@ -7,6 +7,7 @@ This method should return a `Promise` of type :
     {
       id: 'pizzaId1',
       name: 'Pizza name',
+      imgUrl: 'some/path/to/an/image.ext'
       ingredients: 'Ingredient 1, Ingredient 2, etc',
       prices: [5.5, 7.5, 10, 13.5]
     },

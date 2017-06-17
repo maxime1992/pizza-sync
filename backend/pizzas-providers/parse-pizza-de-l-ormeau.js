@@ -2,6 +2,7 @@ const request = require('request')
 const cheerio = require('cheerio')
 
 const { requestOptions } = require('../helpers/http.helper')
+const { getPathImgPizza } = require('../helpers/file.helper')
 
 const { PizzasModel } = require('../models/pizzas.model')
 const { PizzasCategoriesModel } = require('../models/pizzas-categories.model')
@@ -14,6 +15,9 @@ class PizzaDeLOrmeau {
       phone: '',
       url: 'http://www.pizzadelormeau.com/nos-pizzas/'
     }
+
+    // folder that contains the pizzas images
+    this._imgsFolder = `${__dirname}/../../frontend/src/assets/img/pizzas-providers/l-ormeau`
   }
 
   getPizzasAndPizzasCategories() {
@@ -67,7 +71,7 @@ class PizzaDeLOrmeau {
                   // some pizzas do not have ingredients as they're already written in their title
                   // for example "Poire Williams / chocolat", "Banane / Chocolat" and "Ananas / Chocolat"
                   // we do not want to have empty ingredients and thus, they should be removed
-                  .filter(x => x !== '');
+                  .filter(x => x !== '')
 
                 const pizzaIngredients = pizzaIngredientsTxtArray.map(IngredientsModel.registerIfNewAndGetId)
 
@@ -80,6 +84,7 @@ class PizzaDeLOrmeau {
                 const finalPizza = {
                   id: PizzasModel.getNewId(),
                   name: pizzaName,
+                  imgUrl: getPathImgPizza(pizzaName, this._imgsFolder),
                   ingredientsIds: pizzaIngredients,
                   prices: pizzaPrices
                 }
