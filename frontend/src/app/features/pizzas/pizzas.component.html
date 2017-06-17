@@ -8,10 +8,12 @@
           <!--TODO : There's an ongoing issue with layout gap-->
           <!--https://github.com/angular/flex-layout/issues/125-->
           <!--once it's solve, set fxFlex to 33.3%-->
-          <md-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
+          <md-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxLayout="column" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
             <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
-            <md-card-content>
+            <md-card-content fxFlex>
               <p>{{ pizza.ingredients | join:'name' }}</p>
+
+              <img [src]="pizza.imgUrl" class="full-width">
             </md-card-content>
             <md-card-actions fxLayout="row">
               <button md-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">

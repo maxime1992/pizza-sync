@@ -5,6 +5,7 @@ export interface IPizzaCommon {
   name: string;
   ingredientsIds: string[];
   prices: number[];
+  imgUrl: string;
 }
 
 export interface IPizzasTable {
