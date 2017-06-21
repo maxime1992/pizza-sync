@@ -1,3 +1,5 @@
+const removeAccents = require('remove-accents')
+
 /**
  * cleanIngredientName
  *
@@ -17,7 +19,15 @@ function cleanIngredientName(ingredientName) {
  * @returns {string} The cleaned pizza name
  */
 function cleanPizzaName(name) {
-  return name.trim().toLowerCase().replace('_', '-').replace(' ', '-').replace('(', '').replace(')', '')
+  name = removeAccents(name)
+
+  return name
+  .trim()
+  .toLowerCase()
+  .replace('_', '-')
+  .replace(' ', '-')
+  .replace('(', '')
+  .replace(')', '')
 }
 
 /**

@@ -7,6 +7,7 @@
     "cheerio": "0.22.0",
     "cors": "2.8.1",
     "express": "4.14.1",
+    "remove-accents": "0.4.0",
     "request": "2.79.0",
     "socket.io": "1.7.2",
     "vorpal": "1.11.4"
