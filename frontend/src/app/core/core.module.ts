@@ -1,12 +1,20 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  LocationStrategy,
+  HashLocationStrategy,
+  PathLocationStrategy
+} from '@angular/common';
 import { Http } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import {
+  TranslateModule,
+  TranslateLoader,
+  TranslateStaticLoader
+} from 'ng2-translate';
 import { Ng2Webstorage } from 'ng2-webstorage';
 // import hammerjs only if needed :
 // From https://material.angular.io/guide/getting-started#additional-setup-for-gestures
@@ -19,7 +27,7 @@ import './rxjs-operators';
 import { createTranslateLoader } from 'app/shared/helpers/aot.helper';
 import { LANGUAGES } from 'app/core/injection-tokens';
 import { environment } from 'environments/environment';
-import { getRootReducer } from 'app/shared/states/root.reducer';
+import { metaReducers, reducers } from 'app/shared/states/root.reducer';
 import { PizzasEffects } from 'app/features/pizzas/pizzas.effects';
 import { PizzasService } from 'app/features/pizzas/pizzas.service';
 import { OrdersEffects } from 'app/shared/states/orders/orders.effects';
@@ -37,23 +45,21 @@ import { CountdownService } from 'app/shared/services/countdown.service';
   imports: [
     // START : Do not add your libs here
     BrowserAnimationsModule,
-    // TODO : Keep an eye on ngrx V3 to have lazy loaded reducers
-    // https://github.com/ngrx/store/pull/269
-    StoreModule.provideStore(getRootReducer),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    // TODO : lazy loaded reducers?
+    StoreModule.forRoot(reducers, { metaReducers }),
+    // TODO it's not clear if the module is enabled when the extension is not present...
+    StoreDevtoolsModule.instrument({ maxAge: 50 }),
     TranslateModule.forRoot({
       provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
+      useFactory: createTranslateLoader,
       deps: [Http]
     }),
     // END : Do not add your libs here
 
     Ng2Webstorage,
 
-    // pass every effect here, one per line
-    EffectsModule.runAfterBootstrap(PizzasEffects),
-    EffectsModule.runAfterBootstrap(OrdersEffects),
-    EffectsModule.runAfterBootstrap(UsersEffects)
+    // TODO batched actions are not taken into accounts by effects
+    EffectsModule.forRoot([PizzasEffects, OrdersEffects, UsersEffects])
   ],
   providers: [
     PizzasService,
@@ -69,8 +75,10 @@ import { CountdownService } from 'app/shared/services/countdown.service';
     // use hash location strategy or not based on env
     {
       provide: LocationStrategy,
-      useClass: (environment.hashLocationStrategy ? HashLocationStrategy : PathLocationStrategy)
+      useClass: environment.hashLocationStrategy
+        ? HashLocationStrategy
+        : PathLocationStrategy
     }
   ]
 })
-export class CoreModule { }
+export class CoreModule {}

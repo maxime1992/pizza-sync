@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IOrderCommon, IOrdersTable, INewOrder } from 'app/shared/states/orders/orders.interface';
+import { IOrder, IOrdersTable, INewOrder } from 'app/shared/states/orders/orders.interface';
 
 export const LOAD_ORDERS_SUCCESS = '[Orders] Load orders success';
 export class LoadOrdersSuccess implements Action {
@@ -20,7 +20,7 @@ export const ADD_ORDER_SUCCESS = '[Orders] Add order success';
 export class AddOrderSuccess implements Action {
   readonly type = ADD_ORDER_SUCCESS;
 
-  constructor(public payload: IOrderCommon) { }
+  constructor(public payload: IOrder) { }
 }
 
 export const REMOVE_ORDER = '[Orders] Remove order';

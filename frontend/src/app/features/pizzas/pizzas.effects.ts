@@ -23,8 +23,8 @@ export class PizzasEffects {
     .switchMap((action: Action) =>
       this.pizzaService.getPizzas()
         .map(res => {
-          return batchActions(<Action[]>[
-            new PizzasActions.LoadPizzasSuccess(res.pizzas),
+          return batchActions([
+              new PizzasActions.LoadPizzasSuccess(res.pizzas),
               new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(res.pizzasCategories),
               new UsersActions.LoadUsersSuccess(res.users),
               new OrdersActions.LoadOrdersSuccess(res.orders),

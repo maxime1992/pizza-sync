@@ -13,6 +13,6 @@ export class UsersEffects {
 
   // tslint:disable-next-line:member-ordering
   @Effect({ dispatch: false }) identification$ = this.actions$
-    .ofType(UsersActions.IDENTIFICATION)
-    .do(action => this.websocketService.connectUser(action.payload.username));
+    .ofType<UsersActions.Identification>(UsersActions.IDENTIFICATION)
+    .do(action => this.websocketService.connectUser(action.payload));
 }

@@ -123,8 +123,9 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   handleOpenAndCloseDialog<T>(mdDialogRef: MdDialogRef<T>, fnOpen: () => void, isOpened: boolean) {
     if (isOpened) {
-      // open the corresponding dialog
-      fnOpen();
+      // open the corresponding dialog and ensure
+      // it's not done in another change detection step
+      setTimeout(() => fnOpen());
     } else if (typeof mdDialogRef !== 'undefined') {
       mdDialogRef.close();
     }

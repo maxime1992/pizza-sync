@@ -12,13 +12,13 @@ export class OrdersEffects {
 
   // tslint:disable-next-line:member-ordering
   @Effect({ dispatch: false }) addOrder$ = this.actions$
-    .ofType(OrdersActions.ADD_ORDER)
+    .ofType<OrdersActions.AddOrder>(OrdersActions.ADD_ORDER)
     .withLatestFrom(this.store$.select(state => state.users.idCurrentUser))
     .do(([action, idCurrentUser]) =>
       this.webSocketService.addOrder({ ...action.payload, userId: idCurrentUser }));
 
   // tslint:disable-next-line:member-ordering
   @Effect({ dispatch: false }) removeOrder$ = this.actions$
-    .ofType(OrdersActions.REMOVE_ORDER)
+    .ofType<OrdersActions.RemoveOrder>(OrdersActions.REMOVE_ORDER)
     .do(action => this.webSocketService.removeOrder(action.payload.id));
 }

@@ -66,7 +66,10 @@ if [ "$needsGitUpdate" = true -o ! -d public ]; then
   cp -r ../frontend/dist/ ./public
 fi
 
-ip=$(ip route get 1.1.1.1 | awk '{print $NF; exit}')
+# head take the first line
+# tr remove extra spaces
+# cut takes the 7th field (there can be more after!)
+ip=$(ip route get 8.8.8.8 | head -n1 | tr -s ' ' | cut -d' ' -f7)
 
 echo "PIZZA SYNC NOW AVAILABLE AT http://$ip:3000"
 
