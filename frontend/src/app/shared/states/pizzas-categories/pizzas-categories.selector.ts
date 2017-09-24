@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import * as removeAccents from 'remove-accents';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
@@ -39,7 +40,7 @@ export function getCategoriesAndPizzas(store$: Store<IStore>): Observable<IPizza
       p.ingredients === n.ingredients
     )
     .map(({ pizzasSearch, pizzas, pizzasCategories, ingredients }) => {
-      pizzasSearch = pizzasSearch.toLowerCase();
+      pizzasSearch = removeAccents(pizzasSearch.toLowerCase());
       const selectedIngredientsIds = getSelectedIngredientsIds(ingredients);
 
       return pizzasCategories
@@ -58,7 +59,7 @@ export function getCategoriesAndPizzas(store$: Store<IStore>): Observable<IPizza
                   .map(ingredientId => ingredients.byId[ingredientId])
               }))
               .filter(p =>
-                p.name.toLowerCase().includes(pizzasSearch)
+                removeAccents(p.name.toLowerCase()).includes(pizzasSearch)
                 && doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds, p))
           };
 
