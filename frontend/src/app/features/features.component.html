@@ -8,7 +8,12 @@
 
     PIZZA SYNC
 
-    <app-pizzas-search (onSearch)="search($event)" fxFlex class="margin-left-x4 margin-right-x3"></app-pizzas-search>
+    <app-pizzas-search
+      [searchedText]="searchQuery$ | async"
+      (onSearch)="search($event)"
+      fxFlex
+      class="margin-left-x4 margin-right-x3"
+    ></app-pizzas-search>
 
     <button md-button (click)="toggleFilterIngredients()">
       <md-icon>sort</md-icon>

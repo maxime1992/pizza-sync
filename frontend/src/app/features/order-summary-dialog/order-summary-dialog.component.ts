@@ -13,11 +13,13 @@ import { IOrdersSummary, IPizzaOrderSummary } from 'app/shared/states/orders/ord
 })
 export class OrderSummaryDialogComponent implements OnInit {
   public orderSummary$: Observable<IOrdersSummary>;
+  public nbOfPizzas$: Observable<number>;
 
   constructor(private store$: Store<IStore>) { }
 
   ngOnInit() {
     this.orderSummary$ = this.store$.let(getOrderSummary);
+    this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
   }
 
   howManyPerSize(pizzaOrderSummary: IPizzaOrderSummary) {

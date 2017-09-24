@@ -1,4 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  HostListener,
+  ViewChild,
+  OnDestroy,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { MdInputDirective } from '@angular/material';
@@ -8,9 +19,10 @@ import { MdInputDirective } from '@angular/material';
   templateUrl: './pizzas-search.component.html',
   styleUrls: ['./pizzas-search.component.scss']
 })
-export class PizzasSearchComponent implements OnInit {
+export class PizzasSearchComponent implements OnInit, OnChanges, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
+  @Input() searchedText?: string;
   @ViewChild(MdInputDirective) searchInput: MdInputDirective;
   @Output() onSearch = new EventEmitter<string>();
   public search = new FormControl();
@@ -28,9 +40,20 @@ export class PizzasSearchComponent implements OnInit {
   ngOnInit() {
     this.search
       .valueChanges
-      .takeUntil(this.onDestroy$)
+      .takeUntil(this.onDestroy$.asObservable())
       .debounceTime(200)
       .do(search => this.onSearch.emit(search))
       .subscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchedText']) {
+      this.search.patchValue(this.searchedText);
+    }
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

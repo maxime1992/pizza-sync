@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -41,6 +42,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public lockOrders = true;
   public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
   public pizzaSearch$: Observable<string>;
+  public nbOfPizzas$: Observable<number>;
 
   private dialogIdentificationRef: MdDialogRef<IdentificationDialogComponent>;
   private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
@@ -50,18 +52,21 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public isFilterIngredientsVisible$: Observable<boolean>;
   public nbIngredientsSelected$: Observable<number>;
   public ingredientsSelected$: Observable<IIngredientsArray>;
+  public searchQuery$: Observable<string>;
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private store$: Store<IStore>,
     public dialog: MdDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.ui$ = this.store$.select(state => state.ui);
 
     this.store$
       .select(state => state.ui.isDialogIdentificationOpen)
-      .takeUntil(this.componentDestroyed$)
+      .takeUntil(this.componentDestroyed$.asObservable())
       .do(isDialogIdentificationOpen => this.handleOpenAndCloseDialog(
         this.dialogIdentificationRef,
         () => this.openDialogIdentification(),
@@ -71,7 +76,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.store$
       .select(state => state.ui.isDialogOrderSummaryOpen)
-      .takeUntil(this.componentDestroyed$)
+      .takeUntil(this.componentDestroyed$.asObservable())
       .do(isDialogOrderSummaryOpen => this.handleOpenAndCloseDialog(
         this.dialogOrderSummaryRef,
         () => this.openDialogOrderSummary(),
@@ -79,10 +84,24 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       ))
       .subscribe();
 
-    this.hourAndMinuteEnd$ = this
-      .store$
-      .select(state => ({ hour: state.orders.hourEnd, minute: state.orders.minuteEnd }))
-      .distinctUntilChanged((p, n) => p.hour === n.hour && p.minute === n.minute);
+    this.hourAndMinuteEnd$ = this.store$
+      .select(state => ({
+        hour: state.orders.hourEnd,
+        minute: state.orders.minuteEnd,
+      }))
+      .distinctUntilChanged(
+        (p, n) => p.hour === n.hour && p.minute === n.minute
+      );
+
+    this.searchQuery$ = this.route.queryParams.map(
+      queries => queries.search || ''
+    );
+
+    this.searchQuery$
+      .do(search =>
+        this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }))
+      )
+      .subscribe();
 
     this.fullOrder$ = this.store$.let(getFullOrder);
 
@@ -132,8 +151,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.dialogIdentificationRef
       .afterClosed()
-      .takeUntil(this.componentDestroyed$)
-      .do(result => this.dialogIdentificationRef = null)
+      .takeUntil(this.componentDestroyed$.asObservable())
+      .do(result => (this.dialogIdentificationRef = null))
       .subscribe();
   }
 
@@ -164,7 +183,13 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   }
 
   search(search: string) {
-    this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }));
+    search = search.trim();
+
+    if (!search) {
+      this.router.navigate([''], { queryParams: {} });
+    } else {
+      this.router.navigate([''], { queryParams: { search } });
+    }
   }
 
   toggleFilterIngredients() {
