@@ -69,7 +69,7 @@
     <md-icon>file_download</md-icon>
   </button>
 
-  <button md-mini-fab class="order-summary" (click)="openOrderSummaryDialog()">
+  <button md-mini-fab class="order-summary" [disabled]="(nbOfPizzas$ | async) === 0" (click)="openOrderSummaryDialog()">
     <md-icon>receipt</md-icon>
   </button>
 

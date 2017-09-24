@@ -112,6 +112,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.nbIngredientsSelected$ = this.store$.let(getNbIngredientsSelected);
 
     this.ingredientsSelected$ = this.store$.let(getIngredientsSelected);
+
+    this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
   }
 
   ngOnDestroy() {
