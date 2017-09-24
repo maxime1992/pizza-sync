@@ -8,4 +8,4 @@ export function usersState(): IUsersTable {
     byId: { },
     allIds: []
   };
-};
+}

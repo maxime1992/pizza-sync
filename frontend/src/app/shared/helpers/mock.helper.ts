@@ -15,11 +15,11 @@ export function response(status: number): Observable<Response> {
  * if the status code is not a 2XX, it will return a failing Observable
  */
 export function responseBody(body: string | Object | ArrayBuffer, status = 200): Observable<Response> {
-  const response = new Response(new ResponseOptions({ status, body }));
+  const res = new Response(new ResponseOptions({ status, body }));
 
   if (status >= 200 && status < 300) {
-    return Observable.of(response).delay(environment.httpDelay);
+    return Observable.of(res).delay(environment.httpDelay);
   } else {
-    return Observable.throw(response).materialize().delay(environment.httpDelay).dematerialize();
+    return Observable.throw(res).materialize().delay(environment.httpDelay).dematerialize();
   }
 }

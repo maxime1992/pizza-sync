@@ -32,7 +32,7 @@ export class IdentificationDialogComponent implements OnInit {
   }
 
   onSubmit({value}: FormGroup) {
-    this.store$.dispatch(new UsersActions.Identification(value));
+    this.store$.dispatch(new UsersActions.Identification(value.username));
 
     this.identificationForm.controls['username'].disable();
   }

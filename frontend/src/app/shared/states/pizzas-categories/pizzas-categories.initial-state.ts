@@ -5,4 +5,4 @@ export function pizzasCategoriesState(): IPizzasCategoriesTable {
     byId: { },
     allIds: []
   };
-};
+}

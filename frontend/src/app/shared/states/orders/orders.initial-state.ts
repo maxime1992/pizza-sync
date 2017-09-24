@@ -8,4 +8,4 @@ export function ordersState(): IOrdersTable {
     byId: {},
     allIds: []
   };
-};
+}

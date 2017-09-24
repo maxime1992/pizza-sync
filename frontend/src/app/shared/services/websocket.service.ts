@@ -5,7 +5,11 @@ import { LocalStorageService } from 'ng2-webstorage';
 
 import { environment } from 'environments/environment';
 import { IStore } from 'app/shared/interfaces/store.interface';
-import { IOrderCommon } from 'app/shared/states/orders/orders.interface';
+import {
+  IOrderCommon,
+  INewOrder,
+  IOrder
+} from 'app/shared/states/orders/orders.interface';
 import * as UsersActions from 'app/shared/states/users/users.actions';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 import * as UiActions from 'app/shared/states/ui/ui.actions';
@@ -41,11 +45,11 @@ export class WebsocketService {
     this.store$.dispatch(new UsersActions.AddUserSuccess(user));
   }
 
-  public addOrder(order: IOrderCommon) {
+  public addOrder(order: INewOrder & {userId: string}) {
     this.socket.emit('ADD_ORDER', order);
   }
 
-  private onAddOrderSuccess(order: IOrderCommon) {
+  private onAddOrderSuccess(order: IOrder) {
     this.store$.dispatch(new OrdersActions.AddOrderSuccess(order));
   }
 

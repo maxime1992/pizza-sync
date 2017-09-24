@@ -5,4 +5,4 @@ export function ingredientsState(): IIngredientsTable {
     byId: { },
     allIds: []
   };
-};
+}

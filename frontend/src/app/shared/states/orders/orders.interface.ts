@@ -1,16 +1,18 @@
 import { IPizzaCommon } from 'app/shared/states/pizzas/pizzas.interface';
 
 export interface IOrderCommon {
-  id: string;
-  userId: string;
   pizzaId: string;
   priceIndex: number;
+}
+
+export interface IOrder extends IOrderCommon {
+  userId: string;
+  id: string;
   isBeingRemoved: boolean;
 }
 
-export interface INewOrder {
-  pizzaId: string;
-  priceIndex: number;
+// tslint:disable-next-line:no-empty-interface
+export interface INewOrder extends IOrderCommon {
 }
 
 export interface IPizzaOrderSummary {
@@ -26,10 +28,10 @@ export interface IOrdersTable {
   hourEnd: number;
   minuteEnd: number;
 
-  byId: { [key: string]: IOrderCommon };
+  byId: { [key: string]: IOrder };
   allIds: string[];
 }
 
-export interface IOrderWithPizzas extends IOrderCommon {
+export interface IOrderWithPizzas extends IOrder {
   pizzas: IPizzaCommon[];
 }
