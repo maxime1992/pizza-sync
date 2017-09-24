@@ -20,6 +20,7 @@ node_modules
 # IDE - VSCode
 .vscode/*
 !.vscode/launch.json
+.history
 
 # misc
 .sass-cache
