@@ -13,7 +13,7 @@ export function uiInitialState(): IUi {
     pizzeria: {
       name: '',
       phone: '',
-      url: ''
-    }
+      url: '',
+    },
   };
 }

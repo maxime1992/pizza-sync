@@ -11,15 +11,8 @@ import { AppComponent } from 'app/app.component';
  * if you feel like you want to add something here, you should take a look into SharedModule or CoreModule
  */
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    CoreModule,
-    SharedModule,
-    AppRoutingModule
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [BrowserModule, CoreModule, SharedModule, AppRoutingModule],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -12,16 +12,15 @@ export interface IOrder extends IOrderCommon {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface INewOrder extends IOrderCommon {
-}
+export interface INewOrder extends IOrderCommon {}
 
 export interface IPizzaOrderSummary {
   pizzaName: string;
-  howManyPerSize: { [size: string]: { size: string, howMany: number } };
+  howManyPerSize: { [size: string]: { size: string; howMany: number } };
 }
 
 // tslint:disable:no-empty-interface
-export interface IOrdersSummary extends Array<IPizzaOrderSummary> { }
+export interface IOrdersSummary extends Array<IPizzaOrderSummary> {}
 
 export interface IOrdersTable {
   // when should we lock the orders

@@ -8,46 +8,46 @@ $accent: mat-palette($mat-amber, A400, A100, A600);
 $color-declination: 10;
 
 // picked from http://www.cssauthor.com/wp-content/uploads/2015/01/Material-Color-Picker.jpg
-$red: #F54337;
-$pink: #EA1E63;
-$purple: #9C28B1;
-$deep-purple: #6937B7;
-$indigo: #3F51B5;
-$blue: #2295F4;
-$light-blue: #03A9F5;
-$cyan: #00BCD5;
-$teal: #00968A;
-$green: #4CAF50;
-$light-green: #8CC34B;
-$lime: #CDDC39;
-$yellow: #FFEB3C;
-$amber: #FEC107;
-$orange: #FF9801;
-$deep-orange: #FE5522;
+$red: #f54337;
+$pink: #ea1e63;
+$purple: #9c28b1;
+$deep-purple: #6937b7;
+$indigo: #3f51b5;
+$blue: #2295f4;
+$light-blue: #03a9f5;
+$cyan: #00bcd5;
+$teal: #00968a;
+$green: #4caf50;
+$light-green: #8cc34b;
+$lime: #cddc39;
+$yellow: #ffeb3c;
+$amber: #fec107;
+$orange: #ff9801;
+$deep-orange: #fe5522;
 $brown: #775545;
-$grey: #9D9E9F;
-$white: #FFFFFF;
+$grey: #9d9e9f;
+$white: #ffffff;
 $black: #000000;
 
 $color-palette: (
-	'red': $red,
-	'pink': $pink,
-	'purple': $purple,
-	'deep-purple': $deep-purple,
-	'indigo': $indigo,
-	'blue': $blue,
-	'light-blue': $light-blue,
-	'cyan': $cyan,
-	'teal': $teal,
-	'green': $green,
-	'light-green': $light-green,
-	'lime': $lime,
-	'yellow': $yellow,
-	'amber': $amber,
-	'orange': $orange,
-	'deep-orange': $deep-orange,
-	'brown': $brown,
-	'grey': $grey,
-	'white': $white,
-	'black': $black,
+  'red': $red,
+  'pink': $pink,
+  'purple': $purple,
+  'deep-purple': $deep-purple,
+  'indigo': $indigo,
+  'blue': $blue,
+  'light-blue': $light-blue,
+  'cyan': $cyan,
+  'teal': $teal,
+  'green': $green,
+  'light-green': $light-green,
+  'lime': $lime,
+  'yellow': $yellow,
+  'amber': $amber,
+  'orange': $orange,
+  'deep-orange': $deep-orange,
+  'brown': $brown,
+  'grey': $grey,
+  'white': $white,
+  'black': $black
 );

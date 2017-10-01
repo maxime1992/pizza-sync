@@ -15,22 +15,24 @@ import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.a
 
 @Injectable()
 export class PizzasEffects {
-  constructor(private actions$: Actions, private pizzaService: PizzasService) { }
+  constructor(private actions$: Actions, private pizzaService: PizzasService) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect({ dispatch: true }) initialLoad$: Observable<BatchAction> = this.actions$
+  @Effect({ dispatch: true })
+  initialLoad$: Observable<BatchAction> = this.actions$
     .ofType(PizzasActions.LOAD_PIZZAS)
     .switchMap((action: Action) =>
-      this.pizzaService.getPizzas()
-        .map(res => {
-          return batchActions([
-              new PizzasActions.LoadPizzasSuccess(res.pizzas),
-              new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(res.pizzasCategories),
-              new UsersActions.LoadUsersSuccess(res.users),
-              new OrdersActions.LoadOrdersSuccess(res.orders),
-              new UiActions.UpdatePizzeriaInformation(res.pizzeria),
-              new IngredientsActions.LoadIngredientsSuccess(res.ingredients)
-          ]);
-        })
+      this.pizzaService.getPizzas().map(res => {
+        return batchActions([
+          new PizzasActions.LoadPizzasSuccess(res.pizzas),
+          new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(
+            res.pizzasCategories
+          ),
+          new UsersActions.LoadUsersSuccess(res.users),
+          new OrdersActions.LoadOrdersSuccess(res.orders),
+          new UiActions.UpdatePizzeriaInformation(res.pizzeria),
+          new IngredientsActions.LoadIngredientsSuccess(res.ingredients),
+        ]);
+      })
     );
 }

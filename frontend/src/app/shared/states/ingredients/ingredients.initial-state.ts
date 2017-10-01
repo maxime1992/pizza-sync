@@ -2,7 +2,7 @@ import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.int
 
 export function ingredientsState(): IIngredientsTable {
   return {
-    byId: { },
-    allIds: []
+    byId: {},
+    allIds: [],
   };
 }

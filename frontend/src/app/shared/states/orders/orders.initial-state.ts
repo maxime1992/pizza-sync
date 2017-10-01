@@ -6,6 +6,6 @@ export function ordersState(): IOrdersTable {
     minuteEnd: null,
 
     byId: {},
-    allIds: []
+    allIds: [],
   };
 }

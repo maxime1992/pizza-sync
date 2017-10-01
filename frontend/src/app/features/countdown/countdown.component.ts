@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  OnDestroy,
+  OnChanges,
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -7,7 +15,7 @@ import { CountdownService } from 'app/shared/services/countdown.service';
 @Component({
   selector: 'app-countdown',
   templateUrl: './countdown.component.html',
-  styleUrls: ['./countdown.component.scss']
+  styleUrls: ['./countdown.component.scss'],
 })
 export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hour: number;
@@ -18,9 +26,9 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
   public countdown: string;
   private countdownSub: Subscription;
 
-  constructor(private countdownService: CountdownService) { }
+  constructor(private countdownService: CountdownService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.countdownSub) {
@@ -29,8 +37,7 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
 
     let hasEmittedCountdownStart = false;
 
-    this.countdownSub = this
-      .countdownService
+    this.countdownSub = this.countdownService
       .getCountdownTo(this.hour, this.minute)
       .do(countdown => {
         if (!hasEmittedCountdownStart) {
@@ -41,12 +48,13 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
         this.countdown = countdown;
       })
       .subscribe(
-      () => { },
-      () => { },
-      () => {
-        this.countdown = '';
-        this.onCountdownEnd.next();
-      });
+        () => {},
+        () => {},
+        () => {
+          this.countdown = '';
+          this.onCountdownEnd.next();
+        }
+      );
   }
 
   ngOnDestroy() {

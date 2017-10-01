@@ -6,13 +6,13 @@ import { IPizzasCategoriesTable } from 'app/shared/states/pizzas-categories/pizz
 
 export function pizzasCategoriesReducer(
   pizzasCategoriesTbl = pizzasCategoriesState(),
-  action: PizzasCategoriesActions.All): IPizzasCategoriesTable {
-
+  action: PizzasCategoriesActions.All
+): IPizzasCategoriesTable {
   switch (action.type) {
     case PizzasCategoriesActions.LOAD_PIZZAS_CATEGORIES_SUCCESS: {
       return {
         ...pizzasCategoriesTbl,
-        ...action.payload
+        ...action.payload,
       };
     }
 

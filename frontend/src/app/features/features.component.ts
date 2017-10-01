@@ -16,38 +16,46 @@ import { IdentificationDialogComponent } from 'app/features/identification-dialo
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 import { getCurrentDateFormatted } from 'app/shared/helpers/date.helper';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
-import { getFullOrder, getFullOrderCsvFormat } from 'app/shared/states/users/users.selector';
+import {
+  getFullOrder,
+  getFullOrderCsvFormat,
+} from 'app/shared/states/users/users.selector';
 import { IIngredientsArray } from 'app/shared/states/ingredients/ingredients.interface';
-import { getIngredients, getNbIngredientsSelected, getIngredientsSelected } from 'app/shared/states/ingredients/ingredients.selector';
+import {
+  getIngredients,
+  getNbIngredientsSelected,
+  getIngredientsSelected,
+} from 'app/shared/states/ingredients/ingredients.selector';
 
 @Component({
   selector: 'app-features',
   templateUrl: './features.component.html',
   styleUrls: ['./features.component.scss'],
   animations: [
-    trigger(
-      'enterAnimation', [
-        transition(':enter', [
-          style({ opacity: 0 }),
-          animate('1000ms', style({ opacity: 1 }))
-        ])
-      ]
-    )
-  ]
+    trigger('enterAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
   private componentDestroyed$ = new Subject<void>();
 
   public ui$: Observable<IUi>;
   public lockOrders = true;
-  public hourAndMinuteEnd$: Observable<{ hour: number, minute: number }>;
+  public hourAndMinuteEnd$: Observable<{ hour: number; minute: number }>;
   public pizzaSearch$: Observable<string>;
   public nbOfPizzas$: Observable<number>;
 
   private dialogIdentificationRef: MatDialogRef<IdentificationDialogComponent>;
   private dialogOrderSummaryRef: MatDialogRef<OrderSummaryDialogComponent>;
 
-  public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
+  public fullOrder$: Observable<{
+    users: IUserWithPizzas[];
+    totalPrice: number;
+  }>;
   public ingredients$: Observable<IIngredientsArray>;
   public isFilterIngredientsVisible$: Observable<boolean>;
   public nbIngredientsSelected$: Observable<number>;
@@ -67,21 +75,25 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.store$
       .select(state => state.ui.isDialogIdentificationOpen)
       .takeUntil(this.componentDestroyed$.asObservable())
-      .do(isDialogIdentificationOpen => this.handleOpenAndCloseDialog(
-        this.dialogIdentificationRef,
-        () => this.openDialogIdentification(),
-        isDialogIdentificationOpen
-      ))
+      .do(isDialogIdentificationOpen =>
+        this.handleOpenAndCloseDialog(
+          this.dialogIdentificationRef,
+          () => this.openDialogIdentification(),
+          isDialogIdentificationOpen
+        )
+      )
       .subscribe();
 
     this.store$
       .select(state => state.ui.isDialogOrderSummaryOpen)
       .takeUntil(this.componentDestroyed$.asObservable())
-      .do(isDialogOrderSummaryOpen => this.handleOpenAndCloseDialog(
-        this.dialogOrderSummaryRef,
-        () => this.openDialogOrderSummary(),
-        isDialogOrderSummaryOpen
-      ))
+      .do(isDialogOrderSummaryOpen =>
+        this.handleOpenAndCloseDialog(
+          this.dialogOrderSummaryRef,
+          () => this.openDialogOrderSummary(),
+          isDialogOrderSummaryOpen
+        )
+      )
       .subscribe();
 
     this.hourAndMinuteEnd$ = this.store$
@@ -107,7 +119,9 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.ingredients$ = this.store$.let(getIngredients);
 
-    this.isFilterIngredientsVisible$ = this.store$.select(state => state.ui.isFilterIngredientVisible);
+    this.isFilterIngredientsVisible$ = this.store$.select(
+      state => state.ui.isFilterIngredientVisible
+    );
 
     this.nbIngredientsSelected$ = this.store$.let(getNbIngredientsSelected);
 
@@ -121,13 +135,17 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.componentDestroyed$.complete();
   }
 
-  handleOpenAndCloseDialog<T>(mdDialogRef: MatDialogRef<T>, fnOpen: () => void, isOpened: boolean) {
+  handleOpenAndCloseDialog<T>(
+    matDialogRef: MatDialogRef<T>,
+    fnOpen: () => void,
+    isOpened: boolean
+  ) {
     if (isOpened) {
       // open the corresponding dialog and ensure
       // it's not done in another change detection step
       setTimeout(() => fnOpen());
-    } else if (typeof mdDialogRef !== 'undefined') {
-      mdDialogRef.close();
+    } else if (typeof matDialogRef !== 'undefined') {
+      matDialogRef.close();
     }
   }
 
@@ -148,10 +166,13 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   }
 
   openDialogIdentification() {
-    this.dialogIdentificationRef = this.dialog.open(IdentificationDialogComponent, {
-      disableClose: true,
-      width: '300px'
-    });
+    this.dialogIdentificationRef = this.dialog.open(
+      IdentificationDialogComponent,
+      {
+        disableClose: true,
+        width: '300px',
+      }
+    );
 
     this.dialogIdentificationRef
       .afterClosed()
@@ -162,7 +183,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   openDialogOrderSummary() {
     this.dialogOrderSummaryRef = this.dialog.open(OrderSummaryDialogComponent, {
-      disableClose: false
+      disableClose: false,
     });
 
     this.dialogOrderSummaryRef

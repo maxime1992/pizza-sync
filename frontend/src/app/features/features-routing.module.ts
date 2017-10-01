@@ -6,11 +6,11 @@ import { FeaturesComponent } from 'app/features/features.component';
 const routes: Routes = [
   {
     path: '',
-    component: FeaturesComponent
-  }
+    component: FeaturesComponent,
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)]
+  imports: [RouterModule.forChild(routes)],
 })
-export class FeaturesRoutingModule { }
+export class FeaturesRoutingModule {}

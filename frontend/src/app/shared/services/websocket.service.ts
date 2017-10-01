@@ -8,7 +8,7 @@ import { IStore } from 'app/shared/interfaces/store.interface';
 import {
   IOrderCommon,
   INewOrder,
-  IOrder
+  IOrder,
 } from 'app/shared/states/orders/orders.interface';
 import * as UsersActions from 'app/shared/states/users/users.actions';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
@@ -18,17 +18,28 @@ import * as UiActions from 'app/shared/states/ui/ui.actions';
 export class WebsocketService {
   private socket: SocketIOClient.Socket;
 
-  constructor(private store$: Store<IStore>, private storage: LocalStorageService) {
+  constructor(
+    private store$: Store<IStore>,
+    private storage: LocalStorageService
+  ) {
     this.socket = connect(environment.urlBackend);
 
     // TODO(SPLIT_SOCKET) : Instead of handling every socket from here, we should handle them from separate services
-    this.socket.on('CONNECT_USER_SUCCESS', user => this.connectUserSuccess(user));
+    this.socket.on('CONNECT_USER_SUCCESS', user =>
+      this.connectUserSuccess(user)
+    );
     this.socket.on('ADD_ORDER_SUCCESS', order => this.onAddOrderSuccess(order));
-    this.socket.on('REMOVE_ORDER_SUCCESS', orderId => this.onRemoveOrderSuccess(orderId));
-    this.socket.on('DISCONNECT_USER_SUCCESS', userId => this.onDisconnectUserSuccess(userId));
-    this.socket.on('SET_COUNTDOWN',
-      ({ hour, minute }: { hour: number, minute: number }) =>
-        this.onSetCountdown(hour, minute));
+    this.socket.on('REMOVE_ORDER_SUCCESS', orderId =>
+      this.onRemoveOrderSuccess(orderId)
+    );
+    this.socket.on('DISCONNECT_USER_SUCCESS', userId =>
+      this.onDisconnectUserSuccess(userId)
+    );
+    this.socket.on(
+      'SET_COUNTDOWN',
+      ({ hour, minute }: { hour: number; minute: number }) =>
+        this.onSetCountdown(hour, minute)
+    );
   }
 
   public connectUser(username: string) {
@@ -45,7 +56,7 @@ export class WebsocketService {
     this.store$.dispatch(new UsersActions.AddUserSuccess(user));
   }
 
-  public addOrder(order: INewOrder & {userId: string}) {
+  public addOrder(order: INewOrder & { userId: string }) {
     this.socket.emit('ADD_ORDER', order);
   }
 

@@ -11,22 +11,24 @@ import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.int
 
 @Injectable()
 export class PizzasService {
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   // TODO : As we're now calling initial-state
   // we should move this call into another service
   getPizzas(): Observable<{
     pizzeria: {
-      name: string,
-      phone: string,
-      url: string,
-    },
-    pizzas: IPizzasTable,
-    pizzasCategories: IPizzasCategoriesTable,
-    users: IUsersTable,
-    orders: IOrdersTable,
-    ingredients: IIngredientsTable
+      name: string;
+      phone: string;
+      url: string;
+    };
+    pizzas: IPizzasTable;
+    pizzasCategories: IPizzasCategoriesTable;
+    users: IUsersTable;
+    orders: IOrdersTable;
+    ingredients: IIngredientsTable;
   }> {
-    return this.http.get(`${environment.urlBackend}/initial-state`).map((res: Response) => res.json());
+    return this.http
+      .get(`${environment.urlBackend}/initial-state`)
+      .map((res: Response) => res.json());
   }
 }

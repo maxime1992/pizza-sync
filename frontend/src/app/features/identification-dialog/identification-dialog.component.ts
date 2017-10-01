@@ -10,7 +10,7 @@ import * as UsersActions from 'app/shared/states/users/users.actions';
 @Component({
   selector: 'app-identification-dialog',
   templateUrl: './identification-dialog.component.html',
-  styleUrls: ['./identification-dialog.component.scss']
+  styleUrls: ['./identification-dialog.component.scss'],
 })
 export class IdentificationDialogComponent implements OnInit {
   public identificationForm: FormGroup;
@@ -19,19 +19,22 @@ export class IdentificationDialogComponent implements OnInit {
   constructor(
     private store$: Store<IStore>,
     private fb: FormBuilder,
-    private storage: LocalStorageService  ) { }
+    private storage: LocalStorageService
+  ) {}
 
   ngOnInit() {
-    this.isIdentifying$ = this.store$.select(state => state.users.isIdentifying);
+    this.isIdentifying$ = this.store$.select(
+      state => state.users.isIdentifying
+    );
 
     const username = this.storage.retrieve('username') || '';
 
     this.identificationForm = this.fb.group({
-      username: [username, Validators.required]
+      username: [username, Validators.required],
     });
   }
 
-  onSubmit({value}: FormGroup) {
+  onSubmit({ value }: FormGroup) {
     this.store$.dispatch(new UsersActions.Identification(value.username));
 
     this.identificationForm.controls['username'].disable();

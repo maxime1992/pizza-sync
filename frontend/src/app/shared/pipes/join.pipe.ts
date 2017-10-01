@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'join'
+  name: 'join',
 })
 export class JoinPipe implements PipeTransform {
   transform(arr: any[], nameToPluck: string): any {
@@ -11,6 +11,7 @@ export class JoinPipe implements PipeTransform {
 
     return arr
       .filter(x => typeof x !== 'undefined')
-      .map(x => x[nameToPluck]).join(', ');
+      .map(x => x[nameToPluck])
+      .join(', ');
   }
 }

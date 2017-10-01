@@ -37,5 +37,5 @@ export const environment = {
   // TIP : Use console.debug, console.warn and console.error
   // console.log should be used only in dev and never commited
   // this way you can find every console.log very easily
-  debug: true
+  debug: true,
 };
