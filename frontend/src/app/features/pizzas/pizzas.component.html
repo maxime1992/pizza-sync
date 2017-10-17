@@ -8,15 +8,23 @@
           <!--TODO : There's an ongoing issue with layout gap-->
           <!--https://github.com/angular/flex-layout/issues/125-->
           <!--once it's solve, set fxFlex to 33.3%-->
-          <mat-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxLayout="column" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
+          <mat-card
+            *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById"
+            (click)="openPizzaDialog(pizza)"
+            fxLayout="column"
+            fxFlex.xs="97%"
+            fxFlex.gt-sm="47%"
+            fxFlex.gt-md="30%"
+            fxFlex.gt-lg="22%"
+          >
             <mat-card-title class="color-accent">{{ pizza.name }}</mat-card-title>
             <mat-card-content fxFlex>
               <p>{{ pizza.ingredients | join:'name' }}</p>
 
-              <img [src]="pizza.imgUrl" class="full-width">
+              <img [src]="pizza.imgUrl" class="pizza-img full-width">
             </mat-card-content>
             <mat-card-actions fxLayout="row">
-              <button mat-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">
+              <button mat-mini-fab *ngFor="let price of pizza.prices; trackBy: i; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">
                 <span *ngIf="price">{{ price | number:'1.1-1' }}€</span>
                 <span *ngIf="!price">-</span>
               </button>

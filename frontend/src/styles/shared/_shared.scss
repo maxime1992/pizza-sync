@@ -55,3 +55,11 @@ pre {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.dialog-with-transparent-background {
+  mat-dialog-container {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}

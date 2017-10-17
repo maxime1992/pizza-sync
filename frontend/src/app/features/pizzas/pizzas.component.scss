@@ -11,6 +11,12 @@ button[mat-mini-fab] {
 mat-card {
   margin-bottom: 15px;
 
+  mat-card-content {
+    .pizza-img {
+      cursor: pointer;
+    }
+  }
+
   mat-card-actions {
     padding-left: 16px;
   }
