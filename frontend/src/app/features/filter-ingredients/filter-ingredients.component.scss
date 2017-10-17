@@ -1,3 +1,10 @@
 .filter-ingredients {
   margin: 16px;
 }
+
+// since beta 12, chips have margin...
+.mat-chip {
+  margin: 0 !important;
+  margin-right: 3px !important;
+  margin-bottom: 7px !important;
+}

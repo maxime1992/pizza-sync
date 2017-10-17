@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
-import { MdInputDirective } from '@angular/material';
+import { MatInput } from '@angular/material';
 
 @Component({
   selector: 'app-pizzas-search',
@@ -23,7 +23,7 @@ export class PizzasSearchComponent implements OnInit, OnChanges, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
   @Input() searchedText?: string;
-  @ViewChild(MdInputDirective) searchInput: MdInputDirective;
+  @ViewChild(MatInput) searchInput: MatInput;
   @Output() onSearch = new EventEmitter<string>();
   public search = new FormControl();
 

@@ -8,20 +8,20 @@
           <!--TODO : There's an ongoing issue with layout gap-->
           <!--https://github.com/angular/flex-layout/issues/125-->
           <!--once it's solve, set fxFlex to 33.3%-->
-          <md-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxLayout="column" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
-            <md-card-title class="color-accent">{{ pizza.name }}</md-card-title>
-            <md-card-content fxFlex>
+          <mat-card *ngFor="let pizza of pizzaCategorie.pizzas; trackBy: trackById" fxLayout="column" fxFlex.xs="97%" fxFlex.gt-sm="47%" fxFlex.gt-md="30%" fxFlex.gt-lg="22%">
+            <mat-card-title class="color-accent">{{ pizza.name }}</mat-card-title>
+            <mat-card-content fxFlex>
               <p>{{ pizza.ingredients | join:'name' }}</p>
 
               <img [src]="pizza.imgUrl" class="full-width">
-            </md-card-content>
-            <md-card-actions fxLayout="row">
-              <button md-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">
+            </mat-card-content>
+            <mat-card-actions fxLayout="row">
+              <button mat-mini-fab *ngFor="let price of pizza.prices; trackBy: index; let i=index" [disabled]="!price || locked" (click)="addOrder(pizza, i)">
                 <span *ngIf="price">{{ price | number:'1.1-1' }}€</span>
                 <span *ngIf="!price">-</span>
               </button>
-            </md-card-actions>
-          </md-card>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
     <ng-template #noPizza>
       <div fxFlexFill fxLayout="row" fxLayoutAlign="center center" class="pizza-not-found-404">
         <span *ngIf="search$ | async as search">
-          <p fxLayout="row" fxLayoutAlign="center center" class="color-accent">4<md-icon>local_pizza</md-icon>4</p>
+          <p fxLayout="row" fxLayoutAlign="center center" class="color-accent">4<mat-icon>local_pizza</mat-icon>4</p>
           <p>Pizza "<b class="color-primary">{{ search }}</b>" not found</p>
         </span>
       </div>

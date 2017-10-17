@@ -1,23 +1,41 @@
 <form [formGroup]="identificationForm" fxLayout="column" (ngSubmit)="onSubmit(identificationForm)">
-  <md-input-container>
-    <input mdInput placeholder="Github username" formControlName="username" required autocomplete="off" autocorrect="off" autocapitalize="off"
-      spellcheck="false">
+  <mat-form-field>
+    <input
+      placeholder="Github username"
+      required
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      matInput
+      formControlName="username"
+    >
 
-    <span mdPrefix>
-      <md-icon svgIcon="github" color="accent"></md-icon>
+    <span matPrefix>
+      <mat-icon svgIcon="github" color="accent"></mat-icon>
     </span>
 
-    <md-hint align="end">for picture, otherwise any username</md-hint>
-  </md-input-container>
+    <mat-hint align="end">for picture, otherwise any username</mat-hint>
+  </mat-form-field>
 
-  <button type="submit" md-button color="primary" *ngIf="identificationForm.valid || (isIdentifying$ | async)" [disabled]="(isIdentifying$ | async)">
+  <button
+    type="submit"
+    *ngIf="identificationForm.valid || (isIdentifying$ | async)"
+    mat-button
+    color="primary"
+    [disabled]="(isIdentifying$ | async)"
+  >
     <div *ngIf="!(isIdentifying$ | async)">
       I'm hungry, let's order
     </div>
 
-    <div *ngIf="isIdentifying$ | async">
+    <div *ngIf="isIdentifying$ | async" fxLayout="row" fxLayoutAlign="center center">
       Connecting
-      <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+      <mat-progress-spinner
+        mode="indeterminate"
+        [diameter]="20"
+        [strokeWidth]="2"
+      ></mat-progress-spinner>
     </div>
   </button>
 </form>

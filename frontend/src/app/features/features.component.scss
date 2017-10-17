@@ -1,10 +1,10 @@
 @import '../../styles/shared/_colors';
 
-md-sidenav {
+mat-sidenav {
   width: 300px;
 }
 
-md-toolbar.header {
+mat-toolbar.header {
   .logo-toolbar {
     height: 45px;
     margin-right: 10px;
@@ -15,7 +15,7 @@ md-toolbar.header {
   }
 }
 
-md-toolbar.footer {
+mat-toolbar.footer {
   .pizzeria-name {
     font-weight: bold;
   }
@@ -34,7 +34,7 @@ md-toolbar.footer {
     margin-right: 15px;
   }
 
-  md-icon {
+  mat-icon {
     margin-right: 5px;
   }
 }

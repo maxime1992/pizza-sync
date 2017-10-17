@@ -3,17 +3,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   LocationStrategy,
   HashLocationStrategy,
-  PathLocationStrategy
+  PathLocationStrategy,
 } from '@angular/common';
 import { Http } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   TranslateModule,
   TranslateLoader,
-  TranslateStaticLoader
+  TranslateStaticLoader,
 } from 'ng2-translate';
 import { Ng2Webstorage } from 'ng2-webstorage';
 // import hammerjs only if needed :
@@ -52,14 +52,14 @@ import { CountdownService } from 'app/shared/services/countdown.service';
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: createTranslateLoader,
-      deps: [Http]
+      deps: [Http],
     }),
     // END : Do not add your libs here
 
     Ng2Webstorage,
 
     // TODO batched actions are not taken into accounts by effects
-    EffectsModule.forRoot([PizzasEffects, OrdersEffects, UsersEffects])
+    EffectsModule.forRoot([PizzasEffects, OrdersEffects, UsersEffects]),
   ],
   providers: [
     PizzasService,
@@ -70,15 +70,16 @@ import { CountdownService } from 'app/shared/services/countdown.service';
     {
       provide: LANGUAGES,
       // order matters : The first one will be used by default
-      useValue: ['en', 'fr']
+      useValue: ['en', 'fr'],
     },
     // use hash location strategy or not based on env
     {
       provide: LocationStrategy,
       useClass: environment.hashLocationStrategy
         ? HashLocationStrategy
-        : PathLocationStrategy
-    }
-  ]
+        : PathLocationStrategy,
+    },
+    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true },
+  ],
 })
 export class CoreModule {}

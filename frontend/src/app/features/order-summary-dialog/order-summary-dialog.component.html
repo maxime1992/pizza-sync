@@ -1,5 +1,5 @@
-<md-list>
-  <h3 md-subheader>
+<mat-list>
+  <h3 matSubheader>
     Easy order view
 
     <div *ngIf="nbOfPizzas$ | async as nbOfPizzas">
@@ -10,8 +10,8 @@
     </div>
   </h3>
 
-  <md-list-item *ngFor="let pizza of orderSummary$ | async">
-    <h4 md-line class="pizza-name">{{ pizza.pizzaName }}</h4>
-    <p md-line class="how-many-per-size">{{ howManyPerSize(pizza) }}</p>
-  </md-list-item>
-</md-list>
+  <mat-list-item *ngFor="let pizza of orderSummary$ | async">
+    <h4 matLine class="pizza-name">{{ pizza.pizzaName }}</h4>
+    <p matLine class="how-many-per-size">{{ howManyPerSize(pizza) }}</p>
+  </mat-list-item>
+</mat-list>

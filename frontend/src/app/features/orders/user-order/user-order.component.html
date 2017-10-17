@@ -1,13 +1,13 @@
-<md-list-item>
-  <img md-list-avatar [src]="getThumbnail(user)">
+<mat-list-item>
+  <img mat-list-avatar [src]="getThumbnail(user)">
   <div class="green-led" *ngIf="user.isOnline"></div>
 
-  <h3 md-line>
+  <h3 matLine>
     <i>{{ user.username }}</i> - <b>{{ user.totalPrice | number:'1.2-2' }}€</b>
   </h3>
 
-  <p md-line *ngFor="let pizza of user.pizzas; trackBy: trackById" [class.being-removed]="pizza.isBeingRemoved">
+  <p matLine *ngFor="let pizza of user.pizzas; trackBy: trackById" [class.being-removed]="pizza.isBeingRemoved">
     {{ pizza.name }} ({{ pizza.size }})
     <span class="btn-remove-order" (click)="onRemoveOrder.next({ orderId: pizza.orderId })" *ngIf="!pizza.isBeingRemoved && idCurrentUser === user.id && !locked">X</span>
   </p>
-</md-list-item>
+</mat-list-item>

@@ -5,7 +5,7 @@ import { TranslateService } from 'ng2-translate';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import csv from 'csv-file-creator';
 
 import * as UiActions from 'app/shared/states/ui/ui.actions';
@@ -44,8 +44,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public pizzaSearch$: Observable<string>;
   public nbOfPizzas$: Observable<number>;
 
-  private dialogIdentificationRef: MdDialogRef<IdentificationDialogComponent>;
-  private dialogOrderSummaryRef: MdDialogRef<OrderSummaryDialogComponent>;
+  private dialogIdentificationRef: MatDialogRef<IdentificationDialogComponent>;
+  private dialogOrderSummaryRef: MatDialogRef<OrderSummaryDialogComponent>;
 
   public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
   public ingredients$: Observable<IIngredientsArray>;
@@ -58,7 +58,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private store$: Store<IStore>,
-    public dialog: MdDialog
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -121,7 +121,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.componentDestroyed$.complete();
   }
 
-  handleOpenAndCloseDialog<T>(mdDialogRef: MdDialogRef<T>, fnOpen: () => void, isOpened: boolean) {
+  handleOpenAndCloseDialog<T>(mdDialogRef: MatDialogRef<T>, fnOpen: () => void, isOpened: boolean) {
     if (isOpened) {
       // open the corresponding dialog and ensure
       // it's not done in another change detection step
@@ -149,7 +149,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   openDialogIdentification() {
     this.dialogIdentificationRef = this.dialog.open(IdentificationDialogComponent, {
-      disableClose: true
+      disableClose: true,
+      width: '300px'
     });
 
     this.dialogIdentificationRef

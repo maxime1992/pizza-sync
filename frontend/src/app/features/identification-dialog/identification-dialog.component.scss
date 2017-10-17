@@ -1,4 +1,6 @@
-.mat-input-container {
+mat-form-field {
+  width: 100%;
+
   .mat-icon {
     width: 20px;
     margin-left: 8px;
@@ -6,14 +8,16 @@
   }
 }
 
-md-progress-spinner {
-  width: 12px;
-  height: 19px;
-  margin-left: 8px;
-  display: inline-block;
+button {
+  margin-top: 15px;
+
+  mat-progress-spinner {
+    display: inline-block;
+    margin-left: 8px;
+  }
 }
 
-md-hint {
+mat-hint {
   color: grey;
 }
 

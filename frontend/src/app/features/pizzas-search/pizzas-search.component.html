@@ -1,7 +1,7 @@
-<md-input-container floatPlaceholder="never" fxFlex>
-  <span mdPrefix fxLayout="row" fxLayoutAlign="center center">
-    <md-icon class="margin-left-x1 margin-right-x1">search</md-icon>
+<mat-form-field floatPlaceholder="never" fxFlex>
+  <span matPrefix fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="search-icon margin-left-x1 margin-right-x1">search</mat-icon>
   </span>
 
-  <input mdInput type="text" placeholder="Search by pizza name" [formControl]="search">
-</md-input-container>
+  <input matInput type="text" placeholder="Search by pizza name" [formControl]="search">
+</mat-form-field>

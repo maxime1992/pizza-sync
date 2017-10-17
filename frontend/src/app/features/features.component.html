@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFill>
-  <md-toolbar color="primary" class="header">
-    <button md-icon-button (click)="toggleSidenav()">
-      <md-icon>menu</md-icon>
+  <mat-toolbar color="primary" class="header">
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
     </button>
 
     <img class="logo-toolbar" src="assets/img/pizza-logo.png">
@@ -12,11 +12,13 @@
       [searchedText]="searchQuery$ | async"
       (onSearch)="search($event)"
       fxFlex
+      fxLayout="row"
+      fxLayoutAlign="center center"
       class="margin-left-x4 margin-right-x3"
     ></app-pizzas-search>
 
-    <button md-button (click)="toggleFilterIngredients()">
-      <md-icon>sort</md-icon>
+    <button mat-button (click)="toggleFilterIngredients()">
+      <mat-icon>sort</mat-icon>
       <span class="nb-filters-ingredients">x{{ nbIngredientsSelected$ | async }}</span>
     </button>
 
@@ -30,14 +32,14 @@
     </app-countdown>
 
     <a href="https://github.com/maxime1992/pizza-sync" target="_blank">
-      <md-icon svgIcon="github" color="accent" class="margin-left-x2"></md-icon>
+      <mat-icon svgIcon="github" color="accent" class="margin-left-x2"></mat-icon>
     </a>
-  </md-toolbar>
+  </mat-toolbar>
 
-  <md-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
-    <md-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
+  <mat-sidenav-container fxFlex (backdrop-clicked)="closeSidenav()">
+    <mat-sidenav [opened]="(ui$ | async).isSidenavVisible" mode="side">
       <app-orders [locked]="lockOrders"></app-orders>
-    </md-sidenav>
+    </mat-sidenav>
 
     <app-filter-ingredients
       *ngIf="isFilterIngredientsVisible$ | async"
@@ -50,42 +52,42 @@
       <div *ngIf="ingredientsSelected.length" class="ingredients-selected" [class.border-top]="isFilterIngredientsVisible$ | async">
         <div class="title color-accent">Selected ingredient{{ ingredientsSelected.length > 1 ? 's': '' }}:</div>
 
-        <md-chip-list>
-          <md-chip
+        <mat-chip-list>
+          <mat-chip
             *ngFor="let ingredient of ingredientsSelected"
             color="primary"
             selected="true"
             class="margin-bottom-x1">
             {{ ingredient.name }}
-          </md-chip>
-        </md-chip-list>
+          </mat-chip>
+        </mat-chip-list>
       </div>
     </div>
 
     <app-pizzas [locked]="lockOrders"></app-pizzas>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 
-  <button md-mini-fab class="csv-download" (click)="downloadCsv()" [disabled]="!lockOrders">
-    <md-icon>file_download</md-icon>
+  <button mat-mini-fab class="csv-download" (click)="downloadCsv()" [disabled]="!lockOrders">
+    <mat-icon>file_download</mat-icon>
   </button>
 
-  <button md-mini-fab class="order-summary" [disabled]="(nbOfPizzas$ | async) === 0" (click)="openOrderSummaryDialog()">
-    <md-icon>receipt</md-icon>
+  <button mat-mini-fab class="order-summary" [disabled]="(nbOfPizzas$ | async) === 0" (click)="openOrderSummaryDialog()">
+    <mat-icon>receipt</mat-icon>
   </button>
 
-  <md-toolbar color="primary" class="footer full-width">
+  <mat-toolbar color="primary" class="footer full-width">
     <div *ngIf="(ui$ | async).pizzeria as pizzeria" class="full-width">
       <div *ngIf="pizzeria.name" fxLayout="row" fxLayoutAlign="center center" @enterAnimation>
         <span class="pizzeria-name">{{ pizzeria.name }}</span>
 
         <span class="split">|</span>
 
-        <md-icon>phone</md-icon> {{ pizzeria.phone }}
+        <mat-icon>phone</mat-icon> {{ pizzeria.phone }}
 
         <span class="split">|</span>
 
-        <a [href]="pizzeria.url" target="_blank"><md-icon>public</md-icon></a>
+        <a [href]="pizzeria.url" target="_blank"><mat-icon>public</mat-icon></a>
       </div>
     </div>
-  </md-toolbar>
+  </mat-toolbar>
 </div>

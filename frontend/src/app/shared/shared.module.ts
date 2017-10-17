@@ -9,27 +9,27 @@ import { TranslateModule } from 'ng2-translate';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 // we now have to import every sub modules of material we want to use
 import {
-  MdButtonModule, MdCardModule, MdDialogModule, MdIconModule,
-  MdInputModule, MdListModule, MdProgressSpinnerModule, MdRippleModule, MdSidenavModule,
-  MdTabsModule, MdToolbarModule, MdTooltipModule, MdSelectModule, MdChipsModule
+  MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
+  MatInputModule, MatListModule, MatProgressSpinnerModule, MatRippleModule, MatSidenavModule,
+  MatTabsModule, MatToolbarModule, MatTooltipModule, MatSelectModule, MatChipsModule
 } from '@angular/material';
 import { JoinPipe } from './pipes/join.pipe';
 
 const MaterialModules = [
-  MdButtonModule,
-  MdCardModule,
-  MdDialogModule,
-  MdIconModule,
-  MdInputModule,
-  MdListModule,
-  MdProgressSpinnerModule,
-  MdRippleModule,
-  MdSidenavModule,
-  MdTabsModule,
-  MdToolbarModule,
-  MdTooltipModule,
-  MdSelectModule,
-  MdChipsModule
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
+  MatSidenavModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatChipsModule
 ];
 
 /**

@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from 'ng2-translate';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 
 import { LANGUAGES } from 'app/core/injection-tokens';
 import { IStore } from 'app/shared/interfaces/store.interface';
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     @Inject(LANGUAGES) public languages,
     private store$: Store<IStore>,
-    private mdIconRegistry: MdIconRegistry,
+    private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private websocketService: WebsocketService
   ) { }
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe();
 
     const safeLogo = this.sanitizer.bypassSecurityTrustResourceUrl('/assets/img/github-logo.svg');
-    this.mdIconRegistry.addSvgIcon('github', safeLogo);
+    this.matIconRegistry.addSvgIcon('github', safeLogo);
   }
 
   ngOnDestroy() {
