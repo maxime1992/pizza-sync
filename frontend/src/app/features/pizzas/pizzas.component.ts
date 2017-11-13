@@ -54,6 +54,10 @@ export class PizzasComponent implements OnInit {
     });
   }
 
+  isNotDefaultImage(imgUrl: string) {
+    return !imgUrl.endsWith('default.png');
+  }
+
   trackById(index, item) {
     return item.id;
   }

@@ -44,6 +44,7 @@ mat-toolbar.footer {
   position: absolute;
   right: 20px;
   bottom: 80px;
+  z-index: 1;
 }
 
 .csv-download {
@@ -51,6 +52,7 @@ mat-toolbar.footer {
   position: absolute;
   right: 20px;
   bottom: 136px;
+  z-index: 1;
 }
 
 .nb-filters-ingredients {
