@@ -21,6 +21,7 @@ node_modules
 .vscode/*
 !.vscode/launch.json
 .history
+.angulardoc.json
 
 # misc
 .sass-cache
