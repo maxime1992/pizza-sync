@@ -43,6 +43,10 @@ class UsersModel {
     return 0
   }
 
+  getNbConnections() {
+    return this._allIds.length;
+  }
+
   addUser(username) {
     return new Promise((resolve, reject) => {
       const userId = UsersModel.getNewId()
