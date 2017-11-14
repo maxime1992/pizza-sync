@@ -13,12 +13,12 @@ We usually order at [l'Ormeau](http://www.pizzadelormeau.com/index.html%3Fp=61.h
 It could :pizza: :heart: ... But not totally.
 
 **It's also a demo to show how to use Angular with the following stack :**
-- **@angular/cli**  
-- **@angular/material**  
-- **@angular/flex-layout**  
-- **@ngrx/store**  
-- **@ngrx/effects**  
-- **socket.io**  
+- **@angular/cli**
+- **@angular/material**
+- **@angular/flex-layout**
+- **@ngrx/store**
+- **@ngrx/effects**
+- **socket.io**
 
 This is a medium size project, not too complicated but still, with a lot of things in it (normalized data with Redux, real time, little cli to interact with the app in command line, ...). If you see things to improve, feel free to open an issue, or even better: Make a PR !
 
@@ -34,13 +34,13 @@ yarn
 nodemon index.js
 ```
 
-Then a prompt `pizza-sync$` will appear.  
-It's up to the admin to decide when the app should stop accepting orders.  
-By default, it's set to current time + 1 hour.  
-Admin can change the countdown on the fly. To do that simply run the following command into the prompt `countdown --hour X --minute Y` with X = 11 and Y = 20 for example.  
-The app will update the countdown in realtime. Even if the countdown has already reached 0, you can run this command multiple times.  
+Then a prompt `pizza-sync$` will appear.
+It's up to the admin to decide when the app should stop accepting orders.
+By default, it's set to current time + 1 hour.
+Admin can change the countdown on the fly. To do that simply run the following command into the prompt `countdown --hour X --minute Y` with X = 11 and Y = 20 for example.
+The app will update the countdown in realtime. Even if the countdown has already reached 0, you can run this command multiple times.
 
-If you don't have *yarn* you can also run `npm i`.  
+If you don't have *yarn* you can also run `npm i`.
 You can use *nodemon* to auto-reload server if needed or simply run `node index.js` otherwise.
 
 **Terminal 2 :**
@@ -58,21 +58,22 @@ Simply run :
 ./build-and-serve-prod.sh
 ```
 
-It'll check if any update from *origin/master* is available.  
-If so, it'll update the project and the dependencies.  
-Then it'll build the frontend and copy it into the backend folder so it can be served.  
+It'll check if any update from *origin/master* is available.
+If so, it'll update the project and the dependencies.
+Then it'll build the frontend and copy it into the backend folder so it can be served.
 The server starts and you can access the app at [http://localhost:3000](http://localhost:3000).
 
 ### Contribution
 Any contribution is very welcome :sparkles: !
 
-There's plenty of things to do with this small project.  
-Here are some ideas :  
+There's plenty of things to do with this small project.
+Here are some ideas :
 
-- [ ] Improve the layout (theme, responsiveness, logo, ...)  
-- [ ] Angular universal ? Having a super fast init would be awesome !  
-- [ ] Create a PWA with at least a service worker to cache the assets  
-- [ ] Add mocks to run the app without the backend  
-- [ ] Deploy the app on Github pages (needs mocks first)  
+- [ ] Improve the layout (theme, responsiveness, logo, ...)
+- [ ] Angular universal ? Having a super fast init would be awesome !
+- [ ] Create a PWA with at least a service worker to cache the assets
+- [ ] Add mocks to run the app without the backend
+- [ ] Deploy the app on Github pages (needs mocks first)
+- [ ] Improve the parsing process by providing a default parser with custom cheerio requests
 
 You can also take a look into the [issues](https://github.com/maxime1992/pizza-sync/issues) and pick up one which is not already assigned.

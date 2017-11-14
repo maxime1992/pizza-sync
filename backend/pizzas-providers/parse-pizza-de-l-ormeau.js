@@ -1,12 +1,12 @@
-const request = require('request')
-const cheerio = require('cheerio')
+const request = require('request');
+const cheerio = require('cheerio');
 
-const { requestOptions } = require('../helpers/http.helper')
-const { getPathImgPizza } = require('../helpers/file.helper')
+const { requestOptions } = require('../helpers/http.helper');
+const { getPathImgPizza } = require('../helpers/file.helper');
 
-const { PizzasModel } = require('../models/pizzas.model')
-const { PizzasCategoriesModel } = require('../models/pizzas-categories.model')
-const { IngredientsModel } = require('../models/ingredients.model')
+const { PizzasModel } = require('../models/pizzas.model');
+const { PizzasCategoriesModel } = require('../models/pizzas-categories.model');
+const { IngredientsModel } = require('../models/ingredients.model');
 
 class PizzaDeLOrmeau {
   constructor() {
