@@ -17,7 +17,7 @@ import { MatInput } from '@angular/material';
 @Component({
   selector: 'app-pizzas-search',
   templateUrl: './pizzas-search.component.html',
-  styleUrls: ['./pizzas-search.component.scss']
+  styleUrls: ['./pizzas-search.component.scss'],
 })
 export class PizzasSearchComponent implements OnInit, OnChanges, OnDestroy {
   private onDestroy$ = new Subject<void>();
@@ -35,11 +35,10 @@ export class PizzasSearchComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.search
-      .valueChanges
+    this.search.valueChanges
       .takeUntil(this.onDestroy$.asObservable())
       .debounceTime(200)
       .do(search => this.onSearch.emit(search))

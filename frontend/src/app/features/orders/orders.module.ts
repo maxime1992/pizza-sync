@@ -5,10 +5,8 @@ import { OrdersComponent } from 'app/features/orders/orders.component';
 import { UserOrderComponent } from 'app/features/orders/user-order/user-order.component';
 
 @NgModule({
-  imports: [
-    SharedModule
-  ],
+  imports: [SharedModule],
   declarations: [OrdersComponent, UserOrderComponent],
-  exports: [OrdersComponent]
+  exports: [OrdersComponent],
 })
-export class OrdersModule { }
+export class OrdersModule {}

@@ -11,4 +11,4 @@ export interface IIngredientsTable {
 }
 
 // tslint:disable:no-empty-interface
-export interface IIngredientsArray extends Array<IIngredientCommon> { }
+export interface IIngredientsArray extends Array<IIngredientCommon> {}

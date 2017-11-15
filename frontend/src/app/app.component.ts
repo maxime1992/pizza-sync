@@ -13,7 +13,7 @@ import { WebsocketService } from 'app/shared/services/websocket.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private websocketService: WebsocketService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // default and fallback language
@@ -33,7 +33,9 @@ export class AppComponent implements OnInit, OnDestroy {
     // it'll try to get it on the default language
     // by default here, we take the first of the array
     this.translate.setDefaultLang(this.languages[0]);
-    this.store$.dispatch(new UiActions.SetLanguage({ language: this.languages[0] }));
+    this.store$.dispatch(
+      new UiActions.SetLanguage({ language: this.languages[0] })
+    );
 
     // when the language changes in store,
     // change it in translate provider
@@ -44,7 +46,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .do(language => this.translate.use(language))
       .subscribe();
 
-    const safeLogo = this.sanitizer.bypassSecurityTrustResourceUrl('/assets/img/github-logo.svg');
+    const safeLogo = this.sanitizer.bypassSecurityTrustResourceUrl(
+      '/assets/img/github-logo.svg'
+    );
     this.matIconRegistry.addSvgIcon('github', safeLogo);
   }
 

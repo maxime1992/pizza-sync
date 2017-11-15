@@ -10,14 +10,17 @@ import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
   @Input() locked: boolean;
-  public fullOrder$: Observable<{ users: IUserWithPizzas[], totalPrice: number }>;
+  public fullOrder$: Observable<{
+    users: IUserWithPizzas[];
+    totalPrice: number;
+  }>;
   private idCurrentUser$: Observable<string>;
 
-  constructor(private store$: Store<IStore>) { }
+  constructor(private store$: Store<IStore>) {}
 
   ngOnInit() {
     this.fullOrder$ = this.store$.let(getFullOrder);

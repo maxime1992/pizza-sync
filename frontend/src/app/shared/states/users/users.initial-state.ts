@@ -5,7 +5,7 @@ export function usersState(): IUsersTable {
     isIdentifying: false,
     idCurrentUser: '',
 
-    byId: { },
-    allIds: []
+    byId: {},
+    allIds: [],
   };
 }

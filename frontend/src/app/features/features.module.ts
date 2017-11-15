@@ -12,20 +12,15 @@ import { PizzasSearchComponent } from './pizzas-search/pizzas-search.component';
 import { FilterIngredientsComponent } from './filter-ingredients/filter-ingredients.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    FeaturesRoutingModule,
-    PizzasModule,
-    OrdersModule
-  ],
+  imports: [SharedModule, FeaturesRoutingModule, PizzasModule, OrdersModule],
   declarations: [
     FeaturesComponent,
     IdentificationDialogComponent,
     CountdownComponent,
     OrderSummaryDialogComponent,
     PizzasSearchComponent,
-    FilterIngredientsComponent
+    FilterIngredientsComponent,
   ],
-  entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent]
+  entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}

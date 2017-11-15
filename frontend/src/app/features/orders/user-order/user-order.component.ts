@@ -1,4 +1,10 @@
-import { Component, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+  EventEmitter,
+} from '@angular/core';
 
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 
@@ -6,7 +12,7 @@ import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
   selector: 'app-user-order',
   templateUrl: './user-order.component.html',
   styleUrls: ['./user-order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserOrderComponent {
   @Input() user: IUserWithPizzas;
@@ -14,7 +20,7 @@ export class UserOrderComponent {
   @Input() locked: boolean;
   @Output() onRemoveOrder = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   getThumbnail(user: IUserWithPizzas) {
     return user.thumbnail || 'assets/img/icon-person.png';

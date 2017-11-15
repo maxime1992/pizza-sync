@@ -9,9 +9,20 @@ import { TranslateModule } from 'ng2-translate';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 // we now have to import every sub modules of material we want to use
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatIconModule,
-  MatInputModule, MatListModule, MatProgressSpinnerModule, MatRippleModule, MatSidenavModule,
-  MatTabsModule, MatToolbarModule, MatTooltipModule, MatSelectModule, MatChipsModule
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
+  MatSidenavModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatChipsModule,
 } from '@angular/material';
 import { JoinPipe } from './pipes/join.pipe';
 
@@ -29,7 +40,7 @@ const MaterialModules = [
   MatToolbarModule,
   MatTooltipModule,
   MatSelectModule,
-  MatChipsModule
+  MatChipsModule,
 ];
 
 /**
@@ -46,7 +57,7 @@ export const modules = [
   StoreModule,
   TranslateModule,
   PrettyJsonModule,
-  ...MaterialModules
+  ...MaterialModules,
 ];
 
 export const declarations = [JoinPipe];
@@ -54,6 +65,6 @@ export const declarations = [JoinPipe];
 @NgModule({
   imports: modules,
   exports: [...modules, ...declarations],
-  declarations
+  declarations,
 })
-export class SharedModule { }
+export class SharedModule {}

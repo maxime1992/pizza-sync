@@ -4,19 +4,22 @@ import * as UsersActions from 'app/shared/states/users/users.actions';
 import { usersState } from 'app/shared/states/users/users.initial-state';
 import { IUsersTable } from 'app/shared/states/users/users.interface';
 
-export function usersReducer(usersTbl = usersState(), action: UsersActions.All): IUsersTable {
+export function usersReducer(
+  usersTbl = usersState(),
+  action: UsersActions.All
+): IUsersTable {
   switch (action.type) {
     case UsersActions.LOAD_USERS_SUCCESS: {
       return {
         ...usersTbl,
-        ...action.payload
+        ...action.payload,
       };
     }
 
     case UsersActions.IDENTIFICATION: {
       return {
         ...usersTbl,
-        isIdentifying: true
+        isIdentifying: true,
       };
     }
 
@@ -24,7 +27,7 @@ export function usersReducer(usersTbl = usersState(), action: UsersActions.All):
       return {
         ...usersTbl,
         isIdentifying: false,
-        idCurrentUser: action.payload
+        idCurrentUser: action.payload,
       };
     }
 
@@ -35,10 +38,12 @@ export function usersReducer(usersTbl = usersState(), action: UsersActions.All):
           ...usersTbl.byId,
           [action.payload.id]: {
             ...action.payload,
-            isOnline: true
+            isOnline: true,
           },
         },
-        allIds: [...Array.from(new Set([...usersTbl.allIds, action.payload.id]))]
+        allIds: [
+          ...Array.from(new Set([...usersTbl.allIds, action.payload.id])),
+        ],
       };
     }
 
@@ -49,9 +54,9 @@ export function usersReducer(usersTbl = usersState(), action: UsersActions.All):
           ...usersTbl.byId,
           [action.payload.id]: {
             ...usersTbl.byId[action.payload.id],
-            isOnline: true
-          }
-        }
+            isOnline: true,
+          },
+        },
       };
     }
 
@@ -62,9 +67,9 @@ export function usersReducer(usersTbl = usersState(), action: UsersActions.All):
           ...usersTbl.byId,
           [action.payload.id]: {
             ...usersTbl.byId[action.payload.id],
-            isOnline: false
-          }
-        }
+            isOnline: false,
+          },
+        },
       };
     }
 

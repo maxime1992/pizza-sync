@@ -20,7 +20,7 @@ export const reducers = {
   pizzasCategories: pizzasCategoriesReducer,
   users: usersReducer,
   orders: ordersReducer,
-  ingredients: ingredientsReducer
+  ingredients: ingredientsReducer,
 };
 
 // ------------------------------------------------------------------------------

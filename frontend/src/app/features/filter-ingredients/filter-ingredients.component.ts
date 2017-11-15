@@ -1,11 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { IIngredientsArray, IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
+import {
+  IIngredientsArray,
+  IIngredientCommon,
+} from 'app/shared/states/ingredients/ingredients.interface';
 
 @Component({
   selector: 'app-filter-ingredients',
   templateUrl: './filter-ingredients.component.html',
-  styleUrls: ['./filter-ingredients.component.scss']
+  styleUrls: ['./filter-ingredients.component.scss'],
 })
 export class FilterIngredientsComponent implements OnInit {
   @Output() onIngredientSelected = new EventEmitter<string>();
@@ -13,9 +16,9 @@ export class FilterIngredientsComponent implements OnInit {
 
   @Input() ingredients: IIngredientsArray;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   handleClick(ingredient: IIngredientCommon) {
     // disabled property doesn't seem to work on an `md-chip`

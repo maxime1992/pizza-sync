@@ -7,60 +7,65 @@ import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pi
 import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
 import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.interface';
 
-export function getSelectedIngredientsIds(ingredients: IIngredientsTable): string[] {
-  return ingredients
-    .allIds
-    .filter(ingredientId =>
-      ingredients
-        .byId[ingredientId]
-        .isSelected);
+export function getSelectedIngredientsIds(
+  ingredients: IIngredientsTable
+): string[] {
+  return ingredients.allIds.filter(
+    ingredientId => ingredients.byId[ingredientId].isSelected
+  );
 }
 
-export function doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds: string[], pizza: IPizzaWithIngredients): boolean {
-  return selectedIngredientsIds
-    .every(ingredientId =>
-      pizza
-        .ingredientsIds
-        .includes(ingredientId));
+export function doesPizzaContainsAllSelectedIngredients(
+  selectedIngredientsIds: string[],
+  pizza: IPizzaWithIngredients
+): boolean {
+  return selectedIngredientsIds.every(ingredientId =>
+    pizza.ingredientsIds.includes(ingredientId)
+  );
 }
 
-export function getCategoriesAndPizzas(store$: Store<IStore>): Observable<IPizzaCategoryWithPizzas[]> {
-  return store$.select(state => {
-    return {
-      pizzasSearch: state.ui.pizzaSearch,
-      pizzas: state.pizzas,
-      pizzasCategories: state.pizzasCategories,
-      ingredients: state.ingredients
-    };
-  })
-    .distinctUntilChanged((p, n) =>
-      p.pizzasSearch === n.pizzasSearch &&
-      p.pizzas === n.pizzas &&
-      p.pizzasCategories === n.pizzasCategories &&
-      p.ingredients === n.ingredients
+export function getCategoriesAndPizzas(
+  store$: Store<IStore>
+): Observable<IPizzaCategoryWithPizzas[]> {
+  return store$
+    .select(state => {
+      return {
+        pizzasSearch: state.ui.pizzaSearch,
+        pizzas: state.pizzas,
+        pizzasCategories: state.pizzasCategories,
+        ingredients: state.ingredients,
+      };
+    })
+    .distinctUntilChanged(
+      (p, n) =>
+        p.pizzasSearch === n.pizzasSearch &&
+        p.pizzas === n.pizzas &&
+        p.pizzasCategories === n.pizzasCategories &&
+        p.ingredients === n.ingredients
     )
     .map(({ pizzasSearch, pizzas, pizzasCategories, ingredients }) => {
       pizzasSearch = removeAccents(pizzasSearch.toLowerCase());
       const selectedIngredientsIds = getSelectedIngredientsIds(ingredients);
 
-      return pizzasCategories
-        .allIds
+      return pizzasCategories.allIds
         .map(pizzasCategorieId => {
           const pizzasCategorie: IPizzaCategoryWithPizzas = {
             ...pizzasCategories.byId[pizzasCategorieId],
-            pizzas: pizzasCategories
-              .byId[pizzasCategorieId]
-              .pizzasIds
+            pizzas: pizzasCategories.byId[pizzasCategorieId].pizzasIds
               .map(pizzaId => ({
                 ...pizzas.byId[pizzaId],
-                ingredients: pizzas
-                  .byId[pizzaId]
-                  .ingredientsIds
-                  .map(ingredientId => ingredients.byId[ingredientId])
+                ingredients: pizzas.byId[pizzaId].ingredientsIds.map(
+                  ingredientId => ingredients.byId[ingredientId]
+                ),
               }))
-              .filter(p =>
-                removeAccents(p.name.toLowerCase()).includes(pizzasSearch)
-                && doesPizzaContainsAllSelectedIngredients(selectedIngredientsIds, p))
+              .filter(
+                p =>
+                  removeAccents(p.name.toLowerCase()).includes(pizzasSearch) &&
+                  doesPizzaContainsAllSelectedIngredients(
+                    selectedIngredientsIds,
+                    p
+                  )
+              ),
           };
 
           return pizzasCategorie;

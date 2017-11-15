@@ -9,10 +9,11 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private websocketService: WebsocketService
-  ) { }
+  ) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect({ dispatch: false }) identification$ = this.actions$
+  @Effect({ dispatch: false })
+  identification$ = this.actions$
     .ofType<UsersActions.Identification>(UsersActions.IDENTIFICATION)
     .do(action => this.websocketService.connectUser(action.payload));
 }

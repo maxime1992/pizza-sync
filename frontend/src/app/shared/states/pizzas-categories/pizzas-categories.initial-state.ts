@@ -2,7 +2,7 @@ import { IPizzasCategoriesTable } from 'app/shared/states/pizzas-categories/pizz
 
 export function pizzasCategoriesState(): IPizzasCategoriesTable {
   return {
-    byId: { },
-    allIds: []
+    byId: {},
+    allIds: [],
   };
 }
