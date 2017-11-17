@@ -15,6 +15,20 @@ export class PizzasProvidersService {
     return this.providers;
   }
 
+  getProvidersShortNames(): string[] {
+    return this.providers.map(provider => provider.shortCompanyName);
+  }
+
+  getProvidersLongNames(): string[] {
+    return this.providers.map(provider => provider.longCompanyName);
+  }
+
+  includes(providerShortCompanyName: string): boolean {
+    return !!this.providers.find(
+      provider => provider.shortCompanyName === providerShortCompanyName
+    );
+  }
+
   async setDefaultProvider(): Promise<void> {
     const [firstProvider] = this.providers;
     await this.setCurrentProvider(firstProvider);
@@ -28,5 +42,11 @@ export class PizzasProvidersService {
 
   getCurrentProvider(): PizzasProvider {
     return this.currentProvider;
+  }
+
+  getProviderInstanceByName(providerShortCompanyName: string): PizzasProvider {
+    return this.providers.find(
+      provider => provider.shortCompanyName === providerShortCompanyName
+    );
   }
 }

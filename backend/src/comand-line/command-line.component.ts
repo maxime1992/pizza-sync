@@ -7,9 +7,39 @@ export class CommandLineService {
   private vorpal = _vorpal();
 
   constructor(private pizzasProvidersService: PizzasProvidersService) {
+    this.registerProviderCommand();
     this.registerProvidersCommand();
 
     this.vorpal.delimiter('pizza-sync$').show();
+  }
+
+  private registerProviderCommand() {
+    const self = this;
+
+    this.vorpal
+      .command('provider <provider>', 'Change current provider')
+      .description('Set the current provider')
+      .autocomplete(this.pizzasProvidersService.getProvidersShortNames())
+      .action(function(args, callback) {
+        const newProviderName = args.provider;
+
+        if (!newProviderName) {
+          this.log('You need to select a provider');
+          return callback();
+        }
+
+        if (!self.pizzasProvidersService.includes(newProviderName)) {
+          this.log('Unknown provider');
+          return callback();
+        }
+
+        const newProviderInstance = self.pizzasProvidersService.getProviderInstanceByName(
+          newProviderName
+        );
+
+        self.pizzasProvidersService.setCurrentProvider(newProviderInstance);
+        return callback();
+      });
   }
 
   private registerProvidersCommand() {
@@ -41,8 +71,8 @@ export class CommandLineService {
     return providers.map(
       provider =>
         provider === currentProvider
-          ? `- { ${provider.companyName} }`
-          : `- ${provider.companyName}`
+          ? `- { ${provider.longCompanyName} }`
+          : `- ${provider.longCompanyName}`
     );
   }
 }
