@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { connect } from 'socket.io-client';
+import * as io from 'socket.io-client';
 import { LocalStorageService } from 'ng2-webstorage';
 
 import { environment } from 'environments/environment';
@@ -16,29 +16,32 @@ import * as UiActions from 'app/shared/states/ui/ui.actions';
 
 @Injectable()
 export class WebsocketService {
-  private socket: SocketIOClient.Socket;
+  private socket: SocketIOClient.Socket = io(environment.urlBackend);
 
   constructor(
     private store$: Store<IStore>,
     private storage: LocalStorageService
   ) {
-    this.socket = connect(environment.urlBackend);
-
     // TODO(SPLIT_SOCKET) : Instead of handling every socket from here, we should handle them from separate services
-    this.socket.on('CONNECT_USER_SUCCESS', user =>
-      this.connectUserSuccess(user)
-    );
-    this.socket.on('ADD_ORDER_SUCCESS', order => this.onAddOrderSuccess(order));
-    this.socket.on('REMOVE_ORDER_SUCCESS', orderId =>
-      this.onRemoveOrderSuccess(orderId)
-    );
+    this.socket.on('CONNECT_USER_SUCCESS', user => {
+      this.connectUserSuccess(user);
+    });
+
     this.socket.on('DISCONNECT_USER_SUCCESS', userId =>
       this.onDisconnectUserSuccess(userId)
     );
+
+    this.socket.on('ADD_ORDER_SUCCESS', order => this.onAddOrderSuccess(order));
+
+    this.socket.on('REMOVE_ORDER_SUCCESS', orderId =>
+      this.onRemoveOrderSuccess(orderId)
+    );
+
     this.socket.on(
       'SET_COUNTDOWN',
-      ({ hour, minute }: { hour: number; minute: number }) =>
-        this.onSetCountdown(hour, minute)
+      ({ hour, minute }: { hour: number; minute: number }) => {
+        this.onSetCountdown(hour, minute);
+      }
     );
   }
 
