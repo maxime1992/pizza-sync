@@ -22,12 +22,9 @@ function cleanPizzaName(name) {
   name = removeAccents(name)
 
   return name
-  .trim()
-  .toLowerCase()
-  .replace('_', '-')
-  .replace(' ', '-')
-  .replace('(', '')
-  .replace(')', '')
+    .trim()
+    .replace(/[-\/ ]+/g, '-')
+    .toLowerCase();
 }
 
 /**
