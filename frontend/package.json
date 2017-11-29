@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "yarn-or-npm": "yarn-or-npm",
     "start": "yarn-or-npm ng serve",
     "test": "yarn-or-npm ng test",
     "test:ci": "yarn-or-npm run test --single-run --progress=false",
