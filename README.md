@@ -63,6 +63,21 @@ If so, it'll update the project and the dependencies.
 Then it'll build the frontend and copy it into the backend folder so it can be served.
 The server starts and you can access the app at [http://localhost:3000](http://localhost:3000).
 
+### Docker mode
+
+Build a pizza-sync image:
+```bash
+docker build -t pizza-sync:latest .
+```
+
+Then run a container:
+```bash
+docker run -it -d --name pizza-sync -p 8081:3000 pizza-sync:latest
+```
+
+Your container will listen on port 3000, so just link it on any port you want (8081 is proposed here).
+Just open your browser on localhost:8081 and enjoy.
+
 ### Contribution
 Any contribution is very welcome :sparkles: !
 
