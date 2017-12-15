@@ -53,6 +53,10 @@ mat-toolbar.footer {
   bottom: 136px;
 }
 
+.csv-download, .order-summary {
+  z-index: 1;
+}
+
 .nb-filters-ingredients {
   position: absolute;
   margin-left: -7px;
