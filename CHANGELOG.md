@@ -1,3 +1,23 @@
+<a name="v2.0.0"></a>
+# [v2.0.0](https://github.com/maxime1992/pizza-sync/compare/v1.1.0...v) (2017-12-27)
+
+
+### Bug Fixes
+
+* **backend:** pizzas names are not cleaned correctly ([75b8d77](https://github.com/maxime1992/pizza-sync/commit/75b8d77)), closes [#49](https://github.com/maxime1992/pizza-sync/issues/49)
+* **frontend:** show order summary and CSV download ([bf86668](https://github.com/maxime1992/pizza-sync/commit/bf86668))
+
+
+### Features
+
+* **product:** dockerize pizza-sync ([36709c5](https://github.com/maxime1992/pizza-sync/commit/36709c5)) thanks to [@ppaysant](https://github.com/ppaysant) with the help of [@tbille](https://github.com/tbille) and  [@victornoel](https://github.com/victornoel)
+
+
+### Refactor
+
+* **backend:** complete refactor with [NestJs](https://github.com/nestjs/nest) [pull#48](https://github.com/maxime1992/pizza-sync/pull/48)
+
+
 <a name="v1.1.0"></a>
 # [v1.1.0](https://github.com/maxime1992/pizza-sync/compare/v1.0.0...v1.1.0) (2017-11-15)
 
