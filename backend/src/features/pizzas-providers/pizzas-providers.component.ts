@@ -63,8 +63,25 @@ export class PizzasProvidersService {
   }
 
   setDefaultProvider(): Promise<void> {
-    const [firstProvider] = this.providers;
-    return this.setCurrentProvider(firstProvider);
+    let conf: { defaultProvider: string };
+    let defaultProvider: BasicPizzasProvider;
+
+    try {
+      conf = require('../../../conf.json');
+      defaultProvider = this.getProviderInstanceByName(conf.defaultProvider);
+
+      if (!defaultProvider) {
+        throw new Error(
+          `Couldn't read the conf.json or the provider wasn't found`
+        );
+      }
+    } catch (e) {
+      // fallback to the first provider of the list
+      const [firstProvider] = this.providers;
+      defaultProvider = firstProvider;
+    }
+
+    return this.setCurrentProvider(defaultProvider);
   }
 
   async setCurrentProvider(provider: BasicPizzasProvider): Promise<void> {
