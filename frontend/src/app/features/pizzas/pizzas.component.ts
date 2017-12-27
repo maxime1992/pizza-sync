@@ -46,6 +46,7 @@ export class PizzasComponent implements OnInit {
   }
 
   openPizzaDialog(pizza: IPizzaWithIngredients) {
+    // tslint:disable-next-line:no-use-before-declare
     const dialogRef = this.dialog.open(PizzaDetailsDialogComponent, <any>{
       width: '550px',
       height: '550px',
