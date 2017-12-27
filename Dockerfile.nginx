@@ -1,4 +1,4 @@
-FROM  node:alpine as builder
+FROM node:alpine as frontend-builder
 
 # needed to build (python needed for compiling node-sass, for instance...)
 RUN apk add --no-cache \
@@ -8,22 +8,12 @@ RUN apk add --no-cache \
     python
 
 WORKDIR /opt/pizza-sync
-ADD . .
-
-# frontend
+ADD ./frontend ./frontend
 RUN cd frontend && yarn && yarn run build:prod && rm -rf node_modules
-
-# backend
-RUN cd backend/ && yarn
 
 # --------------------------------------------------------------------------
 
-FROM node:alpine
+FROM nginx
 
-WORKDIR /opt/pizza-sync
-COPY --from=builder /opt/pizza-sync/backend .
-COPY --from=builder /opt/pizza-sync/frontend/dist public
-
-EXPOSE 3000
-
-CMD node index.js
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY --from=frontend-builder /opt/pizza-sync/frontend/dist /usr/share/nginx/html

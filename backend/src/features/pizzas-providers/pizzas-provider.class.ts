@@ -75,9 +75,13 @@ export abstract class PizzaProviderMock extends BasicPizzasProvider {
 }
 
 export abstract class PizzasProvider extends BasicPizzasProvider {
-  private imgsBaseFolder = `${
-    __dirname
-  }/../../../../frontend/src/assets/img/pizzas-providers`;
+  private imgsBaseFolder = process.env['NODE_ENV'] === 'production'
+    ? // if we're in production (running from the docker container mostly)
+      // we want to serve pictures directly with nginx, from the public folder
+      `${__dirname}/../../../public/assets/img/pizzas-providers`
+    : // if we're in dev, we don't want to build the frontend before we can see new pictures
+      // and thus, point directly to the frontend folder containing the pictures
+      `${__dirname}/../../../../frontend/src/assets/img/pizzas-providers`;
 
   // the URLs of the differents pages to parse the pizzas
   // most pizzas website only have one but some of them have many

@@ -1,0 +1,9 @@
+FROM node:alpine
+
+WORKDIR /opt/pizza-sync/backend
+ADD ./backend .
+RUN yarn
+
+EXPOSE 3000
+
+CMD NODE_ENV=production node index.js
