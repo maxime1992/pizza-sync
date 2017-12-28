@@ -5,16 +5,12 @@ import {
   HashLocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
-import { Http } from '@angular/http';
-import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  TranslateModule,
-  TranslateLoader,
-  TranslateStaticLoader,
-} from 'ng2-translate';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Ng2Webstorage } from 'ng2-webstorage';
 // import hammerjs only if needed :
 // From https://material.angular.io/guide/getting-started#additional-setup-for-gestures
@@ -50,9 +46,11 @@ import { CountdownService } from 'app/shared/services/countdown.service';
     // TODO it's not clear if the module is enabled when the extension is not present...
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactory: createTranslateLoader,
-      deps: [Http],
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
     }),
     // END : Do not add your libs here
 
@@ -79,7 +77,6 @@ import { CountdownService } from 'app/shared/services/countdown.service';
         ? HashLocationStrategy
         : PathLocationStrategy,
     },
-    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true },
   ],
 })
 export class CoreModule {}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
@@ -11,7 +11,7 @@ import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.int
 
 @Injectable()
 export class PizzasService {
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   // TODO : As we're now calling initial-state
   // we should move this call into another service
@@ -27,8 +27,6 @@ export class PizzasService {
     orders: IOrdersTable;
     ingredients: IIngredientsTable;
   }> {
-    return this.http
-      .get(`${environment.urlBackend}/initial-state`)
-      .map((res: Response) => res.json());
+    return this.http.get<any>(`${environment.urlBackend}/initial-state`);
   }
 }

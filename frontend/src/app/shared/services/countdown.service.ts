@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import countdown from 'countdown';
+import * as countdown from 'countdown';
 
 import { getFormatedTime } from 'app/shared/helpers/time.helper';
 
