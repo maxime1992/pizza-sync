@@ -1,31 +1,45 @@
-import { ResponseOptions, Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { _throw } from 'rxjs/observable/throw';
+import { delay, dematerialize, materialize } from 'rxjs/operators';
+
 import { environment } from 'environments/environment';
 
 /**
- * simulate the behaviour of Angular's Http module:
+ * this simulates the behaviour of Angular's http module:
  * if the status code is not a 2XX, it will return a failing Observable
  */
-export function response(status: number): Observable<Response> {
-  return responseBody(null, status);
+export function response<T = undefined>(status: number): Observable<T> {
+  return responseBody<T>(undefined, status);
 }
 
 /**
- * simulate the behaviour of Angular's Http module:
+ * this simulates the behaviour of Angular's http module:
  * if the status code is not a 2XX, it will return a failing Observable
  */
-export function responseBody(
-  body: string | Object | ArrayBuffer,
-  status = 200
-): Observable<Response> {
-  const res = new Response(new ResponseOptions({ status, body }));
-
+export function responseBody<T = undefined>(
+  body: T,
+  status = 200,
+  error?: { code: number; message: string }
+): Observable<T> {
   if (status >= 200 && status < 300) {
-    return Observable.of(res).delay(environment.httpDelay);
+    return of(body).pipe(delay(environment.httpDelay));
   } else {
-    return Observable.throw(res)
-      .materialize()
-      .delay(environment.httpDelay)
-      .dematerialize();
+    return _throw(new HttpErrorResponse({ status, error })).pipe(
+      materialize(),
+      delay(environment.httpDelay),
+      dematerialize()
+    );
   }
+}
+
+/**
+ * the backend answers errors like this
+ */
+export function errorBackend<T = undefined>(
+  message: string,
+  code: number
+): Observable<T> {
+  return responseBody(undefined, code, { code, message });
 }

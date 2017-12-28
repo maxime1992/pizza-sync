@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import csv from 'csv-file-creator';
+import * as csv from 'csv-file-creator';
 
 import * as UiActions from 'app/shared/states/ui/ui.actions';
 import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
@@ -106,7 +106,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       );
 
     this.searchQuery$ = this.route.queryParams.map(
-      queries => queries.search || ''
+      queries => queries['search'] || ''
     );
 
     this.searchQuery$
