@@ -9,7 +9,7 @@ export class OrmeauProvider extends PizzasProvider {
 
   protected phone = '05 61 34 86 23';
   protected url = 'http://www.pizzadelormeau.com';
-  protected urlsPizzasPages = ['http://www.pizzadelormeau.com/nos-pizzas/'];
+  protected urlsPizzasPages = ['http://pizzadelormeau.com/index.html%3Fp=61.html'];
 
   getPhone(): string {
     return this.phone;
