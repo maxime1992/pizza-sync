@@ -43,9 +43,9 @@ if [ "$needsGitUpdate" = true -o ! -d dist ]; then
   fi
 
   if exists yarn; then
-    yarn run prod
+    yarn run build:prod
   else
-    npm run prod
+    npm run build:prod
   fi
 fi
 
