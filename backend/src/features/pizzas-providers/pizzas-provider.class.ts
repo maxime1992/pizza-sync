@@ -57,9 +57,7 @@ export abstract class PizzaProviderMock extends BasicPizzasProvider {
 }
 
 export abstract class PizzasProvider extends BasicPizzasProvider {
-  private imgsBaseFolder = `${
-    __dirname
-  }/../../../../frontend/src/assets/img/pizzas-providers`;
+  private imgsBaseFolder = `${__dirname}/../../../../frontend/src/assets/img/pizzas-providers`;
 
   // the URLs of the differents pages to parse the pizzas
   // most pizzas website only have one but some of them have many
