@@ -8,7 +8,7 @@ export const environment = {
   // your backend URL
   // you can then use it for example in a service
   // `${environment.urlBackend}/some/resource`
-  urlBackend: '',
+  urlBackend: 'http://10.31.4.35:3000',
 
   // MOCK
   // should you keep mocks when building the app
