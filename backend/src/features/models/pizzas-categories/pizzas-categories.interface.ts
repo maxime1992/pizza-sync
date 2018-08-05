@@ -6,6 +6,6 @@ export interface IPizzaCategoryWithId extends IPizzaCategoryWithoutId {
 }
 
 export interface IPizzasCategoriesNormalized {
-  byId: { [key: string]: IPizzaCategoryWithId };
-  allIds: string[];
+  entities: { [key: string]: IPizzaCategoryWithId };
+  ids: string[];
 }

@@ -1,5 +1,5 @@
 import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { Store, createFeatureSelector, createSelector } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
@@ -7,8 +7,11 @@ import {
   IOrdersSummary,
   IPizzaOrderSummary,
   IOrdersTable,
+  IOrder,
 } from 'app/shared/states/orders/orders.interface';
 import { IPizzasTable } from 'app/shared/states/pizzas/pizzas.interface';
+import { ordersAdapter } from './orders.reducer';
+import { selectPizzasEntities } from '../pizzas/pizzas.selector';
 
 const pizzaPriceIndexToSize = {
   0: 'S',
@@ -17,50 +20,67 @@ const pizzaPriceIndexToSize = {
   3: 'XL',
 };
 
-export function _getOrderSummary(
-  ordersTable: IOrdersTable,
-  pizzasTable: IPizzasTable
-): IOrdersSummary {
-  const ordersSummaryMap = ordersTable.allIds.reduce(
-    (acc: { [key: string]: IPizzaOrderSummary }, orderId: string) => {
-      const order = ordersTable.byId[orderId];
-      const pizza = pizzasTable.byId[order.pizzaId];
-      const pizzaSize = pizzaPriceIndexToSize[order.priceIndex];
+const {
+  selectIds: _selectOrdersIds,
+  selectEntities: _selectOrdersEntities,
+  selectAll: _selectOrdersAll,
+  selectTotal: _selectOrdersTotal,
+} = ordersAdapter.getSelectors();
 
-      if (!acc[pizza.id]) {
-        acc[pizza.id] = {
-          pizzaName: pizza.name,
-          howManyPerSize: {
-            S: { size: 'S', howMany: 0 },
-            M: { size: 'M', howMany: 0 },
-            L: { size: 'L', howMany: 0 },
-            XL: { size: 'XL', howMany: 0 },
-          },
-        };
-      }
+export const selectOrdersState = createFeatureSelector<IOrdersTable>('orders');
 
-      acc[pizza.id].howManyPerSize[pizzaSize].howMany++;
+export const selectOrdersIds = createSelector(
+  selectOrdersState,
+  _selectOrdersIds
+);
+export const selectOrdersEntities = createSelector(
+  selectOrdersState,
+  _selectOrdersEntities
+);
+export const selectOrdersAll = createSelector(
+  selectOrdersState,
+  _selectOrdersAll
+);
+export const selectOrdersTotal = createSelector(
+  selectOrdersState,
+  _selectOrdersTotal
+);
 
-      return acc;
-    },
-    {}
-  );
+export const getOrderSummary = createSelector(
+  selectOrdersAll,
+  selectPizzasEntities,
+  (ordersAll, pizzasEntities) => {
+    const ordersSummaryMap = ordersAll.reduce(
+      (acc: { [key: string]: IPizzaOrderSummary }, order: IOrder) => {
+        const pizza = pizzasEntities[order.pizzaId];
+        const pizzaSize = pizzaPriceIndexToSize[order.priceIndex];
 
-  const pizzasIds = Object.keys(ordersSummaryMap);
-  const rslt = pizzasIds.map(pizzaId => ordersSummaryMap[pizzaId]);
+        if (!acc[pizza.id]) {
+          acc[pizza.id] = {
+            pizzaName: pizza.name,
+            howManyPerSize: {
+              S: { size: 'S', howMany: 0 },
+              M: { size: 'M', howMany: 0 },
+              L: { size: 'L', howMany: 0 },
+              XL: { size: 'XL', howMany: 0 },
+            },
+          };
+        }
 
-  return rslt;
-}
+        acc[pizza.id].howManyPerSize[pizzaSize].howMany++;
 
-export function getOrderSummary(
-  store$: Store<IStore>
-): Observable<IOrdersSummary> {
-  return store$
-    .select(state => ({ orders: state.orders, pizzas: state.pizzas }))
-    .pipe(
-      distinctUntilChanged(
-        (p, n) => p.pizzas === n.pizzas && p.orders === n.orders
-      ),
-      map(data => _getOrderSummary(data.orders, data.pizzas))
+        return acc;
+      },
+      {}
     );
-}
+
+    const pizzasIds = Object.keys(ordersSummaryMap);
+
+    return pizzasIds.map(pizzaId => ordersSummaryMap[pizzaId]);
+  }
+);
+
+export const getTimeEnd = createSelector(selectOrdersState, orderState => ({
+  hour: orderState.hourEnd,
+  minute: orderState.minuteEnd,
+}));

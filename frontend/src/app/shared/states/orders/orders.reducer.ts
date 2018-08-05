@@ -1,11 +1,25 @@
 import { ActionReducer, Action } from '@ngrx/store';
-
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
-import { ordersState } from 'app/shared/states/orders/orders.initial-state';
-import { IOrdersTable } from 'app/shared/states/orders/orders.interface';
+import {
+  IOrdersTable,
+  IOrderCommon,
+  IOrder,
+} from 'app/shared/states/orders/orders.interface';
+import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+
+export const ordersAdapter: EntityAdapter<IOrder> = createEntityAdapter<
+  IOrder
+>();
+
+export function ordersInitState(): IOrdersTable {
+  return ordersAdapter.getInitialState({
+    hourEnd: null,
+    minuteEnd: null,
+  });
+}
 
 export function ordersReducer(
-  ordersTbl = ordersState(),
+  ordersTbl = ordersInitState(),
   action: OrdersActions.All
 ): IOrdersTable {
   switch (action.type) {
@@ -17,41 +31,18 @@ export function ordersReducer(
     }
 
     case OrdersActions.ADD_ORDER_SUCCESS: {
-      return {
-        ...ordersTbl,
-        byId: {
-          ...ordersTbl.byId,
-          [action.payload.id]: action.payload,
-        },
-        allIds: [...ordersTbl.allIds, action.payload.id],
-      };
+      return ordersAdapter.addOne(action.payload, ordersTbl);
     }
 
     case OrdersActions.REMOVE_ORDER: {
-      return {
-        ...ordersTbl,
-        byId: {
-          ...ordersTbl.byId,
-          [action.payload.id]: {
-            ...ordersTbl.byId[action.payload.id],
-            isBeingRemoved: true,
-          },
-        },
-      };
+      return ordersAdapter.updateOne(
+        { id: action.payload.id, changes: { isBeingRemoved: true } },
+        ordersTbl
+      );
     }
 
     case OrdersActions.REMOVE_ORDER_SUCCESS: {
-      const ordersTmp: IOrdersTable = {
-        ...ordersTbl,
-        byId: { ...ordersTbl.byId },
-        allIds: ordersTbl.allIds.filter(
-          orderId => orderId !== action.payload.id
-        ),
-      };
-
-      delete ordersTmp.byId[action.payload.id];
-
-      return ordersTmp;
+      return ordersAdapter.removeOne(action.payload.id, ordersTbl);
     }
 
     case OrdersActions.SET_COUNTDOWN: {

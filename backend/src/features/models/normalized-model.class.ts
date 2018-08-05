@@ -2,8 +2,8 @@ type TypeWithId<T> = T & { id: string };
 
 export abstract class NormalizedModel<TypeWithoutId> {
   private id = 0;
-  protected byId: { [key: string]: TypeWithId<TypeWithoutId> } = {};
-  protected allIds: string[] = [];
+  protected entities: { [key: string]: TypeWithId<TypeWithoutId> } = {};
+  protected ids: string[] = [];
 
   // set it to true will run the sortBy method
   // every time there's a call to `create`
@@ -28,36 +28,36 @@ export abstract class NormalizedModel<TypeWithoutId> {
 
     // `as any` syntax is a way to avoid the error of using
     // spread operator on a variable with a generic type
-    this.byId[newId] = { ...(element as any), id: newId };
-    this.allIds.push(newId);
+    this.entities[newId] = { ...(element as any), id: newId };
+    this.ids.push(newId);
 
     if (this.sort) {
       this.sortIds();
     }
 
-    return this.byId[newId];
+    return this.entities[newId];
   }
 
   delete(id: string): boolean {
-    if (!this.byId[id]) {
+    if (!this.entities[id]) {
       return false;
     }
 
-    delete this.byId[id];
+    delete this.entities[id];
 
-    this.allIds = this.allIds.filter(_id => _id !== id);
+    this.ids = this.ids.filter(_id => _id !== id);
     return true;
   }
 
   setNormalizedData({
-    byId,
-    allIds,
+    entities,
+    ids,
   }: {
-    byId: { [key: string]: TypeWithId<TypeWithoutId> };
-    allIds: string[];
+    entities: { [key: string]: TypeWithId<TypeWithoutId> };
+    ids: string[];
   }) {
-    this.byId = byId;
-    this.allIds = allIds;
+    this.entities = entities;
+    this.ids = ids;
 
     if (this.sort) {
       this.sortIds();
@@ -66,14 +66,14 @@ export abstract class NormalizedModel<TypeWithoutId> {
 
   getNormalizedData() {
     return {
-      byId: this.byId,
-      allIds: this.allIds,
+      entities: this.entities,
+      ids: this.ids,
     };
   }
 
   private sortIds() {
-    this.allIds = this.allIds
-      .map(id => this.byId[id])
+    this.ids = this.ids
+      .map(id => this.entities[id])
       .sort((el1, el2) => this.sortBy(el1, el2))
       .map(el => el.id);
   }

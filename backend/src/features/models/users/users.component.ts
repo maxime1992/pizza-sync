@@ -49,23 +49,23 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
   }
 
   getUser(username: string): IUserWithId {
-    const user = this.allIds
-      .map(userId => this.byId[userId])
+    const user = this.ids
+      .map(userId => this.entities[userId])
       .find(userTmp => userTmp.username === username);
 
     return user ? user : null;
   }
 
   getNbConnectionsUser(user: IUserWithId): number {
-    if (!!this.byId[user.id]) {
-      return this.byId[user.id].nbConnections;
+    if (!!this.entities[user.id]) {
+      return this.entities[user.id].nbConnections;
     }
 
     return 0;
   }
 
   getNbConnections(): number {
-    return this.allIds.length;
+    return this.ids.length;
   }
 
   addUser(username: string): Promise<IUserWithId> {
@@ -97,20 +97,20 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
   }
 
   setUserOnline(user: IUserWithId): void {
-    if (!this.byId[user.id]) {
+    if (!this.entities[user.id]) {
       return;
     }
 
-    this.byId[user.id].isOnline = true;
-    this.byId[user.id].nbConnections++;
+    this.entities[user.id].isOnline = true;
+    this.entities[user.id].nbConnections++;
   }
 
   setUserOffline(user: IUserWithId): void {
-    if (!this.byId[user.id]) {
+    if (!this.entities[user.id]) {
       return;
     }
 
-    this.byId[user.id].isOnline = false;
-    this.byId[user.id].nbConnections--;
+    this.entities[user.id].isOnline = false;
+    this.entities[user.id].nbConnections--;
   }
 }

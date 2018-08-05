@@ -1,4 +1,5 @@
 import { IPizzaWithPrice } from 'app/shared/states/pizzas/pizzas.interface';
+import { EntityState } from '@ngrx/entity';
 
 export interface IUserCommon {
   id: string;
@@ -9,12 +10,9 @@ export interface IUserCommon {
   isOnline: boolean;
 }
 
-export interface IUsersTable {
+export interface IUsersTable extends EntityState<IUserCommon> {
   isIdentifying: boolean;
   idCurrentUser: string;
-
-  byId: { [key: string]: IUserCommon };
-  allIds: string[];
 }
 
 export interface IUserWithPizzas extends IUserCommon {

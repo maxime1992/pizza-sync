@@ -1,6 +1,10 @@
 import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-
+import {
+  Store,
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import {
   IOrderWithPizzas,
@@ -14,110 +18,128 @@ import {
   IPizzaWithPrice,
   IPizzasTable,
 } from 'app/shared/states/pizzas/pizzas.interface';
+import { usersAdapter } from './users.reducer';
+import { selectOrdersAll } from '../orders/orders.selector';
+import { selectPizzasEntities } from '../pizzas/pizzas.selector';
 
 const pizzaSizeByIndex = ['S', 'M', 'L', 'XL'];
 
-export function _getFullOrder(
-  users: IUsersTable,
-  pizzas: IPizzasTable,
-  orders: IOrdersTable
-) {
-  const usersWithPizzas = users.allIds.map(userId => {
-    const ordersOfUser = orders.allIds
-      .map(orderId => orders.byId[orderId])
-      .filter(order => order.userId === userId);
+const {
+  selectIds: _selectUsersIds,
+  selectEntities: _selectUsersEntities,
+  selectAll: _selectUsersAll,
+  selectTotal: _selectUsersTotal,
+} = usersAdapter.getSelectors();
 
-    const pizzasOfUser = ordersOfUser.map(order => {
-      const pizza = pizzas.byId[order.pizzaId];
-      const pizzaPrice = pizza.prices[order.priceIndex];
+export const selectUsersState = createFeatureSelector<IUsersTable>('users');
 
-      return <IPizzaWithPrice>{
-        ...pizzas.byId[order.pizzaId],
+export const selectUsersIds = createSelector(selectUsersState, _selectUsersIds);
 
-        orderId: order.id,
-        isBeingRemoved: order.isBeingRemoved,
-        price: pizzaPrice,
-        size: pizzaSizeByIndex[order.priceIndex],
+export const selectUsersEntities = createSelector(
+  selectUsersState,
+  _selectUsersEntities
+);
+
+export const selectUsersAll = createSelector(selectUsersState, _selectUsersAll);
+
+export const selectUsersTotal = createSelector(
+  selectUsersState,
+  _selectUsersTotal
+);
+
+export const getCurrentUser = createSelector(
+  selectUsersState,
+  userState => userState.idCurrentUser
+);
+
+export const getFullOrder: MemoizedSelector<
+  object,
+  {
+    users: IUserWithPizzas[];
+    totalPrice: number;
+  }
+> = createSelector(
+  selectUsersAll,
+  selectPizzasEntities,
+  selectOrdersAll,
+  (users, pizzasEntities, orders) => {
+    const usersWithPizzas = users.map(user => {
+      const ordersOfUser = orders.filter(order => order.userId === user.id);
+
+      const pizzasOfUser = ordersOfUser.map(order => {
+        const pizza = pizzasEntities[order.pizzaId];
+        const pizzaPrice = pizza.prices[order.priceIndex];
+
+        return <IPizzaWithPrice>{
+          ...pizzasEntities[order.pizzaId],
+
+          orderId: order.id,
+          isBeingRemoved: order.isBeingRemoved,
+          price: pizzaPrice,
+          size: pizzaSizeByIndex[order.priceIndex],
+        };
+      });
+
+      const totalPriceOfUser = pizzasOfUser.reduce(
+        (acc, pizza) => acc + pizza.price,
+        0
+      );
+
+      return <IUserWithPizzas>{
+        ...user,
+        ...(<IUserWithPizzas>{
+          totalPrice: totalPriceOfUser,
+          pizzas: pizzasOfUser,
+        }),
       };
     });
 
-    const totalPriceOfUser = pizzasOfUser.reduce(
-      (acc, pizza) => acc + pizza.price,
+    const totalPrice = usersWithPizzas.reduce(
+      (acc, user) => acc + user.totalPrice,
       0
     );
 
-    return <IUserWithPizzas>{
-      ...users.byId[userId],
-      ...(<IUserWithPizzas>{
-        totalPrice: totalPriceOfUser,
-        pizzas: pizzasOfUser,
-      }),
+    return {
+      users: usersWithPizzas,
+      totalPrice,
     };
-  });
+  }
+);
 
-  const totalPrice = usersWithPizzas.reduce(
-    (acc, user) => acc + user.totalPrice,
-    0
-  );
+export const getFullOrderCsvFormat = createSelector(
+  getFullOrder,
+  ({ users }) => {
+    const header = [
+      'Person name',
+      'Pizza',
+      'Size',
+      'Price',
+      'Pay',
+      'Change',
+      'Done ✓ or not yet ✕',
+    ];
 
-  return {
-    users: usersWithPizzas,
-    totalPrice,
-  };
-}
+    // the row index starts at 2 because in a speadsheet, it starts at 1 and we'll have the header
+    let i = 2;
 
-export function getFullOrder(store$: Store<IStore>) {
-  return store$
-    .select(state => {
-      return { users: state.users, pizzas: state.pizzas, orders: state.orders };
-    })
-    .pipe(
-      distinctUntilChanged(
-        (p, n) =>
-          p.users === n.users &&
-          p.pizzas === n.pizzas &&
-          p.orders.byId === n.orders.byId
-      ),
-      map(({ users, pizzas, orders }) => _getFullOrder(users, pizzas, orders))
-    );
-}
+    const data = users.reduce((acc, user) => {
+      user.pizzas.forEach(pizza => {
+        acc.push([
+          user.username,
+          pizza.name,
+          pizza.size,
+          pizza.price,
+          '0',
+          `=E${i}-D${i}`,
+          '✕',
+        ]);
 
-export function getFullOrderCsvFormat({
-  users,
-}: {
-  users: IUserWithPizzas[];
-  totalPrice: number;
-}) {
-  const header = [
-    'Person name',
-    'Pizza',
-    'Size',
-    'Price',
-    'Pay',
-    'Change',
-    'Done ✓ or not yet ✕',
-  ];
+        i++;
+      });
 
-  // the row index starts at 2 because in a speadsheet, it starts at 1 and we'll have the header
-  let i = 2;
+      return acc;
+    }, []);
 
-  const data = users.reduce((acc, user) => {
-    user.pizzas.forEach(pizza => {
-      acc.push([
-        user.username,
-        pizza.name,
-        pizza.size,
-        pizza.price,
-        '0',
-        `=E${i}-D${i}`,
-        '✕',
-      ]);
-
-      i++;
-    });
-
-    return acc;
-  }, []);
-
-  return [header, ...data];
-}
+    return [header, ...data];
+  }
+);

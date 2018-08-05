@@ -9,6 +9,6 @@ export interface IOrderWithId extends IOrderWithoutId {
 }
 
 export interface IOrdersNormalized {
-  byId: { [key: string]: IOrderWithId };
-  allIds: string[];
+  entities: { [key: string]: IOrderWithId };
+  ids: string[];
 }

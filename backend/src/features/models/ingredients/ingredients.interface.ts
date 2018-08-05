@@ -7,6 +7,6 @@ export interface IIngredientWithId extends IIngredientWithoutId {
 }
 
 export interface IIngredientsNormalized {
-  byId: { [key: string]: IIngredientWithId };
-  allIds: string[];
+  entities: { [key: string]: IIngredientWithId };
+  ids: string[];
 }
