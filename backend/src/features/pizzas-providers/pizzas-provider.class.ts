@@ -10,6 +10,24 @@ import {
 import { requestOptions } from '../../helpers/http.helper';
 import { getPathImgPizza } from '../../helpers/file.helper';
 
+export class PizzaProviderFetchingFailed extends Error {
+  constructor(pizzaProviderName: string) {
+    super();
+    this.message = `An error occured while trying to fetch the pizza provider "${
+      pizzaProviderName
+    }"`;
+  }
+}
+
+export class PizzaProviderParsingFailed extends Error {
+  constructor(pizzaProviderName: string) {
+    super();
+    this.message = `An error occured while trying to parse the pizza provider "${
+      pizzaProviderName
+    }"`;
+  }
+}
+
 export abstract class BasicPizzasProvider {
   //  used to write in console autocomplete
   abstract shortCompanyName: string;
@@ -68,9 +86,20 @@ export abstract class PizzasProvider extends BasicPizzasProvider {
   async fetchAndParseData(): Promise<{
     pizzeria: IPizzeriaNestedFkWithoutId;
   }> {
-    const pages = await this.fetchPages();
+    let pages: CheerioStatic[];
+    let pizzasCategories: IPizzaCategoryFkWithoutId[];
 
-    const pizzasCategories = this.parsePagesAndMergePizzasCategories(pages);
+    try {
+      pages = await this.fetchPages();
+    } catch {
+      throw new PizzaProviderFetchingFailed(this.longCompanyName);
+    }
+
+    try {
+      pizzasCategories = this.parsePagesAndMergePizzasCategories(pages);
+    } catch {
+      throw new PizzaProviderParsingFailed(this.longCompanyName);
+    }
 
     return {
       pizzeria: {
