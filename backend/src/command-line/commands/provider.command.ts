@@ -18,7 +18,7 @@ export class ProviderCommand extends Command {
     return this.pizzasProvidersService.getProvidersShortNames();
   }
 
-  action(
+  async action(
     args: { provider: string },
     callback: () => void,
     vorpalContext: { log: (msg: string) => void }
@@ -46,7 +46,12 @@ export class ProviderCommand extends Command {
       newProviderName
     );
 
-    this.pizzasProvidersService.setCurrentProvider(newProviderInstance);
+    try {
+      await this.pizzasProvidersService.setCurrentProvider(newProviderInstance);
+    } catch (err) {
+      console.log(err.message);
+    }
+
     return callback();
   }
 }

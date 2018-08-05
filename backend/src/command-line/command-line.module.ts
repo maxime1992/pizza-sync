@@ -17,7 +17,14 @@ const CommandLineServiceFactory = {
     ordersService: OrdersService,
     usersService: UsersService
   ) => {
-    await pizzasProvidersService.setDefaultProvider();
+    try {
+      await pizzasProvidersService.setDefaultProvider();
+    } catch (err) {
+      console.log('An error occured while setting the default provider:');
+      console.log(err.message);
+      console.log('Skipping that step, please set one manually');
+    }
+
     return new CommandLineService(
       pizzasProvidersService,
       ordersService,
