@@ -1,6 +1,7 @@
+import { filter } from 'rxjs/operators';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
@@ -23,11 +24,11 @@ export class OrdersComponent implements OnInit {
   constructor(private store$: Store<IStore>) {}
 
   ngOnInit() {
-    this.fullOrder$ = this.store$.let(getFullOrder);
+    this.fullOrder$ = this.store$.pipe(getFullOrder);
 
     this.idCurrentUser$ = this.store$
       .select(state => state.users.idCurrentUser)
-      .filter(idCurrentUser => !!idCurrentUser);
+      .pipe(filter(idCurrentUser => !!idCurrentUser));
   }
 
   removeOrder(id: string) {

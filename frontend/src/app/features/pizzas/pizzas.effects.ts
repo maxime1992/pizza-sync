@@ -1,7 +1,8 @@
+import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { batchActions, BatchAction } from 'redux-batched-actions';
 
 import { PizzasService } from 'app/features/pizzas/pizzas.service';
@@ -20,18 +21,22 @@ export class PizzasEffects {
   @Effect({ dispatch: true })
   initialLoad$: Observable<BatchAction> = this.actions$
     .ofType(PizzasActions.LOAD_PIZZAS)
-    .switchMap((action: Action) =>
-      this.pizzaService.getPizzas().map(res => {
-        return batchActions([
-          new PizzasActions.LoadPizzasSuccess(res.pizzas),
-          new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(
-            res.pizzasCategories
-          ),
-          new UsersActions.LoadUsersSuccess(res.users),
-          new OrdersActions.LoadOrdersSuccess(res.orders),
-          new UiActions.UpdatePizzeriaInformation(res.pizzeria),
-          new IngredientsActions.LoadIngredientsSuccess(res.ingredients),
-        ]);
-      })
+    .pipe(
+      switchMap((action: Action) =>
+        this.pizzaService.getPizzas().pipe(
+          map(res => {
+            return batchActions([
+              new PizzasActions.LoadPizzasSuccess(res.pizzas),
+              new PizzasCategoriesActions.LoadPizzasCategoriesSuccess(
+                res.pizzasCategories
+              ),
+              new UsersActions.LoadUsersSuccess(res.users),
+              new OrdersActions.LoadOrdersSuccess(res.orders),
+              new UiActions.UpdatePizzeriaInformation(res.pizzeria),
+              new IngredientsActions.LoadIngredientsSuccess(res.ingredients),
+            ]);
+          })
+        )
+      )
     );
 }

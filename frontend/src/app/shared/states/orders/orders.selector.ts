@@ -1,5 +1,6 @@
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import {
@@ -56,8 +57,10 @@ export function getOrderSummary(
 ): Observable<IOrdersSummary> {
   return store$
     .select(state => ({ orders: state.orders, pizzas: state.pizzas }))
-    .distinctUntilChanged(
-      (p, n) => p.pizzas === n.pizzas && p.orders === n.orders
-    )
-    .map(data => _getOrderSummary(data.orders, data.pizzas));
+    .pipe(
+      distinctUntilChanged(
+        (p, n) => p.pizzas === n.pizzas && p.orders === n.orders
+      ),
+      map(data => _getOrderSummary(data.orders, data.pizzas))
+    );
 }

@@ -1,3 +1,4 @@
+import { tap, debounceTime, takeUntil } from 'rxjs/operators';
 import {
   Component,
   OnInit,
@@ -11,7 +12,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MatInput } from '@angular/material';
 
 @Component({
@@ -39,9 +40,11 @@ export class PizzasSearchComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.search.valueChanges
-      .takeUntil(this.onDestroy$.asObservable())
-      .debounceTime(200)
-      .do(search => this.onSearch.emit(search))
+      .pipe(
+        takeUntil(this.onDestroy$.asObservable()),
+        debounceTime(200),
+        tap(search => this.onSearch.emit(search))
+      )
       .subscribe();
   }
 

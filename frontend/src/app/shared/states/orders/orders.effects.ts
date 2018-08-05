@@ -1,3 +1,4 @@
+import { tap, withLatestFrom } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
@@ -18,17 +19,19 @@ export class OrdersEffects {
   @Effect({ dispatch: false })
   addOrder$ = this.actions$
     .ofType<OrdersActions.AddOrder>(OrdersActions.ADD_ORDER)
-    .withLatestFrom(this.store$.select(state => state.users.idCurrentUser))
-    .do(([action, idCurrentUser]) =>
-      this.webSocketService.addOrder({
-        ...action.payload,
-        userId: idCurrentUser,
-      })
+    .pipe(
+      withLatestFrom(this.store$.select(state => state.users.idCurrentUser)),
+      tap(([action, idCurrentUser]) =>
+        this.webSocketService.addOrder({
+          ...action.payload,
+          userId: idCurrentUser,
+        })
+      )
     );
 
   // tslint:disable-next-line:member-ordering
   @Effect({ dispatch: false })
   removeOrder$ = this.actions$
     .ofType<OrdersActions.RemoveOrder>(OrdersActions.REMOVE_ORDER)
-    .do(action => this.webSocketService.removeOrder(action.payload.id));
+    .pipe(tap(action => this.webSocketService.removeOrder(action.payload.id)));
 }

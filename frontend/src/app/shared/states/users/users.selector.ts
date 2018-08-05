@@ -1,3 +1,4 @@
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
@@ -70,13 +71,15 @@ export function getFullOrder(store$: Store<IStore>) {
     .select(state => {
       return { users: state.users, pizzas: state.pizzas, orders: state.orders };
     })
-    .distinctUntilChanged(
-      (p, n) =>
-        p.users === n.users &&
-        p.pizzas === n.pizzas &&
-        p.orders.byId === n.orders.byId
-    )
-    .map(({ users, pizzas, orders }) => _getFullOrder(users, pizzas, orders));
+    .pipe(
+      distinctUntilChanged(
+        (p, n) =>
+          p.users === n.users &&
+          p.pizzas === n.pizzas &&
+          p.orders.byId === n.orders.byId
+      ),
+      map(({ users, pizzas, orders }) => _getFullOrder(users, pizzas, orders))
+    );
 }
 
 export function getFullOrderCsvFormat({

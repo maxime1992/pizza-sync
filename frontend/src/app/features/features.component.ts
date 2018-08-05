@@ -1,9 +1,15 @@
+import {
+  map,
+  distinctUntilChanged,
+  first,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import * as csv from 'csv-file-creator';
@@ -74,24 +80,28 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.store$
       .select(state => state.ui.isDialogIdentificationOpen)
-      .takeUntil(this.componentDestroyed$.asObservable())
-      .do(isDialogIdentificationOpen =>
-        this.handleOpenAndCloseDialog(
-          this.dialogIdentificationRef,
-          () => this.openDialogIdentification(),
-          isDialogIdentificationOpen
+      .pipe(
+        takeUntil(this.componentDestroyed$.asObservable()),
+        tap(isDialogIdentificationOpen =>
+          this.handleOpenAndCloseDialog(
+            this.dialogIdentificationRef,
+            () => this.openDialogIdentification(),
+            isDialogIdentificationOpen
+          )
         )
       )
       .subscribe();
 
     this.store$
       .select(state => state.ui.isDialogOrderSummaryOpen)
-      .takeUntil(this.componentDestroyed$.asObservable())
-      .do(isDialogOrderSummaryOpen =>
-        this.handleOpenAndCloseDialog(
-          this.dialogOrderSummaryRef,
-          () => this.openDialogOrderSummary(),
-          isDialogOrderSummaryOpen
+      .pipe(
+        takeUntil(this.componentDestroyed$.asObservable()),
+        tap(isDialogOrderSummaryOpen =>
+          this.handleOpenAndCloseDialog(
+            this.dialogOrderSummaryRef,
+            () => this.openDialogOrderSummary(),
+            isDialogOrderSummaryOpen
+          )
         )
       )
       .subscribe();
@@ -101,31 +111,35 @@ export class FeaturesComponent implements OnInit, OnDestroy {
         hour: state.orders.hourEnd,
         minute: state.orders.minuteEnd,
       }))
-      .distinctUntilChanged(
-        (p, n) => p.hour === n.hour && p.minute === n.minute
+      .pipe(
+        distinctUntilChanged(
+          (p, n) => p.hour === n.hour && p.minute === n.minute
+        )
       );
 
-    this.searchQuery$ = this.route.queryParams.map(
-      queries => queries['search'] || ''
+    this.searchQuery$ = this.route.queryParams.pipe(
+      map(queries => queries['search'] || '')
     );
 
     this.searchQuery$
-      .do(search =>
-        this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }))
+      .pipe(
+        tap(search =>
+          this.store$.dispatch(new UiActions.UpdatePizzaSearch({ search }))
+        )
       )
       .subscribe();
 
-    this.fullOrder$ = this.store$.let(getFullOrder);
+    this.fullOrder$ = this.store$.pipe(getFullOrder);
 
-    this.ingredients$ = this.store$.let(getIngredients);
+    this.ingredients$ = this.store$.pipe(getIngredients);
 
     this.isFilterIngredientsVisible$ = this.store$.select(
       state => state.ui.isFilterIngredientVisible
     );
 
-    this.nbIngredientsSelected$ = this.store$.let(getNbIngredientsSelected);
+    this.nbIngredientsSelected$ = this.store$.pipe(getNbIngredientsSelected);
 
-    this.ingredientsSelected$ = this.store$.let(getIngredientsSelected);
+    this.ingredientsSelected$ = this.store$.pipe(getIngredientsSelected);
 
     this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
   }
@@ -176,8 +190,10 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.dialogIdentificationRef
       .afterClosed()
-      .takeUntil(this.componentDestroyed$.asObservable())
-      .do(result => (this.dialogIdentificationRef = null))
+      .pipe(
+        takeUntil(this.componentDestroyed$.asObservable()),
+        tap(result => (this.dialogIdentificationRef = null))
+      )
       .subscribe();
   }
 
@@ -188,22 +204,26 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
     this.dialogOrderSummaryRef
       .afterClosed()
-      .first()
-      .do(result => {
-        this.store$.dispatch(new UiActions.CloseDialogOrderSummary());
-        this.dialogOrderSummaryRef = null;
-      })
+      .pipe(
+        first(),
+        tap(result => {
+          this.store$.dispatch(new UiActions.CloseDialogOrderSummary());
+          this.dialogOrderSummaryRef = null;
+        })
+      )
       .subscribe();
   }
 
   downloadCsv() {
     this.fullOrder$
-      .first()
-      .map(getFullOrderCsvFormat)
-      .do(fullOrderCsvFormat => {
-        const currentDate = getCurrentDateFormatted();
-        csv(`pizza-sync-${currentDate}.csv`, fullOrderCsvFormat);
-      })
+      .pipe(
+        first(),
+        map(getFullOrderCsvFormat),
+        tap(fullOrderCsvFormat => {
+          const currentDate = getCurrentDateFormatted();
+          csv(`pizza-sync-${currentDate}.csv`, fullOrderCsvFormat);
+        })
+      )
       .subscribe();
   }
 

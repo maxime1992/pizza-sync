@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { getOrderSummary } from 'app/shared/states/orders/orders.selector';
@@ -21,7 +21,7 @@ export class OrderSummaryDialogComponent implements OnInit {
   constructor(private store$: Store<IStore>) {}
 
   ngOnInit() {
-    this.orderSummary$ = this.store$.let(getOrderSummary);
+    this.orderSummary$ = this.store$.pipe(getOrderSummary);
     this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
   }
 

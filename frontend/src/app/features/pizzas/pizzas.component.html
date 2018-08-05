@@ -4,7 +4,7 @@
       <div *ngFor="let pizzaCategorie of pizzasCategories; trackBy: trackById">
         <h1 class="color-primary">{{ pizzaCategorie.name }}</h1>
 
-        <div fxLayout="row" fxLayoutWrap fxLayoutGap="10px">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
           <!--TODO : There's an ongoing issue with layout gap-->
           <!--https://github.com/angular/flex-layout/issues/125-->
           <!--once it's solve, set fxFlex to 33.3%-->

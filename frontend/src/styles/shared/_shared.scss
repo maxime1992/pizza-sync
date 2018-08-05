@@ -32,27 +32,6 @@ app-root {
   -webkit-font-smoothing: antialiased;
 }
 
-// lib to have a pretty json display
-// use <prettyjson [obj]="someObj"></prettyjson>
-// instead of json pipe to have a pretty debug
-pre {
-  .string {
-    color: green;
-  }
-  .number {
-    color: darkorange;
-  }
-  .boolean {
-    color: blue;
-  }
-  .null {
-    color: magenta;
-  }
-  .key {
-    color: red;
-  }
-}
-
 .green-led {
   margin: 0;
   width: 10px;

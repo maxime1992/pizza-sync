@@ -18,8 +18,6 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 // In order to get the full feature-set of these components, HammerJS must be loaded into the application
 // import 'hammerjs';
 
-// import RxJs needed operators only once
-import './rxjs-operators';
 import { createTranslateLoader } from 'app/shared/helpers/aot.helper';
 import { LANGUAGES } from 'app/core/injection-tokens';
 import { environment } from 'environments/environment';

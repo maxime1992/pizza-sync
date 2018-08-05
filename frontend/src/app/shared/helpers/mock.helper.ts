@@ -1,7 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
+import { Observable, of, throwError as _throw } from 'rxjs';
 import { delay, dematerialize, materialize } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';

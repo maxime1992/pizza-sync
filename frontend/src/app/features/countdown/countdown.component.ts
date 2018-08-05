@@ -1,3 +1,4 @@
+import { tap } from 'rxjs/operators';
 import {
   Component,
   OnInit,
@@ -7,8 +8,7 @@ import {
   OnDestroy,
   OnChanges,
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 
 import { CountdownService } from 'app/shared/services/countdown.service';
 
@@ -39,14 +39,16 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
 
     this.countdownSub = this.countdownService
       .getCountdownTo(this.hour, this.minute)
-      .do(countdown => {
-        if (!hasEmittedCountdownStart) {
-          hasEmittedCountdownStart = true;
-          this.onCountdownStart.next();
-        }
+      .pipe(
+        tap(countdown => {
+          if (!hasEmittedCountdownStart) {
+            hasEmittedCountdownStart = true;
+            this.onCountdownStart.next();
+          }
 
-        this.countdown = countdown;
-      })
+          this.countdown = countdown;
+        })
+      )
       .subscribe(
         () => {},
         () => {},

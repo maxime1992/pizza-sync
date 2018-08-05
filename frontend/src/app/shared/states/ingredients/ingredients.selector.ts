@@ -1,5 +1,6 @@
+import { map, combineLatest } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import {
@@ -19,16 +20,16 @@ export function _getIngredients(
 export function getIngredients(
   store$: Store<IStore>
 ): Observable<IIngredientsArray> {
-  return store$
-    .select(state => state.ingredients)
-    .map(ingredients => _getIngredients(ingredients))
-    .combineLatest(getIngredientsOfFilteredPizzas(store$))
-    .map(([ingredients, ingredientsOfFilteredPizzas]) =>
+  return store$.select(state => state.ingredients).pipe(
+    map(ingredients => _getIngredients(ingredients)),
+    combineLatest(getIngredientsOfFilteredPizzas(store$)),
+    map(([ingredients, ingredientsOfFilteredPizzas]) =>
       ingredients.map(ingredient => ({
         ...ingredient,
         isSelectable: ingredientsOfFilteredPizzas.includes(ingredient.id),
       }))
-    );
+    )
+  );
 }
 
 export function _getNbIngredientsSelected(
@@ -44,7 +45,7 @@ export function getNbIngredientsSelected(
 ): Observable<number> {
   return store$
     .select(state => state.ingredients)
-    .map(ingredients => _getNbIngredientsSelected(ingredients));
+    .pipe(map(ingredients => _getNbIngredientsSelected(ingredients)));
 }
 
 export function _getIngredientsSelected(
@@ -60,23 +61,25 @@ export function getIngredientsSelected(
 ): Observable<IIngredientsArray> {
   return store$
     .select(state => state.ingredients)
-    .map(ingredients => _getIngredientsSelected(ingredients));
+    .pipe(map(ingredients => _getIngredientsSelected(ingredients)));
 }
 
 export function getIngredientsOfFilteredPizzas(
   store$: Store<IStore>
 ): Observable<string[]> {
-  return getCategoriesAndPizzas(store$).map(categoriesAndPizzas => {
-    const ingredientsOfFilteredPizzas = new Set();
+  return getCategoriesAndPizzas(store$).pipe(
+    map(categoriesAndPizzas => {
+      const ingredientsOfFilteredPizzas = new Set();
 
-    categoriesAndPizzas.forEach(categorieAndPizzas => {
-      categorieAndPizzas.pizzas.forEach(pizza => {
-        pizza.ingredientsIds.forEach(ingredientId =>
-          ingredientsOfFilteredPizzas.add(ingredientId)
-        );
+      categoriesAndPizzas.forEach(categorieAndPizzas => {
+        categorieAndPizzas.pizzas.forEach(pizza => {
+          pizza.ingredientsIds.forEach(ingredientId =>
+            ingredientsOfFilteredPizzas.add(ingredientId)
+          );
+        });
       });
-    });
 
-    return Array.from(ingredientsOfFilteredPizzas);
-  });
+      return Array.from(ingredientsOfFilteredPizzas);
+    })
+  );
 }

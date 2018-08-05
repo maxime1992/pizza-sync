@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { PrettyJsonModule } from 'angular2-prettyjson';
 // we now have to import every sub modules of material we want to use
 import {
   MatButtonModule,
@@ -56,7 +55,6 @@ export const modules = [
   FlexLayoutModule,
   StoreModule,
   TranslateModule,
-  PrettyJsonModule,
   ...MaterialModules,
 ];
 

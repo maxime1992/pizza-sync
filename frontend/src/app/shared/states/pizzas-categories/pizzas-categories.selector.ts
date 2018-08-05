@@ -1,5 +1,6 @@
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as removeAccents from 'remove-accents';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
@@ -36,40 +37,44 @@ export function getCategoriesAndPizzas(
         ingredients: state.ingredients,
       };
     })
-    .distinctUntilChanged(
-      (p, n) =>
-        p.pizzasSearch === n.pizzasSearch &&
-        p.pizzas === n.pizzas &&
-        p.pizzasCategories === n.pizzasCategories &&
-        p.ingredients === n.ingredients
-    )
-    .map(({ pizzasSearch, pizzas, pizzasCategories, ingredients }) => {
-      pizzasSearch = removeAccents(pizzasSearch.toLowerCase());
-      const selectedIngredientsIds = getSelectedIngredientsIds(ingredients);
+    .pipe(
+      distinctUntilChanged(
+        (p, n) =>
+          p.pizzasSearch === n.pizzasSearch &&
+          p.pizzas === n.pizzas &&
+          p.pizzasCategories === n.pizzasCategories &&
+          p.ingredients === n.ingredients
+      ),
+      map(({ pizzasSearch, pizzas, pizzasCategories, ingredients }) => {
+        pizzasSearch = removeAccents(pizzasSearch.toLowerCase());
+        const selectedIngredientsIds = getSelectedIngredientsIds(ingredients);
 
-      return pizzasCategories.allIds
-        .map(pizzasCategorieId => {
-          const pizzasCategorie: IPizzaCategoryWithPizzas = {
-            ...pizzasCategories.byId[pizzasCategorieId],
-            pizzas: pizzasCategories.byId[pizzasCategorieId].pizzasIds
-              .map(pizzaId => ({
-                ...pizzas.byId[pizzaId],
-                ingredients: pizzas.byId[pizzaId].ingredientsIds.map(
-                  ingredientId => ingredients.byId[ingredientId]
+        return pizzasCategories.allIds
+          .map(pizzasCategorieId => {
+            const pizzasCategorie: IPizzaCategoryWithPizzas = {
+              ...pizzasCategories.byId[pizzasCategorieId],
+              pizzas: pizzasCategories.byId[pizzasCategorieId].pizzasIds
+                .map(pizzaId => ({
+                  ...pizzas.byId[pizzaId],
+                  ingredients: pizzas.byId[pizzaId].ingredientsIds.map(
+                    ingredientId => ingredients.byId[ingredientId]
+                  ),
+                }))
+                .filter(
+                  p =>
+                    removeAccents(p.name.toLowerCase()).includes(
+                      pizzasSearch
+                    ) &&
+                    doesPizzaContainsAllSelectedIngredients(
+                      selectedIngredientsIds,
+                      p
+                    )
                 ),
-              }))
-              .filter(
-                p =>
-                  removeAccents(p.name.toLowerCase()).includes(pizzasSearch) &&
-                  doesPizzaContainsAllSelectedIngredients(
-                    selectedIngredientsIds,
-                    p
-                  )
-              ),
-          };
+            };
 
-          return pizzasCategorie;
-        })
-        .filter(pizzasCategorie => pizzasCategorie.pizzas.length);
-    });
+            return pizzasCategorie;
+          })
+          .filter(pizzasCategorie => pizzasCategorie.pizzas.length);
+      })
+    );
 }

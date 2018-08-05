@@ -1,7 +1,7 @@
 import { style } from '@angular/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Input, TemplateRef, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
@@ -33,7 +33,7 @@ export class PizzasComponent implements OnInit {
 
     this.search$ = this.store$.select(state => state.ui.pizzaSearch);
 
-    this.pizzasCategories$ = this.store$.let(getCategoriesAndPizzas);
+    this.pizzasCategories$ = this.store$.pipe(getCategoriesAndPizzas);
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {

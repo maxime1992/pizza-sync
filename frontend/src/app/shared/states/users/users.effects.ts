@@ -1,3 +1,4 @@
+import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 
@@ -15,5 +16,5 @@ export class UsersEffects {
   @Effect({ dispatch: false })
   identification$ = this.actions$
     .ofType<UsersActions.Identification>(UsersActions.IDENTIFICATION)
-    .do(action => this.websocketService.connectUser(action.payload));
+    .pipe(tap(action => this.websocketService.connectUser(action.payload)));
 }

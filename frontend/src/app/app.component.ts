@@ -1,7 +1,8 @@
+import { tap, filter, takeUntil } from 'rxjs/operators';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatIconRegistry } from '@angular/material';
 
@@ -41,9 +42,11 @@ export class AppComponent implements OnInit, OnDestroy {
     // change it in translate provider
     this.store$
       .select(state => state.ui.language)
-      .takeUntil(this.onDestroy$)
-      .filter(language => !!language)
-      .do(language => this.translate.use(language))
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter(language => !!language),
+        tap(language => this.translate.use(language))
+      )
       .subscribe();
 
     const safeLogo = this.sanitizer.bypassSecurityTrustResourceUrl(
