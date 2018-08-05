@@ -10,6 +10,7 @@ import { CountdownComponent } from 'app/features/countdown/countdown.component';
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 import { PizzasSearchComponent } from './pizzas-search/pizzas-search.component';
 import { FilterIngredientsComponent } from './filter-ingredients/filter-ingredients.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [SharedModule, FeaturesRoutingModule, PizzasModule, OrdersModule],
@@ -20,6 +21,7 @@ import { FilterIngredientsComponent } from './filter-ingredients/filter-ingredie
     OrderSummaryDialogComponent,
     PizzasSearchComponent,
     FilterIngredientsComponent,
+    FooterComponent,
   ],
   entryComponents: [IdentificationDialogComponent, OrderSummaryDialogComponent],
 })

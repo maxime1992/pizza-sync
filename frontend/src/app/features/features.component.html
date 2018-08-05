@@ -75,21 +75,5 @@
     <mat-icon>receipt</mat-icon>
   </button>
 
-  <mat-toolbar color="primary" class="footer full-width">
-    <div *ngIf="(ui$ | async).pizzeria as pizzeria" class="full-width">
-      <div *ngIf="pizzeria.name" fxLayout="row" fxLayoutAlign="center center" @enterAnimation>
-        <span class="pizzeria-name">{{ pizzeria.name }}</span>
-
-        <span class="split">|</span>
-
-        <mat-icon>phone</mat-icon> {{ pizzeria.phone }}
-
-        <span class="split">|</span>
-
-        <a [href]="pizzeria.url" target="_blank" fxLayout="row" fxLayoutAlign="center center">
-          <mat-icon>public</mat-icon>
-        </a>
-      </div>
-    </div>
-  </mat-toolbar>
+  <app-footer [pizzeria]="(ui$ | async).pizzeria"></app-footer>
 </div>

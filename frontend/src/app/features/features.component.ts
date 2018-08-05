@@ -6,7 +6,6 @@ import {
   tap,
 } from 'rxjs/operators';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
@@ -37,14 +36,6 @@ import {
   selector: 'app-features',
   templateUrl: './features.component.html',
   styleUrls: ['./features.component.scss'],
-  animations: [
-    trigger('enterAnimation', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('1000ms', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
 })
 export class FeaturesComponent implements OnInit, OnDestroy {
   private componentDestroyed$ = new Subject<void>();

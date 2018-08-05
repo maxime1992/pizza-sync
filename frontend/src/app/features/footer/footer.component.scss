@@ -1,0 +1,23 @@
+mat-toolbar.footer {
+  .pizzeria-name {
+    font-weight: bold;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:focus,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  .split {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  mat-icon {
+    margin-right: 5px;
+  }
+}

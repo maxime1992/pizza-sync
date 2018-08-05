@@ -1,3 +1,9 @@
+export interface IPizzeria {
+  readonly name: string;
+  readonly phone: string;
+  readonly url: string;
+}
+
 export interface IUi {
   readonly language: string;
   readonly isSidenavVisible: boolean;
@@ -7,9 +13,5 @@ export interface IUi {
   readonly pizzaSearch: string;
 
   // pizzeria information
-  readonly pizzeria: {
-    readonly name: string;
-    readonly phone: string;
-    readonly url: string;
-  };
+  readonly pizzeria: IPizzeria;
 }
