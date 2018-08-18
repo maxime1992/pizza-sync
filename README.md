@@ -1,3 +1,5 @@
+<img src="https://github.com/happyksu/pizza-sync/blob/master/New_Logo/png/PS_logo_low_res_2.png"/> 
+
 # Pizza-Sync
 
 ![Image](./demo.gif?raw=true)
