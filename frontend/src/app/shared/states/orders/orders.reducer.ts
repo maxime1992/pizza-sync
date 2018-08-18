@@ -1,11 +1,9 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 import {
-  IOrdersTable,
-  IOrderCommon,
   IOrder,
+  IOrdersTable,
 } from 'app/shared/states/orders/orders.interface';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const ordersAdapter: EntityAdapter<IOrder> = createEntityAdapter<
   IOrder

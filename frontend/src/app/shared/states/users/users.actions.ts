@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import {
-  IUsersTable,
   IUserCommon,
+  IUsersTable,
 } from 'app/shared/states/users/users.interface';
 
 export const LOAD_USERS_SUCCESS = '[Users] Load users success';

@@ -8,7 +8,6 @@
     "eofline": false,
     "quotemark": [true, "single"],
     "member-access": [false],
-    "ordered-imports": [false],
     "max-line-length": [150],
     "member-ordering": [false],
     "curly": false,
@@ -22,7 +21,9 @@
     "max-classes-per-file": [false],
     "variable-name": [false],
     "one-line": [false],
-    "one-variable-per-declaration": [false]
+    "one-variable-per-declaration": [false],
+    "no-unused-variable": true,
+    "ordered-imports": true
   },
   "rulesDirectory": []
 }

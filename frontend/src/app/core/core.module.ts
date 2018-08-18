@@ -1,16 +1,15 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  LocationStrategy,
   HashLocationStrategy,
+  LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Ng2Webstorage } from 'ng2-webstorage';
 // import hammerjs only if needed :
 // From https://material.angular.io/guide/getting-started#additional-setup-for-gestures
@@ -18,18 +17,18 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 // In order to get the full feature-set of these components, HammerJS must be loaded into the application
 // import 'hammerjs';
 
-import { createTranslateLoader } from 'app/shared/helpers/aot.helper';
 import { LANGUAGES } from 'app/core/injection-tokens';
-import { environment } from 'environments/environment';
-import { metaReducers, reducers } from 'app/shared/states/root.reducer';
 import { PizzasEffects } from 'app/features/pizzas/pizzas.effects';
 import { PizzasService } from 'app/features/pizzas/pizzas.service';
-import { OrdersEffects } from 'app/shared/states/orders/orders.effects';
-import { UsersEffects } from 'app/shared/states/users/users.effects';
+import { createTranslateLoader } from 'app/shared/helpers/aot.helper';
+import { CountdownService } from 'app/shared/services/countdown.service';
 import { OrdersService } from 'app/shared/services/orders.service';
 import { UsersService } from 'app/shared/services/users.service';
 import { WebsocketService } from 'app/shared/services/websocket.service';
-import { CountdownService } from 'app/shared/services/countdown.service';
+import { OrdersEffects } from 'app/shared/states/orders/orders.effects';
+import { metaReducers, reducers } from 'app/shared/states/root.reducer';
+import { UsersEffects } from 'app/shared/states/users/users.effects';
+import { environment } from 'environments/environment';
 
 /**
  * this module will be imported only once, in AppModule and shouldn't be imported from anywhere else

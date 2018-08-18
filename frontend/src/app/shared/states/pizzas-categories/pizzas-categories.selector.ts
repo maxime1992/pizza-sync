@@ -1,30 +1,11 @@
-import { map, distinctUntilChanged } from 'rxjs/operators';
 import {
-  Store,
   createFeatureSelector,
   createSelector,
-  MemoizedSelector,
 } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { IStore } from 'app/shared/interfaces/store.interface';
 import {
-  IPizzaCategoryWithPizzas,
   IPizzasCategoriesTable,
 } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
-import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
-import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.interface';
 import { pizzasCategoriesAdapter } from './pizzas-categories.reducer';
-import {
-  selectIngredientsAll,
-  selectIngredientsEntities,
-  getSelectedIngredientsIds,
-} from '../ingredients/ingredients.selector';
-import {
-  selectPizzasAll,
-  selectPizzasEntities,
-} from '../pizzas/pizzas.selector';
-import { getPizzaSearch } from '../ui/ui.selector';
-import * as removeAccents from 'remove-accents';
 
 const {
   selectIds: _selectPizzasCategoriesIds,

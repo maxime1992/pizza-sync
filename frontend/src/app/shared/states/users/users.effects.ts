@@ -1,9 +1,9 @@
-import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
+import { tap } from 'rxjs/operators';
 
-import * as UsersActions from 'app/shared/states/users/users.actions';
 import { WebsocketService } from 'app/shared/services/websocket.service';
+import * as UsersActions from 'app/shared/states/users/users.actions';
 
 @Injectable()
 export class UsersEffects {

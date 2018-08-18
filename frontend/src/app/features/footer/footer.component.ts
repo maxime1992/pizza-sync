@@ -1,5 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { IPizzeria } from '../../shared/states/ui/ui.interface';
 
 @Component({

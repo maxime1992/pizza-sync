@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from 'app/shared/shared.module';
 import {
-  PizzasComponent,
   PizzaDetailsDialogComponent,
+  PizzasComponent,
 } from 'app/features/pizzas/pizzas.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   imports: [SharedModule],

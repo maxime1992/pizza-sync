@@ -1,19 +1,14 @@
-import { map, combineLatest } from 'rxjs/operators';
 import {
-  Store,
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
-import { IStore } from 'app/shared/interfaces/store.interface';
 import {
-  IIngredientsTable,
   IIngredientCommon,
+  IIngredientsTable,
 } from 'app/shared/states/ingredients/ingredients.interface';
 import { ingredientsAdapter } from './ingredients.reducer';
-import { getCategoriesAndPizzas } from '../ui/ui.selector';
 
 const {
   selectIds: _selectIngredientsIds,

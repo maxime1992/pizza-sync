@@ -1,10 +1,9 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import * as PizzasCategoriesActions from 'app/shared/states/pizzas-categories/pizzas-categories.actions';
 import {
-  IPizzasCategoriesTable,
   IPizzaCategoryCommon,
+  IPizzasCategoriesTable,
 } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const pizzasCategoriesAdapter: EntityAdapter<
   IPizzaCategoryCommon

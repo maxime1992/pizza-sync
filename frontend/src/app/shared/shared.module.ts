@@ -1,28 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // we now have to import every sub modules of material we want to use
 import {
   MatButtonModule,
   MatCardModule,
+  MatChipsModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
   MatRippleModule,
+  MatSelectModule,
   MatSidenavModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatSelectModule,
-  MatChipsModule,
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { JoinPipe } from './pipes/join.pipe';
 
 const MaterialModules = [

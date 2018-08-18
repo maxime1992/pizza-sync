@@ -1,22 +1,43 @@
-import { style } from '@angular/animations';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Input, TemplateRef, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
 import { IStore } from 'app/shared/interfaces/store.interface';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
+import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
 import {
   IPizzaCommon,
   IPizzaWithIngredients,
 } from 'app/shared/states/pizzas/pizzas.interface';
-import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
-import * as OrdersActions from 'app/shared/states/orders/orders.actions';
-import {
-  getPizzaSearch,
-  getCategoriesAndPizzas,
-} from '../../shared/states/ui/ui.selector';
 import { tap } from 'rxjs/operators';
+import {
+  getCategoriesAndPizzas,
+  getPizzaSearch,
+} from '../../shared/states/ui/ui.selector';
+
+@Component({
+  selector: 'app-pizza-details-dialog',
+  template: `
+      <div
+        fxFlexFill
+        [style.background-image]="'url(' + data.pizza.imgUrl + ')'"
+        (click)="close()"
+      ></div>
+  `,
+  styles: [`div { background-size: cover; }`],
+})
+export class PizzaDetailsDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<PizzaDetailsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { pizza: IPizzaWithIngredients }
+  ) {}
+
+  close() {
+    this.dialogRef.close();
+  }
+}
 
 @Component({
   selector: 'app-pizzas',
@@ -48,8 +69,7 @@ export class PizzasComponent implements OnInit {
   }
 
   openPizzaDialog(pizza: IPizzaWithIngredients) {
-    // tslint:disable-next-line:no-use-before-declare
-    const dialogRef = this.dialog.open(PizzaDetailsDialogComponent, <any>{
+    this.dialog.open(PizzaDetailsDialogComponent, <any>{
       width: '550px',
       height: '550px',
       panelClass: 'dialog-with-transparent-background',
@@ -59,27 +79,5 @@ export class PizzasComponent implements OnInit {
 
   trackById(index, item) {
     return item.id;
-  }
-}
-
-@Component({
-  selector: 'app-pizza-details-dialog',
-  template: `
-      <div
-        fxFlexFill
-        [style.background-image]="'url(' + data.pizza.imgUrl + ')'"
-        (click)="close()"
-      ></div>
-  `,
-  styles: [`div { background-size: cover; }`],
-})
-export class PizzaDetailsDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<PizzaDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { pizza: IPizzaWithIngredients }
-  ) {}
-
-  close() {
-    this.dialogRef.close();
   }
 }

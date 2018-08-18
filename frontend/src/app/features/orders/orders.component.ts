@@ -1,15 +1,15 @@
-import { filter } from 'rxjs/operators';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 import {
-  getFullOrder,
   getCurrentUser,
+  getFullOrder,
 } from 'app/shared/states/users/users.selector';
-import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 
 @Component({
   selector: 'app-orders',
@@ -23,15 +23,13 @@ export class OrdersComponent implements OnInit {
     totalPrice: number;
   }> = this.store$.select(getFullOrder);
 
-  private idCurrentUser$: Observable<string>;
+  public idCurrentUser$: Observable<string> = this.store$
+    .select(getCurrentUser)
+    .pipe(filter(idCurrentUser => !!idCurrentUser));
 
   constructor(private store$: Store<IStore>) {}
 
-  ngOnInit() {
-    this.idCurrentUser$ = this.store$
-      .select(getCurrentUser)
-      .pipe(filter(idCurrentUser => !!idCurrentUser));
-  }
+  ngOnInit() {}
 
   removeOrder(id: string) {
     this.store$.dispatch(new OrdersActions.RemoveOrder({ id }));

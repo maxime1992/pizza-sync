@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { CoreModule } from 'app/core/core.module';
-import { SharedModule } from 'app/shared/shared.module';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { AppComponent } from 'app/app.component';
+import { CoreModule } from 'app/core/core.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 /**
  * this module should be kept as small as possible and shouldn't be modified

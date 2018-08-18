@@ -1,46 +1,42 @@
-import {
-  map,
-  distinctUntilChanged,
-  first,
-  takeUntil,
-  tap,
-} from 'rxjs/operators';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import * as csv from 'csv-file-creator';
-import * as UiActions from 'app/shared/states/ui/ui.actions';
-import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
-import { IStore } from 'app/shared/interfaces/store.interface';
-import { IUi } from 'app/shared/states/ui/ui.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { IdentificationDialogComponent } from 'app/features/identification-dialog/identification-dialog.component';
 import { OrderSummaryDialogComponent } from 'app/features/order-summary-dialog/order-summary-dialog.component';
 import { getCurrentDateFormatted } from 'app/shared/helpers/date.helper';
+import { IStore } from 'app/shared/interfaces/store.interface';
+import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
+import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
+import {
+  getNbIngredientsSelected,
+  getSelectedIngredients,
+} from 'app/shared/states/ingredients/ingredients.selector';
+import * as UiActions from 'app/shared/states/ui/ui.actions';
+import { IUi } from 'app/shared/states/ui/ui.interface';
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';
 import {
   getFullOrder,
   getFullOrderCsvFormat,
 } from 'app/shared/states/users/users.selector';
-import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
+import * as csv from 'csv-file-creator';
+import { Observable, Subject } from 'rxjs';
 import {
-  selectIngredientsAll,
-  getSelectedIngredientsIds,
-  getNbIngredientsSelected,
-  getSelectedIngredients,
-} from 'app/shared/states/ingredients/ingredients.selector';
+  first,
+  map,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 import {
-  selectOrdersTotal,
   getTimeEnd,
+  selectOrdersTotal,
 } from '../shared/states/orders/orders.selector';
 import {
-  getIsFilterIngredientVisible,
-  selectUiState,
+  getIngredients,
   getIsDialogIdentificationOpen,
   getIsDialogOrderSummaryOpen,
-  getIngredients,
+  getIsFilterIngredientVisible,
+  selectUiState,
 } from '../shared/states/ui/ui.selector';
 
 @Component({

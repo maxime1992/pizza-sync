@@ -1,19 +1,10 @@
-import { pizzasAdapter } from './pizzas.reducer';
 import {
   createFeatureSelector,
   createSelector,
-  MemoizedSelector,
 } from '@ngrx/store';
-import { IPizzasTable, IPizzaWithIngredients } from './pizzas.interface';
-import { IPizzaCategoryWithPizzas } from '../pizzas-categories/pizzas-categories.interface';
-import { getPizzaSearch } from '../ui/ui.selector';
-import { selectPizzasCategoriesAll } from '../pizzas-categories/pizzas-categories.selector';
+import { IPizzasTable } from './pizzas.interface';
+import { pizzasAdapter } from './pizzas.reducer';
 // import { selectIngredientsEntities } from '../ingredients/ingredients.selector';
-import * as removeAccents from 'remove-accents';
-import {
-  selectIngredientsEntities,
-  getSelectedIngredientsIds,
-} from '../ingredients/ingredients.selector';
 
 const {
   selectIds: _selectPizzasIds,

@@ -1,17 +1,17 @@
-import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
+import { BatchAction, batchActions } from 'redux-batched-actions';
 import { Observable } from 'rxjs';
-import { batchActions, BatchAction } from 'redux-batched-actions';
+import { map, switchMap } from 'rxjs/operators';
 
 import { PizzasService } from 'app/features/pizzas/pizzas.service';
-import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
-import * as PizzasCategoriesActions from 'app/shared/states/pizzas-categories/pizzas-categories.actions';
-import * as UsersActions from 'app/shared/states/users/users.actions';
-import * as OrdersActions from 'app/shared/states/orders/orders.actions';
-import * as UiActions from 'app/shared/states/ui/ui.actions';
 import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
+import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import * as PizzasCategoriesActions from 'app/shared/states/pizzas-categories/pizzas-categories.actions';
+import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
+import * as UiActions from 'app/shared/states/ui/ui.actions';
+import * as UsersActions from 'app/shared/states/users/users.actions';
 
 @Injectable()
 export class PizzasEffects {
