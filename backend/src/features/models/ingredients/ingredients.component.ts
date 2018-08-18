@@ -1,12 +1,9 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { NormalizedModel } from '../normalized-model.class';
-import {
-  IIngredientWithId,
-  IIngredientWithoutId,
-} from './ingredients.interface';
+import { IIngredientWithoutId } from './ingredients.interface';
 
-@Component()
+@Injectable()
 export class IngredientsService extends NormalizedModel<IIngredientWithoutId> {
   protected sort = true;
 

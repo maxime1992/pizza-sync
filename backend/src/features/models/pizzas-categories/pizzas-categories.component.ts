@@ -1,12 +1,9 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { NormalizedModel } from '../normalized-model.class';
-import {
-  IPizzaCategoryWithId,
-  IPizzaCategoryWithoutId,
-} from './pizzas-categories.interface';
+import { IPizzaCategoryWithoutId } from './pizzas-categories.interface';
 
-@Component()
+@Injectable()
 export class PizzasCategoriesService extends NormalizedModel<
   IPizzaCategoryWithoutId
 > {

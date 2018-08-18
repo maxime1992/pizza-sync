@@ -20,8 +20,11 @@ const CommandLineServiceFactory = {
     try {
       await pizzasProvidersService.setDefaultProvider();
     } catch (err) {
+      // tslint:disable-next-line:no-console
       console.log('An error occured while setting the default provider:');
+      // tslint:disable-next-line:no-console
       console.log(err.message);
+      // tslint:disable-next-line:no-console
       console.log('Skipping that step, please set one manually');
     }
 
@@ -35,8 +38,8 @@ const CommandLineServiceFactory = {
 };
 
 @Module({
-  modules: [PizzasProvidersModule, OrdersModule, UsersModule],
-  components: [CommandLineServiceFactory],
+  imports: [PizzasProvidersModule, OrdersModule, UsersModule],
+  providers: [CommandLineServiceFactory],
 })
 export class CommandLineModule {
   constructor(@Inject('CommandLineService') commandLineService) {}

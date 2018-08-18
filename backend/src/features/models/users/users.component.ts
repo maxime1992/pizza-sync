@@ -1,4 +1,3 @@
-import { Component } from '@nestjs/common';
 import {
   WebSocketGateway,
   OnGatewayConnection,

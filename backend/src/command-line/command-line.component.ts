@@ -1,7 +1,6 @@
 import * as _vorpal from 'vorpal';
 
 import { PizzasProvidersService } from '../features/pizzas-providers/pizzas-providers.component';
-import { PizzasProvidersModule } from '../features/pizzas-providers/pizzas-providers.module';
 import { ProvidersCommand } from './commands/providers.command';
 import { ProviderCommand } from './commands/provider.command';
 import { Command } from './command.class';
