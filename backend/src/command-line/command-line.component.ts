@@ -1,12 +1,12 @@
 import * as _vorpal from 'vorpal';
 
-import { PizzasProvidersService } from '../features/pizzas-providers/pizzas-providers.component';
-import { ProvidersCommand } from './commands/providers.command';
-import { ProviderCommand } from './commands/provider.command';
-import { Command } from './command.class';
-import { CountdownCommand } from './commands/countdown.command';
 import { OrdersService } from '../features/models/orders/orders.component';
 import { UsersService } from '../features/models/users/users.component';
+import { PizzasProvidersService } from '../features/pizzas-providers/pizzas-providers.component';
+import { Command } from './command.class';
+import { CountdownCommand } from './commands/countdown.command';
+import { ProviderCommand } from './commands/provider.command';
+import { ProvidersCommand } from './commands/providers.command';
 
 export class CommandLineService {
   private vorpal = _vorpal();
