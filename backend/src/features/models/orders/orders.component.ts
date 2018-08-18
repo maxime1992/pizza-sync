@@ -1,4 +1,3 @@
-import { Component } from '@nestjs/common';
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -7,7 +6,7 @@ import {
 } from '@nestjs/websockets';
 
 import { NormalizedModel } from '../normalized-model.class';
-import { IOrderWithId, IOrderWithoutId } from './orders.interface';
+import { IOrderWithoutId } from './orders.interface';
 
 @WebSocketGateway()
 export class OrdersService extends NormalizedModel<IOrderWithoutId>

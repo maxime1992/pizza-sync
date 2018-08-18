@@ -1,8 +1,8 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { normalize, schema } from 'normalizr';
 
-import { PizzasProvider, BasicPizzasProvider } from './pizzas-provider.class';
+import { BasicPizzasProvider } from './pizzas-provider.class';
 import { OrmeauProvider } from './implementations/ormeau.class';
 import { OrmeauMockProvider } from './implementations/ormeau.mock';
 import { TuttiProvider } from './implementations/tutti.class';
@@ -28,7 +28,7 @@ import {
   cleanIngredientNameAsId,
 } from '../../helpers/string.helper';
 
-@Component()
+@Injectable()
 export class PizzasProvidersService {
   private providers: BasicPizzasProvider[];
   private currentProvider: BasicPizzasProvider;
@@ -167,7 +167,9 @@ export class PizzasProvidersService {
     const {
       pizzasCategories,
       pizzasCategoriesIds,
-    } = this.getPizzasCategoriesByEntitiesAndIds(normalizedData.pizzasCategories);
+    } = this.getPizzasCategoriesByEntitiesAndIds(
+      normalizedData.pizzasCategories
+    );
 
     const { pizzasById, pizzasIds } = this.getPizzasByIdAndIds(
       normalizedData.pizzas
