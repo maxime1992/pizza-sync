@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  pizza-sync-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: pizza-sync-api
+    hostname: pizza-sync-api
+    stdin_open: true
+    tty: true
+
+  pizza-sync-nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: pizza-sync-nginx
+    ports:
+      - 3000:80
