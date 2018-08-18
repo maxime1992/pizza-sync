@@ -1,3 +1,5 @@
+import { EntityState } from '@ngrx/entity';
+
 export interface IIngredientCommon {
   id: string;
   name: string;
@@ -5,10 +7,4 @@ export interface IIngredientCommon {
   isSelectable: boolean;
 }
 
-export interface IIngredientsTable {
-  byId: { [key: string]: IIngredientCommon };
-  allIds: string[];
-}
-
-// tslint:disable:no-empty-interface
-export interface IIngredientsArray extends Array<IIngredientCommon> {}
+export interface IIngredientsTable extends EntityState<IIngredientCommon> {}

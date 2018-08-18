@@ -1,4 +1,5 @@
 import { IPizzaCommon } from 'app/shared/states/pizzas/pizzas.interface';
+import { EntityState } from '@ngrx/entity';
 
 export interface IOrderCommon {
   pizzaId: string;
@@ -22,13 +23,10 @@ export interface IPizzaOrderSummary {
 // tslint:disable:no-empty-interface
 export interface IOrdersSummary extends Array<IPizzaOrderSummary> {}
 
-export interface IOrdersTable {
+export interface IOrdersTable extends EntityState<IOrder> {
   // when should we lock the orders
   hourEnd: number;
   minuteEnd: number;
-
-  byId: { [key: string]: IOrder };
-  allIds: string[];
 }
 
 export interface IOrderWithPizzas extends IOrder {

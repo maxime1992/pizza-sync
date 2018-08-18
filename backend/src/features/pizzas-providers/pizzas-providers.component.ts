@@ -165,11 +165,11 @@ export class PizzasProvidersService {
 
     // normalize the data
     const {
-      pizzasCategoriesById,
-      pizzasCategoriesAllIds,
-    } = this.getPizzasCategoriesByIdAndAllIds(normalizedData.pizzasCategories);
+      pizzasCategories,
+      pizzasCategoriesIds,
+    } = this.getPizzasCategoriesByEntitiesAndIds(normalizedData.pizzasCategories);
 
-    const { pizzasById, pizzasAllIds } = this.getPizzasByIdAndAllIds(
+    const { pizzasById, pizzasIds } = this.getPizzasByIdAndIds(
       normalizedData.pizzas
     );
 
@@ -180,12 +180,12 @@ export class PizzasProvidersService {
         url: pizzeria.url,
       },
       pizzasCategories: {
-        byId: pizzasCategoriesById,
-        allIds: pizzasCategoriesAllIds,
+        entities: pizzasCategories,
+        ids: pizzasCategoriesIds,
       },
       pizzas: {
-        byId: pizzasById,
-        allIds: pizzasAllIds,
+        entities: pizzasById,
+        ids: pizzasIds,
       },
       ingredients: normalizedData.ingredients,
     };
@@ -194,41 +194,41 @@ export class PizzasProvidersService {
   // a pizza provider returns a structure where
   // a pizza has a key `ingredients`
   // but we want to rename it to igredientsIds
-  private getPizzasByIdAndAllIds(pizzas: IPizzasNormalized) {
-    const pizzasAllIds = pizzas.allIds;
+  private getPizzasByIdAndIds(pizzas: IPizzasNormalized) {
+    const pizzasIds = pizzas.ids;
 
     const pizzasById: {
       [key: string]: IPizzaWithId;
     } = renameKeysInObject(
-      pizzas.byId,
-      pizzas.allIds,
+      pizzas.entities,
+      pizzas.ids,
       'ingredients',
       'ingredientsIds'
     );
 
-    return { pizzasById, pizzasAllIds };
+    return { pizzasById, pizzasIds };
   }
 
   // a pizza provider returns a structure where
   // a pizza categorie has a key `pizzas`
   // but we want to rename it to pizzasIds
-  private getPizzasCategoriesByIdAndAllIds(
+  private getPizzasCategoriesByEntitiesAndIds(
     pizzasCategories: IPizzasCategoriesNormalized
   ) {
-    const pizzasCategoriesAllIds = pizzasCategories.allIds;
+    const pizzasCategoriesIds = pizzasCategories.ids;
 
-    const pizzasCategoriesById: {
+    const pizzasCategoriesEntities: {
       [key: string]: IPizzaCategoryWithId;
     } = renameKeysInObject(
-      pizzasCategories.byId,
-      pizzasCategories.allIds,
+      pizzasCategories.entities,
+      pizzasCategories.ids,
       'pizzas',
       'pizzasIds'
     );
 
     return {
-      pizzasCategoriesById,
-      pizzasCategoriesAllIds,
+      pizzasCategories: pizzasCategoriesEntities,
+      pizzasCategoriesIds,
     };
   }
 
@@ -256,16 +256,16 @@ export class PizzasProvidersService {
         url: pizzeria.url,
       },
       pizzas: {
-        byId: normalizedData.entities.pizzas,
-        allIds: Object.keys(normalizedData.entities.pizzas),
+        entities: normalizedData.entities.pizzas,
+        ids: Object.keys(normalizedData.entities.pizzas),
       },
       pizzasCategories: {
-        byId: normalizedData.entities.pizzasCategories,
-        allIds: Object.keys(normalizedData.entities.pizzasCategories),
+        entities: normalizedData.entities.pizzasCategories,
+        ids: Object.keys(normalizedData.entities.pizzasCategories),
       },
       ingredients: {
-        byId: normalizedData.entities.ingredients,
-        allIds: Object.keys(normalizedData.entities.ingredients),
+        entities: normalizedData.entities.ingredients,
+        ids: Object.keys(normalizedData.entities.ingredients),
       },
     };
   }

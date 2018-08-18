@@ -1,17 +1,17 @@
 export function normalizeArray(
   array: { id: string }[]
-): { byId: {}; allIds: string[] } {
+): { entities: {}; ids: string[] } {
   if (!array) {
-    return { byId: {}, allIds: [] };
+    return { entities: {}, ids: [] };
   }
 
   return array.reduce(
     (acc, next) => {
-      acc.byId[next.id] = next;
-      acc.allIds.push(next.id);
+      acc.entities[next.id] = next;
+      acc.ids.push(next.id);
 
       return acc;
     },
-    { byId: {}, allIds: [] }
+    { entities: {}, ids: [] }
   );
 }

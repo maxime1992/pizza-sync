@@ -12,7 +12,6 @@ import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import * as csv from 'csv-file-creator';
-
 import * as UiActions from 'app/shared/states/ui/ui.actions';
 import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
 import { IStore } from 'app/shared/interfaces/store.interface';
@@ -25,12 +24,24 @@ import {
   getFullOrder,
   getFullOrderCsvFormat,
 } from 'app/shared/states/users/users.selector';
-import { IIngredientsArray } from 'app/shared/states/ingredients/ingredients.interface';
+import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
 import {
-  getIngredients,
+  selectIngredientsAll,
+  getSelectedIngredientsIds,
   getNbIngredientsSelected,
-  getIngredientsSelected,
+  getSelectedIngredients,
 } from 'app/shared/states/ingredients/ingredients.selector';
+import {
+  selectOrdersTotal,
+  getTimeEnd,
+} from '../shared/states/orders/orders.selector';
+import {
+  getIsFilterIngredientVisible,
+  selectUiState,
+  getIsDialogIdentificationOpen,
+  getIsDialogOrderSummaryOpen,
+  getIngredients,
+} from '../shared/states/ui/ui.selector';
 
 @Component({
   selector: 'app-features',
@@ -42,9 +53,14 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   public ui$: Observable<IUi>;
   public lockOrders = true;
-  public hourAndMinuteEnd$: Observable<{ hour: number; minute: number }>;
+  public hourAndMinuteEnd$: Observable<{
+    hour: number;
+    minute: number;
+  }> = this.store$.select(getTimeEnd);
   public pizzaSearch$: Observable<string>;
-  public nbOfPizzas$: Observable<number>;
+  public nbOfPizzas$: Observable<number> = this.store$.select(
+    selectOrdersTotal
+  );
 
   private dialogIdentificationRef: MatDialogRef<IdentificationDialogComponent>;
   private dialogOrderSummaryRef: MatDialogRef<OrderSummaryDialogComponent>;
@@ -52,11 +68,21 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   public fullOrder$: Observable<{
     users: IUserWithPizzas[];
     totalPrice: number;
-  }>;
-  public ingredients$: Observable<IIngredientsArray>;
-  public isFilterIngredientsVisible$: Observable<boolean>;
-  public nbIngredientsSelected$: Observable<number>;
-  public ingredientsSelected$: Observable<IIngredientsArray>;
+  }> = this.store$.select(getFullOrder);
+
+  public ingredients$: Observable<IIngredientCommon[]> = this.store$.select(
+    getIngredients
+  );
+  public isFilterIngredientsVisible$: Observable<boolean> = this.store$.select(
+    getIsFilterIngredientVisible
+  );
+  public nbIngredientsSelected$: Observable<number> = this.store$.select(
+    getNbIngredientsSelected
+  );
+  public ingredientsSelected$: Observable<
+    IIngredientCommon[]
+  > = this.store$.select(getSelectedIngredients);
+
   public searchQuery$: Observable<string>;
 
   constructor(
@@ -67,46 +93,35 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.ui$ = this.store$.select(state => state.ui);
+    this.ui$ = this.store$.select(selectUiState);
 
     this.store$
-      .select(state => state.ui.isDialogIdentificationOpen)
+      .select(getIsDialogIdentificationOpen)
       .pipe(
-        takeUntil(this.componentDestroyed$.asObservable()),
         tap(isDialogIdentificationOpen =>
           this.handleOpenAndCloseDialog(
             this.dialogIdentificationRef,
             () => this.openDialogIdentification(),
             isDialogIdentificationOpen
           )
-        )
+        ),
+        takeUntil(this.componentDestroyed$)
       )
       .subscribe();
 
     this.store$
-      .select(state => state.ui.isDialogOrderSummaryOpen)
+      .select(getIsDialogOrderSummaryOpen)
       .pipe(
-        takeUntil(this.componentDestroyed$.asObservable()),
         tap(isDialogOrderSummaryOpen =>
           this.handleOpenAndCloseDialog(
             this.dialogOrderSummaryRef,
             () => this.openDialogOrderSummary(),
             isDialogOrderSummaryOpen
           )
-        )
+        ),
+        takeUntil(this.componentDestroyed$)
       )
       .subscribe();
-
-    this.hourAndMinuteEnd$ = this.store$
-      .select(state => ({
-        hour: state.orders.hourEnd,
-        minute: state.orders.minuteEnd,
-      }))
-      .pipe(
-        distinctUntilChanged(
-          (p, n) => p.hour === n.hour && p.minute === n.minute
-        )
-      );
 
     this.searchQuery$ = this.route.queryParams.pipe(
       map(queries => queries['search'] || '')
@@ -119,20 +134,6 @@ export class FeaturesComponent implements OnInit, OnDestroy {
         )
       )
       .subscribe();
-
-    this.fullOrder$ = this.store$.pipe(getFullOrder);
-
-    this.ingredients$ = this.store$.pipe(getIngredients);
-
-    this.isFilterIngredientsVisible$ = this.store$.select(
-      state => state.ui.isFilterIngredientVisible
-    );
-
-    this.nbIngredientsSelected$ = this.store$.pipe(getNbIngredientsSelected);
-
-    this.ingredientsSelected$ = this.store$.pipe(getIngredientsSelected);
-
-    this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
   }
 
   ngOnDestroy() {
@@ -182,8 +183,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.dialogIdentificationRef
       .afterClosed()
       .pipe(
-        takeUntil(this.componentDestroyed$.asObservable()),
-        tap(result => (this.dialogIdentificationRef = null))
+        tap(result => (this.dialogIdentificationRef = null)),
+        takeUntil(this.componentDestroyed$)
       )
       .subscribe();
   }
@@ -197,7 +198,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         first(),
-        tap(result => {
+        tap(() => {
           this.store$.dispatch(new UiActions.CloseDialogOrderSummary());
           this.dialogOrderSummaryRef = null;
         })
@@ -206,10 +207,10 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   }
 
   downloadCsv() {
-    this.fullOrder$
+    this.store$
+      .select(getFullOrderCsvFormat)
       .pipe(
         first(),
-        map(getFullOrderCsvFormat),
         tap(fullOrderCsvFormat => {
           const currentDate = getCurrentDateFormatted();
           csv(`pizza-sync-${currentDate}.csv`, fullOrderCsvFormat);

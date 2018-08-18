@@ -3,7 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
-import { getOrderSummary } from 'app/shared/states/orders/orders.selector';
+import {
+  getOrderSummary,
+  selectOrdersTotal,
+} from 'app/shared/states/orders/orders.selector';
 import {
   IOrdersSummary,
   IPizzaOrderSummary,
@@ -21,8 +24,8 @@ export class OrderSummaryDialogComponent implements OnInit {
   constructor(private store$: Store<IStore>) {}
 
   ngOnInit() {
-    this.orderSummary$ = this.store$.pipe(getOrderSummary);
-    this.nbOfPizzas$ = this.store$.select(state => state.orders.allIds.length);
+    this.orderSummary$ = this.store$.select(getOrderSummary);
+    this.nbOfPizzas$ = this.store$.select(selectOrdersTotal);
   }
 
   howManyPerSize(pizzaOrderSummary: IPizzaOrderSummary) {

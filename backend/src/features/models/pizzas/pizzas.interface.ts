@@ -10,6 +10,6 @@ export interface IPizzaWithId extends IPizzaWithoutId {
 }
 
 export interface IPizzasNormalized {
-  byId: { [key: string]: IPizzaWithId };
-  allIds: string[];
+  entities: { [key: string]: IPizzaWithId };
+  ids: string[];
 }

@@ -6,13 +6,17 @@ import { Store } from '@ngrx/store';
 
 import { IPizzaCategoryWithPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
 import { IStore } from 'app/shared/interfaces/store.interface';
-import { getCategoriesAndPizzas } from 'app/shared/states/pizzas-categories/pizzas-categories.selector';
 import {
   IPizzaCommon,
   IPizzaWithIngredients,
 } from 'app/shared/states/pizzas/pizzas.interface';
 import * as PizzasActions from 'app/shared/states/pizzas/pizzas.actions';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import {
+  getPizzaSearch,
+  getCategoriesAndPizzas,
+} from '../../shared/states/ui/ui.selector';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pizzas',
@@ -22,18 +26,16 @@ import * as OrdersActions from 'app/shared/states/orders/orders.actions';
 export class PizzasComponent implements OnInit {
   @Input() locked: boolean;
 
-  public pizzasCategories$: Observable<IPizzaCategoryWithPizzas[]>;
-  public pizzasCategories: IPizzaCategoryWithPizzas[];
-  public search$: Observable<string>;
+  public pizzasCategories$: Observable<
+    IPizzaCategoryWithPizzas[]
+  > = this.store$.select(getCategoriesAndPizzas).pipe(tap(console.log));
+
+  public search$: Observable<string> = this.store$.select(getPizzaSearch);
 
   constructor(private store$: Store<IStore>, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.store$.dispatch(new PizzasActions.LoadPizzas());
-
-    this.search$ = this.store$.select(state => state.ui.pizzaSearch);
-
-    this.pizzasCategories$ = this.store$.pipe(getCategoriesAndPizzas);
   }
 
   addOrder(pizza: IPizzaCommon, priceIndex: number) {

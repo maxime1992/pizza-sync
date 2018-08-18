@@ -10,6 +10,6 @@ export interface IUserWithId extends IUserWithoutId {
 }
 
 export interface IUsersNormalized {
-  byId: { [key: string]: IUserWithId };
-  allIds: string[];
+  entities: { [key: string]: IUserWithId };
+  ids: string[];
 }

@@ -1,11 +1,24 @@
 import { ActionReducer, Action } from '@ngrx/store';
-
 import * as UsersActions from 'app/shared/states/users/users.actions';
-import { usersState } from 'app/shared/states/users/users.initial-state';
-import { IUsersTable } from 'app/shared/states/users/users.interface';
+import {
+  IUsersTable,
+  IUserCommon,
+} from 'app/shared/states/users/users.interface';
+import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+
+export const usersAdapter: EntityAdapter<IUserCommon> = createEntityAdapter<
+  IUserCommon
+>();
+
+export function usersInitState(): IUsersTable {
+  return usersAdapter.getInitialState({
+    isIdentifying: false,
+    idCurrentUser: '',
+  });
+}
 
 export function usersReducer(
-  usersTbl = usersState(),
+  usersTbl = usersInitState(),
   action: UsersActions.All
 ): IUsersTable {
   switch (action.type) {
@@ -32,45 +45,37 @@ export function usersReducer(
     }
 
     case UsersActions.ADD_USER_SUCCESS: {
-      return {
-        ...usersTbl,
-        byId: {
-          ...usersTbl.byId,
-          [action.payload.id]: {
-            ...action.payload,
-            isOnline: true,
-          },
+      return usersAdapter.upsertOne(
+        {
+          ...action.payload,
+          isOnline: true,
         },
-        allIds: [
-          ...Array.from(new Set([...usersTbl.allIds, action.payload.id])),
-        ],
-      };
+        usersTbl
+      );
     }
 
     case UsersActions.SET_USER_ONLINE: {
-      return {
-        ...usersTbl,
-        byId: {
-          ...usersTbl.byId,
-          [action.payload.id]: {
-            ...usersTbl.byId[action.payload.id],
+      return usersAdapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: {
             isOnline: true,
           },
         },
-      };
+        usersTbl
+      );
     }
 
     case UsersActions.SET_USER_OFFLINE: {
-      return {
-        ...usersTbl,
-        byId: {
-          ...usersTbl.byId,
-          [action.payload.id]: {
-            ...usersTbl.byId[action.payload.id],
+      return usersAdapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: {
             isOnline: false,
           },
         },
-      };
+        usersTbl
+      );
     }
 
     default:
