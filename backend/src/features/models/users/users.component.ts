@@ -24,6 +24,8 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
     if (!!user) {
       this.setUserOnline(user);
 
+      client.user = user;
+
       return { event: 'CONNECT_USER_SUCCESS', data: user };
     } else {
       const newUser = await this.addUser(username);
