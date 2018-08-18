@@ -1,8 +1,8 @@
 import {
   WebSocketGateway,
-  OnGatewayConnection,
   OnGatewayDisconnect,
   SubscribeMessage,
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { get } from 'request';
 
@@ -13,6 +13,8 @@ import { IUserWithId, IUserWithoutId } from './users.interface';
 @WebSocketGateway()
 export class UsersService extends NormalizedModel<IUserWithoutId>
   implements OnGatewayDisconnect {
+  @WebSocketServer() server;
+
   constructor() {
     super('userId');
   }
@@ -26,14 +28,14 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
 
       client.user = user;
 
-      return { event: 'CONNECT_USER_SUCCESS', data: user };
+      this.server.sockets.emit('CONNECT_USER_SUCCESS', user);
     } else {
       const newUser = await this.addUser(username);
 
       client.user = newUser;
 
       this.setUserOnline(newUser);
-      return { event: 'CONNECT_USER_SUCCESS', data: newUser };
+      this.server.sockets.emit('CONNECT_USER_SUCCESS', newUser);
     }
   }
 
@@ -45,7 +47,7 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
     this.setUserOffline(client.user);
 
     if (this.getNbConnectionsUser(client.user) === 0) {
-      return { event: 'DISCONNECT_USER_SUCCESS', data: client.user.id };
+      this.server.sockets.emit('DISCONNECT_USER_SUCCESS', client.user.id);
     }
   }
 
@@ -98,20 +100,24 @@ export class UsersService extends NormalizedModel<IUserWithoutId>
   }
 
   setUserOnline(user: IUserWithId): void {
-    if (!this.entities[user.id]) {
+    const userRef = this.entities[user.id];
+
+    if (!userRef) {
       return;
     }
 
-    this.entities[user.id].isOnline = true;
-    this.entities[user.id].nbConnections++;
+    userRef.isOnline = true;
+    userRef.nbConnections++;
   }
 
   setUserOffline(user: IUserWithId): void {
-    if (!this.entities[user.id]) {
+    const userRef = this.entities[user.id];
+
+    if (!userRef) {
       return;
     }
 
-    this.entities[user.id].isOnline = false;
-    this.entities[user.id].nbConnections--;
+    userRef.nbConnections--;
+    userRef.isOnline = !!userRef.nbConnections;
   }
 }
