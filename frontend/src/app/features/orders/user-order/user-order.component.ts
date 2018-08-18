@@ -1,9 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   Output,
-  ChangeDetectionStrategy,
-  EventEmitter,
 } from '@angular/core';
 
 import { IUserWithPizzas } from 'app/shared/states/users/users.interface';

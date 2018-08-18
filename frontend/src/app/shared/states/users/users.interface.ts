@@ -1,5 +1,5 @@
-import { IPizzaWithPrice } from 'app/shared/states/pizzas/pizzas.interface';
 import { EntityState } from '@ngrx/entity';
+import { IPizzaWithPrice } from 'app/shared/states/pizzas/pizzas.interface';
 
 export interface IUserCommon {
   id: string;

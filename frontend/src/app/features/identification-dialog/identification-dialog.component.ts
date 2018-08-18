@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import * as UsersActions from 'app/shared/states/users/users.actions';

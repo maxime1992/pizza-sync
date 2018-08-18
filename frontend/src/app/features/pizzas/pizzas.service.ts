@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'environments/environment';
-import { IPizzasTable } from 'app/shared/states/pizzas/pizzas.interface';
-import { IPizzasCategoriesTable } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
-import { IUsersTable } from 'app/shared/states/users/users.interface';
-import { IOrdersTable } from 'app/shared/states/orders/orders.interface';
 import { IIngredientsTable } from 'app/shared/states/ingredients/ingredients.interface';
+import { IOrdersTable } from 'app/shared/states/orders/orders.interface';
+import { IPizzasCategoriesTable } from 'app/shared/states/pizzas-categories/pizzas-categories.interface';
+import { IPizzasTable } from 'app/shared/states/pizzas/pizzas.interface';
+import { IUsersTable } from 'app/shared/states/users/users.interface';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class PizzasService {

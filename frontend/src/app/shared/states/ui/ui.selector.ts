@@ -1,20 +1,20 @@
 import {
-  createSelector,
   createFeatureSelector,
+  createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-import { IUi } from './ui.interface';
-import { IPizzaWithIngredients } from '../pizzas/pizzas.interface';
-import { IPizzaCategoryWithPizzas } from '../pizzas-categories/pizzas-categories.interface';
-import { selectPizzasEntities } from '../pizzas/pizzas.selector';
-import {
-  getSelectedIngredientsIds,
-  selectIngredientsEntities,
-  selectIngredientsAll,
-} from '../ingredients/ingredients.selector';
-import { selectPizzasCategoriesAll } from '../pizzas-categories/pizzas-categories.selector';
 import * as removeAccents from 'remove-accents';
 import { IIngredientCommon } from '../ingredients/ingredients.interface';
+import {
+  getSelectedIngredientsIds,
+  selectIngredientsAll,
+  selectIngredientsEntities,
+} from '../ingredients/ingredients.selector';
+import { IPizzaCategoryWithPizzas } from '../pizzas-categories/pizzas-categories.interface';
+import { selectPizzasCategoriesAll } from '../pizzas-categories/pizzas-categories.selector';
+import { IPizzaWithIngredients } from '../pizzas/pizzas.interface';
+import { selectPizzasEntities } from '../pizzas/pizzas.selector';
+import { IUi } from './ui.interface';
 
 export const selectUiState = createFeatureSelector<IUi>('ui');
 

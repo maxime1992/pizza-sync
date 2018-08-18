@@ -1,5 +1,5 @@
-import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
 import { EntityState } from '@ngrx/entity';
+import { IPizzaWithIngredients } from 'app/shared/states/pizzas/pizzas.interface';
 
 export interface IPizzaCategoryCommon {
   id: string;

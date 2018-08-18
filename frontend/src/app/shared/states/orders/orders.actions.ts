@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 
 import {
+  INewOrder,
   IOrder,
   IOrdersTable,
-  INewOrder,
 } from 'app/shared/states/orders/orders.interface';
 
 export const LOAD_ORDERS_SUCCESS = '[Orders] Load orders success';

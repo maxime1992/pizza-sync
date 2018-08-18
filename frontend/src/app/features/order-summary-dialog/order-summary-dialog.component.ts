@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import {
-  getOrderSummary,
-  selectOrdersTotal,
-} from 'app/shared/states/orders/orders.selector';
-import {
   IOrdersSummary,
   IPizzaOrderSummary,
 } from 'app/shared/states/orders/orders.interface';
+import {
+  getOrderSummary,
+  selectOrdersTotal,
+} from 'app/shared/states/orders/orders.selector';
 
 @Component({
   selector: 'app-order-summary-dialog',

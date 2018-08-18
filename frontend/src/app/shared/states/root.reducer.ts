@@ -1,15 +1,13 @@
-import { combineReducers, compose, Action } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { enableBatching } from 'redux-batched-actions';
 
-import { IStore } from 'app/shared/interfaces/store.interface';
-import { environment } from 'environments/environment';
-import { uiReducer } from 'app/shared/states/ui/ui.reducer';
-import { pizzasReducer } from 'app/shared/states/pizzas/pizzas.reducer';
-import { pizzasCategoriesReducer } from 'app/shared/states/pizzas-categories/pizzas-categories.reducer';
-import { usersReducer } from 'app/shared/states/users/users.reducer';
-import { ordersReducer } from 'app/shared/states/orders/orders.reducer';
 import { ingredientsReducer } from 'app/shared/states/ingredients/ingredients.reducer';
+import { ordersReducer } from 'app/shared/states/orders/orders.reducer';
+import { pizzasCategoriesReducer } from 'app/shared/states/pizzas-categories/pizzas-categories.reducer';
+import { pizzasReducer } from 'app/shared/states/pizzas/pizzas.reducer';
+import { uiReducer } from 'app/shared/states/ui/ui.reducer';
+import { usersReducer } from 'app/shared/states/users/users.reducer';
+import { environment } from 'environments/environment';
 
 // ------------------------------------------------------------------------------
 

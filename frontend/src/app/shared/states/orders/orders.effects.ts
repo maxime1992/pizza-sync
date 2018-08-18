@@ -1,7 +1,7 @@
-import { tap, withLatestFrom } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
+import { tap, withLatestFrom } from 'rxjs/operators';
 
 import { IStore } from 'app/shared/interfaces/store.interface';
 import { WebsocketService } from 'app/shared/services/websocket.service';

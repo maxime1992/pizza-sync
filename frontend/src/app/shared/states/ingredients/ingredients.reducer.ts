@@ -1,10 +1,9 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import * as IngredientsActions from 'app/shared/states/ingredients/ingredients.actions';
 import {
-  IIngredientsTable,
   IIngredientCommon,
+  IIngredientsTable,
 } from 'app/shared/states/ingredients/ingredients.interface';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const ingredientsAdapter: EntityAdapter<
   IIngredientCommon

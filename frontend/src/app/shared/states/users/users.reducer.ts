@@ -1,10 +1,9 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import * as UsersActions from 'app/shared/states/users/users.actions';
 import {
-  IUsersTable,
   IUserCommon,
+  IUsersTable,
 } from 'app/shared/states/users/users.interface';
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const usersAdapter: EntityAdapter<IUserCommon> = createEntityAdapter<
   IUserCommon

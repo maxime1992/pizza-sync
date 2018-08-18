@@ -1,17 +1,12 @@
-import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Store, createFeatureSelector, createSelector } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { IStore } from 'app/shared/interfaces/store.interface';
 import {
-  IOrdersSummary,
-  IPizzaOrderSummary,
-  IOrdersTable,
   IOrder,
+  IOrdersTable,
+  IPizzaOrderSummary,
 } from 'app/shared/states/orders/orders.interface';
-import { IPizzasTable } from 'app/shared/states/pizzas/pizzas.interface';
-import { ordersAdapter } from './orders.reducer';
 import { selectPizzasEntities } from '../pizzas/pizzas.selector';
+import { ordersAdapter } from './orders.reducer';
 
 const pizzaPriceIndexToSize = {
   0: 'S',

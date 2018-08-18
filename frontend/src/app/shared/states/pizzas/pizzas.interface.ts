@@ -1,5 +1,5 @@
-import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
 import { EntityState } from '@ngrx/entity';
+import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';
 
 export interface IPizzaCommon {
   id: string;

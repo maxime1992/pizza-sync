@@ -1,14 +1,14 @@
-import { tap } from 'rxjs/operators';
 import {
   Component,
-  OnInit,
-  Input,
   EventEmitter,
-  Output,
-  OnDestroy,
+  Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { CountdownService } from 'app/shared/services/countdown.service';
 

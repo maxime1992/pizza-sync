@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as io from 'socket.io-client';
 import { LocalStorageService } from 'ng2-webstorage';
+import * as io from 'socket.io-client';
 
-import { environment } from 'environments/environment';
 import { IStore } from 'app/shared/interfaces/store.interface';
-import {
-  IOrderCommon,
-  INewOrder,
-  IOrder,
-} from 'app/shared/states/orders/orders.interface';
-import * as UsersActions from 'app/shared/states/users/users.actions';
 import * as OrdersActions from 'app/shared/states/orders/orders.actions';
+import { INewOrder, IOrder } from 'app/shared/states/orders/orders.interface';
 import * as UiActions from 'app/shared/states/ui/ui.actions';
+import * as UsersActions from 'app/shared/states/users/users.actions';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class WebsocketService {
@@ -73,10 +69,6 @@ export class WebsocketService {
 
   private onRemoveOrderSuccess(id: string) {
     this.store$.dispatch(new OrdersActions.RemoveOrderSuccess({ id }));
-  }
-
-  private onUserOnline(id: string) {
-    this.store$.dispatch(new UsersActions.SetUserOnline({ id }));
   }
 
   private onDisconnectUserSuccess(id: string) {

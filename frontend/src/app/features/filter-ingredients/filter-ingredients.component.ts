@@ -1,10 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { IIngredientCommon } from 'app/shared/states/ingredients/ingredients.interface';

@@ -1,15 +1,14 @@
-import { tap, filter, takeUntil } from 'rxjs/operators';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { MatIconRegistry } from '@angular/material';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { LANGUAGES } from 'app/core/injection-tokens';
 import { IStore } from 'app/shared/interfaces/store.interface';
 import * as UiActions from 'app/shared/states/ui/ui.actions';
-import { WebsocketService } from 'app/shared/services/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private store$: Store<IStore>,
     private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private websocketService: WebsocketService
   ) {}
 
   ngOnInit() {
