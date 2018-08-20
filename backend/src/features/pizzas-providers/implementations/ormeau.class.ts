@@ -9,41 +9,34 @@ export class OrmeauProvider extends PizzasProvider {
 
   protected phone = '05 61 34 86 23';
   protected url = 'http://www.pizzadelormeau.com';
-  protected urlsPizzasPages = ['http://www.pizzadelormeau.com/nos-pizzas/'];
+  protected urlsPizzasPages = [this.url];
 
   getPhone(): string {
     return this.phone;
   }
 
   getPizzasCategoriesWrapper($: CheerioStatic): Cheerio {
-    return $('.entry-content .section');
+    return $('.section_wrapper').find('.one');
   }
 
   getPizzaCategoryName(pizzaCategoryWrapper: Cheerio): string {
-    return pizzaCategoryWrapper
-      .find('.title')
-      .children()
-      .remove()
-      .end()
-      .text();
+    return pizzaCategoryWrapper.find('h2').text();
   }
 
   getPizzasWrappers(pizzaCategoryWrapper: Cheerio): Cheerio {
-    return pizzaCategoryWrapper.find('.corps');
+    return pizzaCategoryWrapper.nextUntil('.one, .pad50');
   }
 
   getPizzaName(pizzaWrapper: Cheerio): string {
     return pizzaWrapper
-      .find('.nom')
-      .children()
-      .remove()
-      .end()
-      .text();
+      .find('.big')
+      .text()
+      .replace(/ +\(.*\)/, '');
   }
 
   getPizzaIngredients(pizzaWrapper: Cheerio): string[] {
     const pizzaIngredientsText = pizzaWrapper
-      .find('.composition')
+      .find('.midbig')
       .text()
       .replace('.', '')
       .replace(', ', ',')
@@ -53,18 +46,12 @@ export class OrmeauProvider extends PizzasProvider {
   }
 
   getPrices(pizzaWrapper: Cheerio, $: CheerioStatic): number[] {
-    const pizzaPricesDom = pizzaWrapper.find('.prix');
-
-    return pizzaPricesDom.toArray().map(pizzaPriceDom => {
-      const price = $(pizzaPriceDom)
-        .children()
-        .remove()
-        .end()
-        .text()
-        .replace(',', '.');
-
-      return +price;
-    });
+    return pizzaWrapper
+    .find('.pizzap')
+    .text()
+    .replace(/,/g, '.')
+    .match(/\d+(\.\d+)?/g)
+    .map(Number);
   }
 
   getPizzaImage(): { localFolderName: string } | { distantUrl: string } {
