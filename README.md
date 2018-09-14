@@ -1,4 +1,6 @@
-# Pizza-Sync
+![Image](./logo/png/PS_logo_high_res_2.png?raw=true)
+
+<hr>
 
 ![Image](./demo.gif?raw=true)
 
